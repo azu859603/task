@@ -1,0 +1,92 @@
+1
+00:00:05,389 --> 00:00:15,390
+Hello.
+
+2
+00:00:15,390 --> 00:00:19,390
+Miss Black, we're transferring your sister from the special room to the regular room.
+
+3
+00:00:19,390 --> 00:00:22,379
+What? Why?
+
+4
+00:00:22,379 --> 00:00:27,879
+Dr. Fang, are you transferring my sister?
+
+5
+00:00:27,879 --> 00:00:31,879
+She's not getting any better and I already paid for the special room.
+
+6
+00:00:31,879 --> 00:00:34,880
+We don't know when she'll wake up, Miss Black.
+
+7
+00:00:34,880 --> 00:00:37,880
+Keeping her in the special room definitely is a waste of resources.
+
+8
+00:00:37,880 --> 00:00:41,880
+You can't make her medical decisions without my permission.
+
+9
+00:00:41,880 --> 00:00:44,329
+You know, I'm going to report you.
+
+10
+00:00:45,329 --> 00:00:47,329
+What is all of this noise?
+
+11
+00:00:47,329 --> 00:00:48,329
+Is there a problem?
+
+12
+00:00:48,329 --> 00:00:51,359
+Miss Williams, what are you doing here?
+
+13
+00:00:51,359 --> 00:00:55,939
+Oh, it's Harrison's little assistant.
+
+14
+00:00:55,939 --> 00:00:56,939
+Where are you here?
+
+15
+00:00:56,939 --> 00:00:59,939
+I'm visiting my sister. I didn't expect to see you here.
+
+16
+00:00:59,939 --> 00:01:05,579
+Wait, your family member is in the special ward, isn't she?
+
+17
+00:01:05,579 --> 00:01:07,579
+That isn't none of your concern.
+
+18
+00:01:07,579 --> 00:01:10,579
+You can't move my sister for your convenience.
+
+19
+00:01:10,579 --> 00:01:13,579
+Dr. Fang, I thought this hospital had standards.
+
+20
+00:01:13,579 --> 00:01:19,579
+If you're letting just anyone occupy these special rooms, I'll have to reconsider my investment next quarter.
+
+21
+00:01:19,579 --> 00:01:22,579
+We'll rectify the situation immediately, Miss Williams.
+
+22
+00:01:22,579 --> 00:01:31,629
+Miss Black, we'll refund the remaining medical bills.
+
+23
+00:01:31,629 --> 00:01:34,629
+Please transfer your sister to another hospital as soon as possible.
+

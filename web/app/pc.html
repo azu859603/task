@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="./js/jQuery3.4.1.js"></script>
+  <script type="text/javascript" src="./js/axios.js"></script>
+  <script type="text/javascript" src="./js/QRCode.js"></script>
+  <title>官方网站</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    .box {
+      height: 100%;
+    }
+
+    .top_kefu {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .main {
+      width: 100%;
+      height: 100%;
+      background: url('./img/bg.jpg') no-repeat;
+      background-size: 100% 100%;
+      position: relative;
+
+    }
+
+    .inner {
+      width: 90%;
+      height: 100%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .left {
+      /* width: 540px;
+      margin-top: 20px;
+      font-size: 14px; */
+
+      position: absolute;
+      left: 40%;
+      top: 50%;
+      margin: -240px 0 0 -500px;
+      text-align: center;
+      animation: fadeInLeft 1s .2s ease both;
+    }
+
+    @keyframes fadeInLeft {
+      0% {
+        opacity: 0;
+        transform: translate3d(-120px, 0, 0);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    .left>.title {
+      width: 160px;
+      margin: 0 auto;
+      padding: 10px 0 10px 30px;
+
+    }
+
+    .left>.title img {
+      height: 100%;
+      vertical-align: middle;
+    }
+
+    .left>.linkBox .item {
+      display: flex;
+      justify-content: center;
+      /* background-color: brown; */
+      align-items: center;
+      margin-bottom: 5px;
+
+    }
+
+    .left>.linkBox .item .timeItem {
+      width: 90px;
+      border: 1px solid #878787;
+      color: #fff;
+      background-color: #210F54;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .left>.linkBox .item .arrow {
+      padding: 0px 10px;
+      box-sizing: border-box;
+
+    }
+
+    .left>.linkBox .item .linkItem {
+      width: 240px;
+      margin-right: 20px;
+      text-indent: 10px;
+      color: #fff;
+      background-color: #210F54;
+      border: 1px solid #878787;
+      display: flex;
+      /* justify-content: center; */
+      align-items: center;
+    }
+
+    .left>.linkBox .item .btn {
+      width: 80px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      background: url('./img/btn_jc.png') no-repeat;
+
+    }
+
+    .left .reset {
+      margin: 20px auto 0px;
+      height: 45px;
+      width: 192px;
+      cursor: pointer;
+    }
+
+    .left .reset img {
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .right {
+      /* width: 50%;
+      margin-top: 20px; */
+      color: #fff;
+      position: absolute;
+      right: 40%;
+      top: 50%;
+      margin: -240px -500px 0 0;
+      /* } */
+
+
+
+    }
+
+    .right .item {
+      margin: 0 15px;
+    }
+
+    .right .adBox {
+      display: flex;
+      animation: fadeInDown 1s .2s ease both;
+    }
+
+    @keyframes fadeInDown {
+      0% {
+        opacity: 0;
+        transform: translate3d(0, -200px, 0);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    .right .adBox .imgBox {
+      height: 160px;
+      margin-right: 15px;
+
+    }
+
+    .right .adBox .imgBox img {
+      height: 100%;
+    }
+
+    .right .adBox .adText {
+      height: 170px;
+    }
+
+    .right .adBox .adText img {
+      height: 100%;
+      width: 100%;
+    }
+
+    .right .code {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 25px 0 0 60px;
+      box-sizing: border-box;
+      text-align: center;
+      animation: fadeInUp 1s .2s ease both;
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translate3d(0, 200px, 0);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+
+    .right .code .qrcode1,
+    .right .code .qrcode2 {
+      width: 167px;
+      height: 165px;
+      margin: 5px auto;
+      border: 5px solid #fff;
+    }
+
+    .right .code .qrcode1 img,
+    .right .code .qrcode2 img {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <a class="top_kefu" id="kefu" href="#" target="_blank"><img src="./img/topkf.png" alt=""></a>
+    <div class="main">
+      <div class="inner">
+        <div class="left">
+          <div class="title"><img src="./img/tit1.png" alt=""></div>
+          <div class="linkBox">
+          </div>
+          <div class="reset" onclick="getData()"><img src="./img/reset.png" alt=""></div>
+        </div>
+        <div class="right">
+          <div class="adBox">
+            <div class="imgBox"><img src="#" alt=""></div>
+            <div class="adText"><img src="./img/ad.png" alt=""></div>
+          </div>
+          <div class="code">
+            <div class="item">
+              <div style="font-size:14px;">适用于IOS6.0及以上平台</div>
+              <div class="qrcode1"></div>
+              <div style="margin: 10px 0 0 0;font-size: 18px;">扫一扫二维码下载IOS版</div>
+              <div style="margin: 15px 0 0 0;" class="Btn"><img src="./img/box1_6.png" alt=""></div>
+            </div>
+            <div class="item">
+              <div style="font-size:14px;">适用于Android4.0及以上</div>
+              <div class="qrcode2"></div>
+              <div style="margin: 10px 0 0 0;font-size: 18px;">扫一扫二维码下载Android版</div>
+              <div style="margin: 15px 0 0 0;" class="Btn"><img src="./img/box1_7.png" alt=""></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+
+  window.onresize = function () {
+    (function () {
+      if (screen.width > 500) {
+        window.location = './pc.html'
+      } else {
+        window.location = './phone.html'
+      }
+
+    })()
+  }
+  function getUrl (list) {
+    let temp = ''
+    // let temp1 = ` <div class="item">
+    //           <div class="timeItem">永久域名</div>
+    //           <div class="arrow"><img src="./img/arrow.png" alt=""></div>
+    //           <div class="linkItem">${(window.location.host)}</div>
+    //           <a target="_blank" href='${window.location.href}' class="btn">点击访问</a>
+    //         </div>`
+    let temp2 = ''
+    for (let i = 0; i < list.length; i++) {
+      temp2 += ` <div class="item">
+              <div class="timeItem">用时${list[i].time}ms秒</div>
+              <div class="arrow"><img src="./img/arrow.png" alt=""></div>
+              <div class="linkItem">线路${i + 1}
+               </div>
+              <a target="_blank" href='${list[i].web_url}' class="btn">点击访问</a>
+            </div>`
+    }
+    temp = temp2
+    $('.linkBox').html(temp)
+  }
+  var baseURL = 'https://vsmu5sm.cn'
+  function getData () {
+    // let baseURL = 'https://vsmu5sm.cn'
+    axios({
+      url: baseURL + "/api/v1/common/web-list",
+      method: "get",
+      timeout: 1000
+    }).then(function (res) {
+      let result = res.data
+      let list = result.data.list
+      getUrl(list)
+    }).catch(function (error) {
+      console.log(error)
+    })
+  }
+
+  axios({
+    url: baseURL + "/api/v1/common/web-list",
+    method: "get",
+    timeout: 1000
+  }).then(function (res) {
+    let result = res.data
+    let list = result.data.list
+    $('#kefu').attr('href', result.data.customer_service_link)
+    $('.imgBox img').attr('src', baseURL + result.data.web_logo)
+    let code1 = new QRCode(document.querySelector(".qrcode1"), result.data.app_download_link);
+    let code2 = new QRCode(document.querySelector(".qrcode2"), result.data.app_download_link);
+    getUrl(list)
+  }).catch(function (error) {
+    console.log(error)
+  })
+</script>
+
+</html>

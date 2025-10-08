@@ -1,0 +1,44 @@
+1
+00:00:00,590 --> 00:00:05,839
+Thank you. Is everything set with our clients?
+
+2
+00:00:05,839 --> 00:00:09,919
+Everything set.
+
+3
+00:00:09,919 --> 00:00:14,050
+Mr. Greer, our stock prices are dropping by half.
+
+4
+00:00:14,050 --> 00:00:17,050
+Somehow, our competitor got our client list
+
+5
+00:00:17,050 --> 00:00:20,050
+and is making them cancel their contracts.
+
+6
+00:00:20,050 --> 00:00:22,050
+Well, how the hell did this happen?
+
+7
+00:00:22,050 --> 00:00:31,699
+I think a server hack is not good.
+
+8
+00:00:31,699 --> 00:00:36,259
+Do you want to do this company, son?
+
+9
+00:00:36,259 --> 00:00:38,259
+I'm trying to fix it!
+
+10
+00:00:38,259 --> 00:00:41,579
+As they're just called, our stock price is now $0.
+
+11
+00:00:41,579 --> 00:00:43,579
+They wanted to lift us.
+

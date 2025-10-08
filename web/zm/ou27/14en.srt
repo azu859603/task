@@ -1,0 +1,36 @@
+1
+00:00:00,910 --> 00:00:02,910
+Did you pick out a dress yet?
+
+2
+00:00:02,910 --> 00:00:06,480
+Yes, isn't it perfect?
+
+3
+00:00:06,480 --> 00:00:09,480
+Is this the most expensive dress here?
+
+4
+00:00:09,480 --> 00:00:13,480
+No, actually, this is the most expensive dress in the store.
+
+5
+00:00:13,480 --> 00:00:16,789
+Thank you.
+
+6
+00:00:16,789 --> 00:00:20,789
+Tell me, I must take the dress and fix it's broken for me.
+
+7
+00:00:20,789 --> 00:00:22,789
+I'll get you by another one.
+
+8
+00:00:22,789 --> 00:00:28,789
+You're right, that dress definitely does suit you, but the one I just bought, it's for Kim.
+
+9
+00:00:28,789 --> 00:00:34,920
+As a token of my appreciation for your short way, I apologize for my thank you.
+

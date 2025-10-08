@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>官方网站</title>
+  <script type="text/javascript" src="./js/jQuery3.4.1.js"></script>
+  <script type="text/javascript" src="./js/axios.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      max-width: 550px;
+      margin: 0 auto;
+    }
+
+    .box {
+      width: 100%;
+      height: 100%;
+      background: url('./img/phone_bg.png') no-repeat;
+      background-size: 100% 100%;
+      position: relative;
+    }
+
+    .logo {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      margin-left: -50px;
+    }
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+    }
+
+    ul {
+      width: 80%;
+      padding: 10px;
+      box-sizing: border-box;
+      height: 260px;
+      overflow: auto;
+      position: absolute;
+      top: 40%;
+      left: 10%;
+
+    }
+
+    ul,
+    li {
+      list-style: none;
+    }
+
+    li {
+      width: 100%;
+      height: 50px;
+      line-height: 50px;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      background: url('./img/clickBtn.png') no-repeat;
+      background-size: 100% 100%;
+      position: relative;
+      color: #585AB3;
+      font-weight: bold;
+      text-indent: 10px;
+    }
+
+    li>div {
+      width: 70%;
+      position: absolute;
+      left: 5%;
+    }
+
+    li>a {
+      width: 32%;
+      height: 40px;
+      display: block;
+      color: #fff;
+      background-color: transparent;
+      text-decoration: none;
+      text-align: center;
+      line-height: 40px;
+      font-size: 16px;
+      font-weight: bold;
+      position: absolute;
+      right: 2%;
+      top: 10%;
+      border-radius: 25px;
+    }
+
+    .update {
+      width: 80%;
+      color: #fff;
+      position: absolute;
+      left: 10%;
+      bottom: 20px;
+    }
+
+    .update img {
+      width: 100%;
+      height: 100%;
+      vertical-align: middle;
+    }
+
+    /* .text {
+      position: absolute;
+      top: 5%;
+      left: 5%;
+      width: 50%;
+    }
+
+    .text img {
+      width: 100%;
+    } */
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <div class="logo">
+      <img src="" alt="">
+    </div>
+    <ul>
+
+    </ul>
+    <div class="update" onclick="getData()">
+      <img src="./img/img3.png" alt="">
+    </div>
+    <!-- <div class="text"><img src="./img/text.png" alt=""></div> -->
+  </div>
+  <script>
+    window.onresize = function () {
+      (function () {
+        if (screen.width > 500) {
+          window.location = './pc.html'
+        } else {
+          window.location = './phone.html'
+        }
+
+      })()
+    }
+    function getUrl (list) {
+      let temp = ''
+      // let temp1 = ` <li>
+      //     <div class="url">官方网站</div>
+      //     <a target="_blank" href='${window.location.href}' class="btn"></a>
+      //   </li> `
+      let temp2 = ''
+      for (let i = 0; i < list.length; i++) {
+        temp2 += `
+        <li>
+        <div class="url">线路${i + 1}
+        </div>
+        <a target="_blank" href='${list[i].web_url}' class="btn"></a>
+        </li>
+            `
+      }
+      temp = temp2
+      $('ul').html(temp)
+    }
+    function getData () {
+      let baseURL = 'https://vsmu5sm.cn'
+      axios({
+        url: baseURL + "/api/v1/common/web-list",
+        method: "get",
+        timeout: 1000
+      }).then(function (res) {
+        let result = res.data
+        let list = result.data.list
+        $('.logo img').attr('src', baseURL + result.data.web_logo)
+        getUrl(list)
+      }).catch(function (error) {
+        console.log(error)
+      })
+    }
+    getData()
+  </script>
+</body>
+
+</html>

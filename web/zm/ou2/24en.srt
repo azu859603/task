@@ -1,0 +1,52 @@
+1
+00:00:00,240 --> 00:00:02,240
+Hey, are you okay? What happened?
+
+2
+00:00:02,240 --> 00:00:04,240
+Yeah, I'm fine.
+
+3
+00:00:04,240 --> 00:00:06,240
+You shouldn't leave your lady by herself this time of night.
+
+4
+00:00:06,240 --> 00:00:08,400
+Thank God I was here.
+
+5
+00:00:08,400 --> 00:00:12,029
+You're right.
+
+6
+00:00:12,029 --> 00:00:14,029
+So sorry. You're good.
+
+7
+00:00:14,029 --> 00:00:21,109
+Hey, thank you for saving me.
+
+8
+00:00:21,109 --> 00:00:22,109
+You just be careful now.
+
+9
+00:00:22,109 --> 00:00:29,710
+Everything looks pretty good.
+
+10
+00:00:29,710 --> 00:00:31,710
+Both heartbeats are strong and stable.
+
+11
+00:00:31,710 --> 00:00:34,710
+I'm sorry, Doctor. Did you say both heartbeats?
+
+12
+00:00:34,710 --> 00:00:37,289
+You didn't know?
+
+13
+00:00:37,289 --> 00:00:39,289
+You're having twins.
+

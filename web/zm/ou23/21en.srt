@@ -1,0 +1,120 @@
+1
+00:00:00,000 --> 00:00:02,000
+Mr. Croft, are you okay?
+
+2
+00:00:02,000 --> 00:00:03,399
+I think I hurt my arm back there.
+
+3
+00:00:03,399 --> 00:00:05,599
+Oh, I didn't see you get hit.
+
+4
+00:00:05,599 --> 00:00:08,730
+No, no, no. I must have twisted it up back there when I was...
+
+5
+00:00:08,730 --> 00:00:10,130
+I was taking on those guns.
+
+6
+00:00:10,130 --> 00:00:11,130
+It's numb.
+
+7
+00:00:11,130 --> 00:00:14,699
+I don't think I can drive.
+
+8
+00:00:14,699 --> 00:00:16,699
+You shouldn't drive. I'll get you home.
+
+9
+00:00:16,699 --> 00:00:17,699
+Okay.
+
+10
+00:00:17,699 --> 00:00:18,699
+We'll get to him in my car.
+
+11
+00:00:18,699 --> 00:00:20,699
+No, no. I don't want to drive you, man.
+
+12
+00:00:20,699 --> 00:00:21,699
+At least you could drive me.
+
+13
+00:00:21,699 --> 00:00:23,699
+Mr. Croft, are you all right?
+
+14
+00:00:23,699 --> 00:00:24,699
+Hey.
+
+15
+00:00:24,699 --> 00:00:26,699
+Hey, don't you have a driver here?
+
+16
+00:00:26,699 --> 00:00:27,699
+Yeah, but, uh...
+
+17
+00:00:27,699 --> 00:00:28,730
+Hey.
+
+18
+00:00:28,730 --> 00:00:30,980
+You got problems, right?
+
+19
+00:00:30,980 --> 00:00:31,980
+Yeah.
+
+20
+00:00:31,980 --> 00:00:32,979
+No, yeah, yeah.
+
+21
+00:00:32,979 --> 00:00:35,979
+I got a super hot date line lined up, ready to go.
+
+22
+00:00:35,979 --> 00:00:36,979
+Do you really?
+
+23
+00:00:36,979 --> 00:00:39,340
+Yeah, I should probably get going, actually.
+
+24
+00:00:39,340 --> 00:00:42,030
+Let's go.
+
+25
+00:00:42,030 --> 00:00:43,030
+Thank you, man.
+
+26
+00:00:43,030 --> 00:00:47,140
+Dude.
+
+27
+00:00:47,140 --> 00:00:49,140
+So, date's taken, man.
+
+28
+00:00:49,140 --> 00:00:51,140
+Give me a lift.
+
+29
+00:00:51,140 --> 00:00:52,140
+This way.
+
+30
+00:00:52,140 --> 00:00:53,140
+Thanks.
+

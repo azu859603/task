@@ -1,0 +1,60 @@
+1
+00:00:00,430 --> 00:00:03,430
+You dare face the consequences of bankruptcy?
+
+2
+00:00:03,430 --> 00:00:04,980
+Do you?
+
+3
+00:00:04,980 --> 00:00:06,740
+I do.
+
+4
+00:00:06,740 --> 00:00:12,220
+Will you stake the Garcia family name?
+
+5
+00:00:12,220 --> 00:00:20,370
+Fine. You do it.
+
+6
+00:00:20,370 --> 00:00:28,239
+Man, you will unlock failed, initiating Iris scan.
+
+7
+00:00:28,239 --> 00:00:32,240
+I'm not Miss Garcia. You used your last attempt.
+
+8
+00:00:32,240 --> 00:00:36,240
+Dr. Quentin isn't here to give you an Iris scan. Whatever will you do?
+
+9
+00:00:36,240 --> 00:00:38,780
+This is too exciting.
+
+10
+00:00:38,780 --> 00:00:43,780
+Are we watching the collapse of a major corporation in real time while live streaming it?
+
+11
+00:00:43,780 --> 00:00:44,780
+Well, I suppose we do.
+
+12
+00:00:44,780 --> 00:00:47,780
+With your experience, I think you'd be able to get a job.
+
+13
+00:00:47,780 --> 00:00:49,780
+Don't worry, Mrs. Evans.
+
+14
+00:00:49,780 --> 00:00:54,780
+Shorty gave her word. If she bankrupts LM, the Garcia family will cover it.
+
+15
+00:00:54,780 --> 00:01:09,859
+Initiating Iris scan. Iris scan successful. Welcome back, Dr. T.
+

@@ -1,0 +1,24 @@
+1
+00:00:00,430 --> 00:00:14,460
+The antivirus robot is online. We're safe now.
+
+2
+00:00:14,460 --> 00:00:19,460
+See? The defense system is up. Maybe someone can stay quiet now.
+
+3
+00:00:19,460 --> 00:00:24,489
+Attacker is too strong. Please manually unlock advanced defense mode.
+
+4
+00:00:24,489 --> 00:00:31,489
+Forget it. No one. No one can manually unlock Quentin's advanced defense mode.
+
+5
+00:00:31,489 --> 00:00:34,579
+Boss, found this guy hiding in the restroom.
+
+6
+00:00:34,579 --> 00:00:38,030
+Bob? You did this?
+

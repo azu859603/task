@@ -1,0 +1,56 @@
+1
+00:00:07,120 --> 00:00:08,119
+How's keeping?
+
+2
+00:00:08,119 --> 00:00:17,260
+Hi, yeah. Tell her I want the divorce to finalize immediately.
+
+3
+00:00:17,260 --> 00:00:21,160
+Whatever her terms are, make a map.
+
+4
+00:00:21,160 --> 00:00:26,039
+Yes. I'm alone with someone else.
+
+5
+00:00:26,039 --> 00:00:28,620
+Thank you.
+
+6
+00:00:28,620 --> 00:00:37,649
+Hello, Mrs. Herbert.
+
+7
+00:00:37,649 --> 00:00:39,649
+Your husband has agreed to your divorce terms.
+
+8
+00:00:39,649 --> 00:00:41,649
+That's great.
+
+9
+00:00:41,649 --> 00:00:43,649
+When will you be able to sign the divorce papers?
+
+10
+00:00:43,649 --> 00:00:46,649
+I'm actually on a business trip right now, so I'm not sure.
+
+11
+00:00:46,649 --> 00:00:48,649
+It's not a problem. I'll come to you then. Where are you?
+
+12
+00:00:48,649 --> 00:00:50,649
+I'm in Middlebury.
+
+13
+00:00:50,649 --> 00:00:52,649
+Okay. I'll be there soon.
+
+14
+00:00:52,649 --> 00:00:53,649
+Thank you.
+

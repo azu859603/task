@@ -23,11 +23,11 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                         'data-toggle' => 'modal',
                         'data-target' => '#ajaxModal',
                     ]);
-                    echo Html::linkButton(['ajax-edit-buyer'], '<i class="icon ion-plus"></i> ' . '批量创建虚拟买家', [
-                        'class' => "btn btn-success btn-xs",
-                        'data-toggle' => 'modal',
-                        'data-target' => '#ajaxModalLg',
-                    ]);
+//                    echo Html::linkButton(['ajax-edit-buyer'], '<i class="icon ion-plus"></i> ' . '批量创建虚拟买家', [
+//                        'class' => "btn btn-success btn-xs",
+//                        'data-toggle' => 'modal',
+//                        'data-target' => '#ajaxModalLg',
+//                    ]);
 
                     ?>
                 </div>
@@ -81,69 +81,69 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                             'headerOptions' => ['width' => '123px'],
                             'format' => 'raw',
                         ],
-                        [
-                            'attribute' => 'online_status',
-                            'format' => 'raw',
-                            'filter' => Html::activeDropDownList($searchModel, 'online_status', Member::$online_status_array, [
-                                    'prompt' => '全部',
-                                    'class' => 'form-control'
-                                ]
-                            ),
-                            'value' => function ($model) {
-                                return '<span class="label label-' . Member::$status_color_array[$model->online_status] . '">' . Member::$online_status_array[$model->online_status] . '</span>';
-                            },
-                            'headerOptions' => ['width' => '88px'],
-                        ],
-                        [
-//                            'class' => '\kartik\grid\EditableColumn',
-//                            'editableOptions' => [
-//                                'inputType' => \kartik\editable\Editable::INPUT_DROPDOWN_LIST,
-//                                'data' => Member::$typeExplain,
-//                                'formOptions' => [
-//                                    'action' => ['index']
+//                        [
+//                            'attribute' => 'online_status',
+//                            'format' => 'raw',
+//                            'filter' => Html::activeDropDownList($searchModel, 'online_status', Member::$online_status_array, [
+//                                    'prompt' => '全部',
+//                                    'class' => 'form-control'
 //                                ]
-//                            ],
-                            'attribute' => 'type',
-                            'format' => 'raw',
-                            'filter' => Html::activeDropDownList($searchModel, 'type', Member::$typeExplain, [
-                                    'prompt' => '全部',
-                                    'class' => 'form-control'
-                                ]
-                            ),
-                            'value' => function ($model) {
-                                if ($model->type == 2) {
-                                    return "后台账号：<br>" . $model->bMember->username . "<br>" . Member::$typeExplain[$model->type] . "<br>" . Member::$virtual_array[$model->is_virtual];
-                                } else {
-                                    return Member::$typeExplain[$model->type] . "<br>" . Member::$virtual_array[$model->is_virtual];
-                                }
-
-                            },
-                        ],
-                        [
-                            'attribute' => 'realname',
-                            'value' => function ($model) {
-                                return !empty($model->realname) ? $model->realname : "(暂无)";
-                            },
-                            'headerOptions' => ['width' => '136px']
-                        ],
-
-                        [
-                            'headerOptions' => ['width' => '88px'],
-                            'attribute' => 'realname_status',
-                            'format' => 'raw',
-                            'filter' => Html::activeDropDownList($searchModel, 'realname_status', Member::$realname_status_array, [
-                                    'prompt' => '全部',
-                                    'class' => 'form-control'
-                                ]
-                            ),
-                            'value' => function ($model) {
-                                $sh_str = "";
-                                if ($model->realname_status == 0 && isset($model->realName->status) && $model->realName->status == 0) {
-                                    $sh_str = "</br><a class='label label-info' href='" . \common\helpers\Url::to(['/member/realname-audit/index', "SearchModel[member_id]" => $model->mobile]) . "'>去审核</a>";
-                                }
-                                return '<span class="label label-' . Member::$status_color_array[$model->realname_status] . '">' . Member::$realname_status_array[$model->realname_status] . '</span>' . $sh_str;
-                            },
-                        ],
+//                            ),
+//                            'value' => function ($model) {
+//                                return '<span class="label label-' . Member::$status_color_array[$model->online_status] . '">' . Member::$online_status_array[$model->online_status] . '</span>';
+//                            },
+//                            'headerOptions' => ['width' => '88px'],
+//                        ],
+//                        [
+////                            'class' => '\kartik\grid\EditableColumn',
+////                            'editableOptions' => [
+////                                'inputType' => \kartik\editable\Editable::INPUT_DROPDOWN_LIST,
+////                                'data' => Member::$typeExplain,
+////                                'formOptions' => [
+////                                    'action' => ['index']
+////                                ]
+////                            ],
+//                            'attribute' => 'type',
+//                            'format' => 'raw',
+//                            'filter' => Html::activeDropDownList($searchModel, 'type', Member::$typeExplain, [
+//                                    'prompt' => '全部',
+//                                    'class' => 'form-control'
+//                                ]
+//                            ),
+//                            'value' => function ($model) {
+//                                if ($model->type == 2) {
+//                                    return "后台账号：<br>" . $model->bMember->username . "<br>" . Member::$typeExplain[$model->type] . "<br>" . Member::$virtual_array[$model->is_virtual];
+//                                } else {
+//                                    return Member::$typeExplain[$model->type] . "<br>" . Member::$virtual_array[$model->is_virtual];
+//                                }
+//
+//                            },
+//                        ],
+//                        [
+//                            'attribute' => 'realname',
+//                            'value' => function ($model) {
+//                                return !empty($model->realname) ? $model->realname : "(暂无)";
+//                            },
+//                            'headerOptions' => ['width' => '136px']
+//                        ],
+//
+//                        [
+//                            'headerOptions' => ['width' => '88px'],
+//                            'attribute' => 'realname_status',
+//                            'format' => 'raw',
+//                            'filter' => Html::activeDropDownList($searchModel, 'realname_status', Member::$realname_status_array, [
+//                                    'prompt' => '全部',
+//                                    'class' => 'form-control'
+//                                ]
+//                            ),
+//                            'value' => function ($model) {
+//                                $sh_str = "";
+//                                if ($model->realname_status == 0 && isset($model->realName->status) && $model->realName->status == 0) {
+//                                    $sh_str = "</br><a class='label label-info' href='" . \common\helpers\Url::to(['/member/realname-audit/index', "SearchModel[member_id]" => $model->mobile]) . "'>去审核</a>";
+//                                }
+//                                return '<span class="label label-' . Member::$status_color_array[$model->realname_status] . '">' . Member::$realname_status_array[$model->realname_status] . '</span>' . $sh_str;
+//                            },
+//                        ],
 
 //                        [
 //                            'attribute' => 'nickname',
@@ -174,61 +174,62 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                             'class' => 'kartik\grid\EditableColumn',
                             'attribute' => 'promo_code'
                         ],
-//                        [
-//                            'label' => '等级/经验值',
-//                            'attribute' => 'memberLevel.level',
-//                            'filter' => Html::activeDropDownList($searchModel, 'memberLevel.level', $memberLevel, [
-//                                    'prompt' => '全部',
-//                                    'class' => 'form-control'
-//                                ]
-//                            ),
-//                            'format' => 'raw',
-//                            'value' => function ($model) {
-//                                $level = Html::tag('span', $model->memberLevel->name ?? '(暂无)', [
-//                                    'class' => 'label label-primary'
-//                                ]);
-//                                return "<div style='text-align: center;'>" . $level . '<br>' . '<br>' . "经验值：" . abs($model->account->experience) . "</div>";
-//                            },
-//                        ],
-
                         [
-                            'label' => 'VIP等级',
-                            'attribute' => 'sellerLevel.level',
-                            'filter' => Html::activeDropDownList($searchModel, 'sellerLevel.level', $memberLevel, [
+                            'label' => '等级/经验值',
+                            'attribute' => 'memberLevel.level',
+                            'filter' => Html::activeDropDownList($searchModel, 'memberLevel.level', $memberLevel, [
                                     'prompt' => '全部',
                                     'class' => 'form-control'
                                 ]
                             ),
                             'format' => 'raw',
                             'value' => function ($model) {
-                                $level = Html::tag('span', $model->sellerLevel->translation->title ?? '(暂无)', [
+                                $level = Html::tag('span', $model->memberLevel->name ?? '(暂无)', [
                                     'class' => 'label label-primary'
                                 ]);
-                                return "<div style='text-align: center;'>" . $level . "</div>";
+                                return "<div style='text-align: center;'>" . $level . '<br>' . '<br>' . "经验值：" . abs($model->account->experience) . "</div>";
                             },
                         ],
+
+//                        [
+//                            'label' => 'VIP等级',
+//                            'attribute' => 'sellerLevel.level',
+//                            'filter' => Html::activeDropDownList($searchModel, 'sellerLevel.level', $memberLevel, [
+//                                    'prompt' => '全部',
+//                                    'class' => 'form-control'
+//                                ]
+//                            ),
+//                            'format' => 'raw',
+//                            'value' => function ($model) {
+//                                $level = Html::tag('span', $model->sellerLevel->translation->title ?? '(暂无)', [
+//                                    'class' => 'label label-primary'
+//                                ]);
+//                                return "<div style='text-align: center;'>" . $level . "</div>";
+//                            },
+//                        ],
 
                         [
                             'label' => '账户金额',
                             'attribute' => 'recharge_money',
-                            'filter' => Html::activeDropDownList($searchModel, 'recharge_money', [1 => "已充值", 2 => "未充值"], [
-                                    'prompt' => '全部',
-                                    'class' => 'form-control'
-                                ]
-                            ),
+//                            'filter' => Html::activeDropDownList($searchModel, 'recharge_money', [1 => "已充值", 2 => "未充值"], [
+//                                    'prompt' => '全部',
+//                                    'class' => 'form-control'
+//                                ]
+//                            ),
                             'value' => function ($model) {
-                                if ($model->recharge_money > 0) {
-                                    $recharge_status = "已充值";
-                                } else {
-                                    $recharge_status = "未充值";
-                                }
+//                                if ($model->recharge_money > 0) {
+//                                    $recharge_status = "已充值";
+//                                } else {
+//                                    $recharge_status = "未充值";
+//                                }
                                 return
-                                    "充值状态：" . $recharge_status . '<br>' .
-                                    "用户本金：" . $model->principal . '<br>' .
-                                    "累计充值：" . $model->recharge_money . '<br>' .
+//                                    "充值状态：" . $recharge_status . '<br>' .
+//                                    "用户本金：" . $model->principal . '<br>' .
+//                                    "累计充值：" . $model->recharge_money . '<br>' .
                                     "累计提现：" . $model->withdraw_money . '<br>' .
-                                    "预存钱包：" . $model->account->user_money . '<br>' .
-                                    "余额钱包：" . $model->account->can_withdraw_money;
+                                    "余额钱包：" . $model->account->user_money;
+//                                    . '<br>' .
+//                                    "余额钱包：" . $model->account->can_withdraw_money;
 //                                . '<br>' .
 //                                    "积分数量：" . $model->account->user_integral;
 //                                    . '<br>' .
@@ -255,10 +256,10 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                                     $recommend_number_html = Html::a('<span class="label label-primary">' . $model->account->recommend_number . '人</span>', "/backend/member/member/recommend?SearchModel%5Bpid%5D=" . $model->mobile);
                                 }
                                 return
-                                    "信用分：" . $model->credit_score . '<br>' .
+//                                    "信用分：" . $model->credit_score . '<br>' .
                                     "登录密码：" . $model->password_hash . '<br>' .
-                                    "签到状态：" . '<span class="label label-' . Member::$status_color_array[$model->sign_status] . '">' . Member::$sign_array[$model->sign_status] . '</span>' . '<br>' .
-                                    "累计签到天数：" . $model->sign_days . '<br>' .
+//                                    "签到状态：" . '<span class="label label-' . Member::$status_color_array[$model->sign_status] . '">' . Member::$sign_array[$model->sign_status] . '</span>' . '<br>' .
+//                                    "累计签到天数：" . $model->sign_days . '<br>' .
                                     "他的推荐人：" . $recommend_name . '<br>' .
                                     "已推荐人数：" . $recommend_number_html;
                             },

@@ -118,31 +118,31 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                             'headerOptions' => ['width' => '209px'],
                         ],
 
-                        [
-//                            'class' => '\kartik\grid\EditableColumn',
-//                            'editableOptions' => [
-//                                'inputType' => \kartik\editable\Editable::INPUT_DROPDOWN_LIST,
-//                                'data' => Member::$typeExplain,
-//                                'formOptions' => [
-//                                    'action' => ['index']
+//                        [
+////                            'class' => '\kartik\grid\EditableColumn',
+////                            'editableOptions' => [
+////                                'inputType' => \kartik\editable\Editable::INPUT_DROPDOWN_LIST,
+////                                'data' => Member::$typeExplain,
+////                                'formOptions' => [
+////                                    'action' => ['index']
+////                                ]
+////                            ],
+//                            'attribute' => 'type',
+//                            'format' => 'raw',
+//                            'filter' => Html::activeDropDownList($searchModel, 'type', Member::$typeExplain, [
+//                                    'prompt' => '全部',
+//                                    'class' => 'form-control'
 //                                ]
-//                            ],
-                            'attribute' => 'type',
-                            'format' => 'raw',
-                            'filter' => Html::activeDropDownList($searchModel, 'type', Member::$typeExplain, [
-                                    'prompt' => '全部',
-                                    'class' => 'form-control'
-                                ]
-                            ),
-                            'value' => function ($model) {
-                                if ($model->type == 2) {
-                                    return "后台账号：<br>" . $model->bMember->username . "<br>" . Member::$typeExplain[$model->type] . "<br>" . Member::$virtual_array[$model->is_virtual];
-                                } else {
-                                    return Member::$typeExplain[$model->type] . "<br>" . Member::$virtual_array[$model->is_virtual];
-                                }
-
-                            },
-                        ],
+//                            ),
+//                            'value' => function ($model) {
+//                                if ($model->type == 2) {
+//                                    return "后台账号：<br>" . $model->bMember->username . "<br>" . Member::$typeExplain[$model->type] . "<br>" . Member::$virtual_array[$model->is_virtual];
+//                                } else {
+//                                    return Member::$typeExplain[$model->type] . "<br>" . Member::$virtual_array[$model->is_virtual];
+//                                }
+//
+//                            },
+//                        ],
 //                        [
 //                            'attribute' => 'investment_status',
 //                            'format' => 'raw',

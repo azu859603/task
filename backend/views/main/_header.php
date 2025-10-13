@@ -35,7 +35,7 @@ use backend\widgets\notify\Notify;
                 <?php } ?>
                 <li class="dropdown notifications-menu rfTopMenu hide">
                     <a class="dropdown-toggle" style="display: flex;align-items: center;">
-                        <i class="fa fa-user-o"> </i>在线人数：<div id="member_count"></div>
+<!--                        <i class="fa fa-user-o"> </i>在线人数：<div id="member_count"></div>-->
                     </a>
                 </li>
             </ul>

@@ -30,6 +30,9 @@ class AccountForm extends Model
     public $bank_card;
     public $bank_address;
     public $usdt_link;
+    public $platform_account;
+    public $gcash_name;
+    public $gcash_phone;
 
 
     public static $scenario_type_array = [
@@ -39,6 +42,9 @@ class AccountForm extends Model
         'alipay_account_url',
         'bank_card',
         'usdt_link',
+        'platform_account',
+        'gcash_name',
+        'gcash_phone',
     ];
 
 
@@ -51,6 +57,8 @@ class AccountForm extends Model
             [['scenario_type'], 'required'],
 //            [['alipay_account', 'alipay_user_name'], 'required', 'on' => 'alipay_account'],
             [['alipay_account'], 'required', 'on' => 'alipay_account'],
+            [['gcash_phone','gcash_name'], 'required', 'on' => 'gcash_name'],
+            [['platform_account'], 'required', 'on' => 'platform_account'],
             [['wechat_account'], 'required', 'on' => 'wechat_account'],
             [['bank_card', 'bank_address'], 'required', 'on' => 'bank_card'],
             [['wechat_account_url'], 'required', 'on' => 'wechat_account_url'],
@@ -65,6 +73,14 @@ class AccountForm extends Model
                 'targetAttribute' => 'alipay_account',
                 'message' => '该支付宝账号已被绑定。',
                 'on' => 'alipay_account',
+            ],
+            [
+                ['platform_account'],
+                'unique',
+                'targetClass' => Account::class,
+                'targetAttribute' => 'alipay_account',
+                'message' => '该平台账号已被绑定。',
+                'on' => 'platform_account',
             ],
             [
                 ['wechat_account'],
@@ -108,6 +124,9 @@ class AccountForm extends Model
             'bank_card' => '银行卡',
             'bank_address' => '开户行',
             'usdt_link' => 'USDT地址',
+            'platform_account' => '平台账号',
+            'gcash_name' => 'Gcash名字',
+            'gcash_phone' => 'Gcash电话',
         ];
     }
 }

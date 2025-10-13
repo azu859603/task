@@ -23,6 +23,8 @@ class MysqlController extends Controller
     public function actionMember()
     {
         $truncate_sql = "
+        truncate table task_code;
+        truncate table task_order;
         truncate table base_member_login_log;
         truncate table base_notify;
         truncate table base_notify_member;
@@ -83,6 +85,9 @@ class MysqlController extends Controller
     public function actionIndex()
     {
         $truncate_sql = "
+        truncate table task_code;
+        truncate table task_project;
+        truncate table task_order;
         truncate table base_article_details;
         truncate table base_article_details_translations;
         truncate table base_img_details;

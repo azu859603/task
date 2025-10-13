@@ -1,7 +1,7 @@
 <?php
 return [
     // 全局变量APP英文名称(不同项目最好更新此名称)
-    'thisAppEnglishName' => 'dj',
+    'thisAppEnglishName' => 'task',
     'adminEmail' => 'admin@example.com',
     'supportEmail' => 'support@example.com',
     'user.passwordResetTokenExpire' => 3600,

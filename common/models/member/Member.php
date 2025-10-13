@@ -100,7 +100,8 @@ class Member extends User
     public static $virtual_array = [0 => "真实用户", 1 => "虚拟用户",];
 
 //    public static $typeExplain = [0 => '买家账号', 1 => "卖家账号", 2 => "代理账号", 3 => "虚拟账号"];
-    public static $typeExplain = [0 => '买家账号', 1 => "卖家账号", 2 => "代理账号"];
+//    public static $typeExplain = [0 => '买家账号', 1 => "卖家账号", 2 => "代理账号"];
+    public static $typeExplain = [1 => "会员", 2 => "代理账号"];
 
     public static $registerTypeExplain = [0 => "平台注册", 1 => "广点通1", 2 => "广点通2", 11 => "抖音1", 12 => "抖音2", 13 => "抖音3", 21 => "快手1"];
 
@@ -504,7 +505,6 @@ class Member extends User
                 'account' => function ($query) {
                     $query->select([
                         'user_money',
-                        'can_withdraw_money',
                         'user_integral',
                         'recommend_number',
                         'usdt_link',
@@ -518,28 +518,21 @@ class Member extends User
                         'non_contractual_profit',
                     ]);
                 },
-//                'memberLevel' => function ($query) {
-//                    $query->select([
-//                        'name',
-//                        'detail',
-//                    ]);
-//                },
-                'sellerLevel' => function ($query) use ($lang) {
-                    $query->select(['id', 'level', 'number', 'profit'])
-                        ->with(['translation' => function ($query) use ($lang) {
-                            $query->where(['lang' => $lang]);
-                        }]);
+                'memberLevel' => function ($query) {
+                    $query->select([
+                        'name',
+                    ]);
                 },
                 'card',
-                'realName',
-                'signIns' => function ($query) {
-                    $query->select([
-                        'id',
-                        'member_id',
-                        'FROM_UNIXTIME(`created_at`,\'%Y-%m-%d\') as created_at',
-                    ])
-                        ->where(['>', 'created_at', strtotime(date('Y-m-d', strtotime("-6 day")))]);
-                }
+//                'realName',
+//                'signIns' => function ($query) {
+//                    $query->select([
+//                        'id',
+//                        'member_id',
+//                        'FROM_UNIXTIME(`created_at`,\'%Y-%m-%d\') as created_at',
+//                    ])
+//                        ->where(['>', 'created_at', strtotime(date('Y-m-d', strtotime("-6 day")))]);
+//                }
             ])
             ->asArray()
             ->one();

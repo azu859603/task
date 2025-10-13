@@ -31,11 +31,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                     ])->hint("*数字越大等级越高", ['style' => 'color:red']); ?>
                 <?php } ?>
                 <?= $form->field($model, 'name')->textInput() ?>
-                <?= $form->field($model, 'sign_gift_number')->textInput()->hint("*若为0则不赠送", ['style' => 'color:red']); ?>
-                <?= $form->field($model, 'sign_gift_money')->textInput()->hint("*若为0则不赠送", ['style' => 'color:red']); ?>
-                <?= $form->field($model, 'upgrade_money')->textInput()->hint("*若为0则不赠送", ['style' => 'color:red']); ?>
                 <?= $form->field($model, 'handling_fees_percentage')->textInput()->hint("*单位：百分比", ['style' => 'color:red']); ?>
-                <?= $form->field($model, 'detail')->textarea() ?>
                 <div class="form-group field-goods-fictitious_view">
                     <div class="col-sm-2 text-right">
                         <label class="control-label" for="goods-fictitious_view">升级条件</label>

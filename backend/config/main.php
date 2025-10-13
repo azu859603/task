@@ -37,6 +37,10 @@ return [
         'dj' => [
             'class' => 'backend\modules\dj\Module',
         ],
+        /** ------ 任务 ------ **/
+        'task' => [
+            'class' => 'backend\modules\task\Module',
+        ],
     ],
     'components' => [
         'request' => [

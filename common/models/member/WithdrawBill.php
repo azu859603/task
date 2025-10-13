@@ -46,14 +46,18 @@ class WithdrawBill extends \yii\db\ActiveRecord
     const ALIPAY_ACCOUNT_URL = 4;
     const BANK_CARD = 5;
     const USDT_TRC20 = 6;
+    const PLATFORM_ACCOUNT = 7;
+    const GCASH_ACCOUNT = 8;
 
     public static $typeExplain = [
 //        self::WECHAT_ACCOUNT_URL => "微信收款码",
 //        self::WECHAT_ACCOUNT => "微信红包",
-        self::ALIPAY_ACCOUNT => "转账支付宝",
+//        self::ALIPAY_ACCOUNT => "转账支付宝",
 //        self::ALIPAY_ACCOUNT_URL => "支付宝收款码",
         self::BANK_CARD => "转账银行卡",
-        self::USDT_TRC20 => "USDT-TRC20",
+//        self::USDT_TRC20 => "USDT-TRC20",
+        self::PLATFORM_ACCOUNT => "平台账号",
+        self::GCASH_ACCOUNT => "Gcash钱包",
     ];
 
     public static $payTypeExplain = [
@@ -67,6 +71,8 @@ class WithdrawBill extends \yii\db\ActiveRecord
         self::ALIPAY_ACCOUNT_URL => "alipay_account_url",
         self::BANK_CARD => "bank_card",
         self::USDT_TRC20 => "usdt_link",
+        self::PLATFORM_ACCOUNT => "usdt_link",
+        self::GCASH_ACCOUNT => "usdt_link",
     ];
 
     public static $statusColorExplain = [

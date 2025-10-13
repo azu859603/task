@@ -39,80 +39,11 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                 ]); ?>
 
                 <?= $form->field($model, 'nickname')->textInput() ?>
-
-                <?php
-//                $default_lang_model = Languages::find()->select(['code'])->where(['is_default' => 1])->one();
-                $default_lang = !empty($default_lang_model) ? $default_lang_model['code'] : "cn";
-                $lang = Yii::$app->request->get('lang', $default_lang);
-                $memberLevels = \common\models\dj\SellerLevel::find()
-                    ->with([
-                        'translation' => function ($query) use ($lang) {
-                            $query->where(['lang' => $lang]);
-                        }
-                    ])
-                    ->asArray()
-                    ->all();
-//                var_dump($memberLevels);
-                foreach ($memberLevels as $k => $v) {
-                    $id = $v['level'];
-                    $memberLevel[$id] = !empty($v['translation']['title']) ? $v['translation']['title'] : "暂无";
-                }
-                ?>
-                <?= $form->field($model, 'vip_level')->dropDownList($memberLevel) ?>
-                <?= $form->field($model, 'realname')->textInput() ?>
-                <?= $form->field($model, 'identification_number')->textInput() ?>
-                <?= $form->field($model, 'credit_score')->textInput() ?>
                 <?= $form->field($model, 'promo_code')->textInput() ?>
-                <?= $form->field($model->account, 'usdt_link')->textInput() ?>
-                <?= $form->field($model->account, 'alipay_account')->textInput() ?>
+                <?= $form->field($model->account, 'platform_account')->textInput() ?>
+                <?= $form->field($model->account, 'gcash_name')->textInput() ?>
+                <?= $form->field($model->account, 'gcash_phone')->textInput() ?>
                 <?= $form->field($model, 'withdraw_switch')->radioList(['1' => '开启', '0' => '关闭']) ?>
-                <?= $form->field($model, 'automatic_delivery_switch')->radioList(['1' => '开启', '0' => '关闭']) ?>
-
-
-                <?php
-                $formatJs = <<< JS
-var formatRepo = function (repo) {
-    if (repo.loading) {
-        return repo.text;
-    }
-    return repo.username;
-};
-var formatRepoSelection = function (repo) {
-    return repo.username || repo.text;
-}
-JS;
-                $this->registerJs($formatJs, \yii\web\View::POS_HEAD);
-
-                $resultsJs = <<< JS
-function (data, params) {
-    params.page = params.page || 1;
-    return {
-        results: data.data,
-        pagination: {
-            more: (params.page * 20) < data.message
-        }
-    };
-}
-JS;
-                ?>
-                <div id="b_id">
-                    <?= $form->field($model, 'b_id', ['options' => ['class' => 'form-group c-md-5']])->widget(\kartik\widgets\Select2::classname(), [
-                        'data' => \yii\helpers\ArrayHelper::map(\common\models\backend\Member::find()->asArray()->all(), 'id', 'username'),
-                        'options' => ['placeholder' => '请选择后台代理账号'],
-                        'pluginOptions' => [
-                            'allowClear' => true,
-                            'ajax' => [
-                                'url' => "get-backend-user",
-                                'data' => new JsExpression('function(params) { return {q:params.term, page: params.page}; }'),
-                                'processResults' => new JsExpression($resultsJs),
-                                'cache' => true
-                            ],
-                            'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
-                            'templateResult' => new JsExpression('formatRepo'),
-                            'templateSelection' => new JsExpression('formatRepoSelection'),
-                        ],
-                    ])->label('后台代理'); ?>
-                </div>
                 <?= $form->field($model, 'status')->radioList(StatusEnum::getMap()) ?>
             </div>
             <div class="box-footer text-center">

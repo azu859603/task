@@ -122,6 +122,8 @@ return [
                         'v1/dj/short-plays-list-seller', // 卖家
                         'v1/dj/chat', // 卖家
                         'v1/dj/promotion', // 推广
+                        'v1/task/task-project', // 任务列表
+                        'v1/task/task-order', // 任务订单
                         // 版本2
                         'v2/default', // 默认测试入口
                     ],
@@ -176,6 +178,7 @@ return [
                         'GET collect-list' => 'collect-list',
                         'GET team' => 'team',
                         'POST seller-shipping-all' => 'seller-shipping-all',
+                        'POST push' => 'push',
                     ]
                 ],
                 [

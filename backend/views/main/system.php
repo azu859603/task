@@ -29,7 +29,16 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
             <div class="info-box-content p-md">
                 <span class="info-box-number"><i
                             class="ion ion-cash green"></i> <?= $today['recharge_money'] ?? 0; ?>/<?= $today['recharge_number'] ?? 0; ?></span>
-                <span class="info-box-text">今日充值(金额)/（人数）</span>
+                <span class="info-box-text">今日任务数</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <div class="info-box-content p-md">
+                <span class="info-box-number"><i
+                            class="ion ion-stats-bars green"></i> <?= $today['buy_money'] ?? 0; ?></span>
+                <span class="info-box-text">今日佣金额</span>
             </div>
         </div>
     </div>
@@ -39,15 +48,6 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                 <span class="info-box-number"><i
                             class="ion ion-arrow-graph-down-right red"></i> <?= $today['withdraw_money'] ?? 0; ?>/<?= $today['withdraw_number'] ?? 0; ?></span>
                 <span class="info-box-text">今日提现(金额)/（人数）</span>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="info-box">
-            <div class="info-box-content p-md">
-                <span class="info-box-number"><i
-                            class="ion ion-stats-bars green"></i> <?= $today['buy_money'] ?? 0; ?></span>
-                <span class="info-box-text">今日销售额</span>
             </div>
         </div>
     </div>
@@ -68,7 +68,16 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
             <div class="info-box-content p-md">
                 <span class="info-box-number"><i
                             class="ion ion-cash green"></i> <?= $to_month['recharge_money'] ?? 0; ?></span>
-                <span class="info-box-text">本月充值</span>
+                <span class="info-box-text">本月任务数</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <div class="info-box-content p-md">
+                <span class="info-box-number"><i
+                            class="ion ion-stats-bars green"></i> <?= $to_month['buy_money'] ?? 0; ?></span>
+                <span class="info-box-text">本月佣金额</span>
             </div>
         </div>
     </div>
@@ -78,15 +87,6 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                 <span class="info-box-number"><i
                             class="ion ion-arrow-graph-down-right red"></i> <?= $to_month['withdraw_money'] ?? 0; ?></span>
                 <span class="info-box-text">本月提现</span>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="info-box">
-            <div class="info-box-content p-md">
-                <span class="info-box-number"><i
-                            class="ion ion-stats-bars green"></i> <?= $to_month['buy_money'] ?? 0; ?></span>
-                <span class="info-box-text">本月销售额</span>
             </div>
         </div>
     </div>
@@ -107,7 +107,16 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
             <div class="info-box-content p-md">
                 <span class="info-box-number"><i
                             class="ion ion-cash green"></i> <?= $all_day['recharge_money'] ?? 0; ?></span>
-                <span class="info-box-text">累积充值</span>
+                <span class="info-box-text">累积任务数</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <div class="info-box-content p-md">
+                <span class="info-box-number"><i
+                            class="ion ion-stats-bars green"></i> <?= $all_day['buy_money'] ?? 0; ?></span>
+                <span class="info-box-text">累积佣金额</span>
             </div>
         </div>
     </div>
@@ -117,15 +126,6 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                 <span class="info-box-number"><i
                             class="ion ion-arrow-graph-down-right red"></i> <?= $all_day['withdraw_money'] ?? 0; ?></span>
                 <span class="info-box-text">累积提现</span>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="info-box">
-            <div class="info-box-content p-md">
-                <span class="info-box-number"><i
-                            class="ion ion-stats-bars green"></i> <?= $all_day['buy_money'] ?? 0; ?></span>
-                <span class="info-box-text">累积销售额</span>
             </div>
         </div>
     </div>
@@ -206,10 +206,8 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                                         <tr class="no-b">
                                             <th>日期</th>
                                             <th>注册数</th>
-                                            <th>销售额</th>
-                                            <th>充值金额</th>
+                                            <th>佣金额</th>
                                             <th>提现金额</th>
-                                            <th>发放收益</th>
                                             <th>发放佣金</th>
                                             <th>代理</th>
                                         </tr>
@@ -219,8 +217,6 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                                             <tr>
                                                 <td><?= $v1['date'] ?></td>
                                                 <td><?= $v1['register_member'] ?></td>
-                                                <td><?= $v1['buy_money'] ?></td>
-                                                <td><?= $v1['recharge_money'] ?></td>
                                                 <td><?= $v1['withdraw_money'] ?></td>
                                                 <td><?= $v1['income_money'] ?></td>
                                                 <td><?= $v1['commission_money'] ?></td>

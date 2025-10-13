@@ -84,8 +84,8 @@ class MemberController extends BaseController
             $searchModel = new SearchModel([
                 'model' => $this->modelClass,
                 'scenario' => 'default',
-//                'relations' => ['memberLevel' => ['level']],
-                'relations' => ['sellerLevel' => ['level']],
+                'relations' => ['memberLevel' => ['level']],
+//                'relations' => ['sellerLevel' => ['level']],
                 'partialMatchAttributes' => ['realname', 'mobile', 'register_ip'], // 模糊查询
                 'defaultOrder' => [
                     'id' => SORT_DESC
@@ -125,17 +125,17 @@ class MemberController extends BaseController
                 $dataProvider->query->andFilterWhere(['in', 'rf_member.id', $childrenIds]);
             }
 
-//            $memberLevel = yii\helpers\ArrayHelper::map(\common\models\member\Level::find()->orderBy(['level' => SORT_ASC])->asArray()->all(), 'level', 'name');
+            $memberLevel = yii\helpers\ArrayHelper::map(\common\models\member\Level::find()->orderBy(['level' => SORT_ASC])->asArray()->all(), 'level', 'name');
 
-            $memberLevels = \common\models\dj\SellerLevel::find()->with(['translation' => function ($query) use ($lang) {
-                $query->where(['lang' => $lang]);
-            }])
-                ->asArray()
-                ->all();
-            foreach ($memberLevels as $k => $v) {
-                $id = $v['level'];
-                $memberLevel[$id] = !empty($v['translation']['title']) ? $v['translation']['title'] : "暂无";
-            }
+//            $memberLevels = \common\models\dj\SellerLevel::find()->with(['translation' => function ($query) use ($lang) {
+//                $query->where(['lang' => $lang]);
+//            }])
+//                ->asArray()
+//                ->all();
+//            foreach ($memberLevels as $k => $v) {
+//                $id = $v['level'];
+//                $memberLevel[$id] = !empty($v['translation']['title']) ? $v['translation']['title'] : "暂无";
+//            }
 
 
             $registerUrl = \yii\helpers\ArrayHelper::map(\common\models\member\Member::find()->select(['register_url'])->groupBy(['register_url'])->asArray()->all(), 'register_url', 'register_url');

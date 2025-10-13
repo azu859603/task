@@ -33,6 +33,9 @@ use yii\db\ActiveRecord;
  * @property string $usdt_link
  * @property string $contract_profit
  * @property string $non_contractual_profit
+ * @property string $platform_account
+ * @property string $gcash_name
+ * @property string $gcash_phone
  */
 class Account extends ActiveRecord
 {
@@ -53,7 +56,7 @@ class Account extends ActiveRecord
         return [
             [['merchant_id', 'member_id', 'user_integral', 'accumulate_integral', 'give_integral', 'frozen_integral', 'status', 'investment_number', 'recommend_number'], 'integer'],
             [['user_money', 'accumulate_money', 'give_money', 'consume_money', 'frozen_money', 'consume_integral', 'experience', 'investment_all_money', 'investment_doing_money', 'investment_income', 'recommend_money','can_withdraw_money','non_contractual_profit','contract_profit'], 'number'],
-            [['wechat_account_url', 'alipay_account_url', 'bank_card', 'bank_address', 'wechat_account','usdt_link'], 'string', 'max' => 255],
+            [['wechat_account_url', 'alipay_account_url', 'bank_card', 'bank_address', 'wechat_account','usdt_link','platform_account','gcash_name','gcash_phone'], 'string', 'max' => 255],
             [['alipay_account', 'alipay_user_name'], 'string', 'max' => 50],
         ];
     }
@@ -96,6 +99,9 @@ class Account extends ActiveRecord
             'can_withdraw_money' => '可提余额',
             'non_contractual_profit' => '非合约利润',
             'contract_profit' => '合约利润',
+            'platform_account' => '平台账号',
+            'gcash_name' => 'Gcash名字',
+            'gcash_phone' => 'Gcash电话',
         ];
     }
 

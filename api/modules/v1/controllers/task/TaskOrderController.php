@@ -40,7 +40,7 @@ class TaskOrderController extends OnAuthController
         $lang = Yii::$app->request->get('lang', $default_lang);
         $status = Yii::$app->request->get('status');
         if (isset($status)) {
-            $statusWhere = ['key_status' => $status];
+            $statusWhere = ['status' => $status];
         } else {
             $statusWhere = [];
         }

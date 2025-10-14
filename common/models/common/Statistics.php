@@ -31,6 +31,8 @@ use Yii;
  * @property string $gift_money
  * @property string $buy_money
  * @property int $member_id
+ * @property int $get_task_number
+ * @property int $over_task_number
  */
 class Statistics extends \yii\db\ActiveRecord
 {
@@ -48,7 +50,7 @@ class Statistics extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['register_member', 'sign_member', 'new_investment_number', 'stop_investment_number', 'created_at', 'withdraw_number', 'recharge_number', 'member_id'], 'integer'],
+            [['register_member', 'sign_member', 'new_investment_number', 'stop_investment_number', 'created_at', 'withdraw_number', 'recharge_number', 'member_id', 'get_task_number', 'over_task_number'], 'integer'],
             [['withdraw_money', 'recharge_money', 'commission_money', 'new_investment_money', 'stop_investment_money', 'income_money', 'gift_money', 'buy_money'], 'number'],
             [['date'], 'required'],
             [['date'], 'safe'],
@@ -79,6 +81,8 @@ class Statistics extends \yii\db\ActiveRecord
             'gift_money' => '赠送礼金',
             'buy_money' => '销售额',
             'member_id' => '代理ID',
+            'get_task_number' => '领取任务数',
+            'over_task_number' => '完成任务数',
         ];
     }
 
@@ -426,5 +430,53 @@ class Statistics extends \yii\db\ActiveRecord
     public function getManager()
     {
         return $this->hasOne(Member::class, ['id' => 'member_id']);
+    }
+
+
+    /**
+     * 更新今日完成任务
+     * @param $date
+     * @param $money
+     * @param $b_id
+     * @return bool
+     * @author 哈哈
+     */
+    public static function updateOverTask($date, $money, $b_id)
+    {
+        $model = self::find()->where(['date' => $date, 'member_id' => $b_id])->one();
+        if (empty($model)) {
+            $model = new self();
+            $model->date = date("Y-m-d");
+            $model->member_id = $b_id;
+        }
+        $model->over_task_number += 1;
+        $model->commission_money = BcHelper::add($model->commission_money, $money);
+        $model->created_at = time();
+        $model->save(false);
+
+        return true;
+    }
+
+    /**
+     * 更新今日领取任务
+     * @param $date
+     * @param $money
+     * @param $b_id
+     * @return bool
+     * @author 哈哈
+     */
+    public static function updateGetTask($date, $b_id)
+    {
+        $model = self::find()->where(['date' => $date, 'member_id' => $b_id])->one();
+        if (empty($model)) {
+            $model = new self();
+            $model->date = date("Y-m-d");
+            $model->member_id = $b_id;
+        }
+        $model->get_task_number += 1;
+        $model->created_at = time();
+        $model->save(false);
+
+        return true;
     }
 }

@@ -73,27 +73,29 @@ class CreditsLog extends \yii\db\ActiveRecord
     const BUY_SHORT_PLAYS_TYPE = 15;
     const SEND_SHORT_PLAYS_TYPE = 16;
     const PROMOTION_TYPE = 17;
+    const TASK_TYPE = 18;
     /**
      * 类别
      */
     public static $PayTypeExplain = [
-        self::RECHARGE_PAY_TYPE => '充值',
+//        self::RECHARGE_PAY_TYPE => '充值',
         self::WITHDRAW_PAY_TYPE => '提现',
         self::REGISTER_TYPE => '注册',
-        self::SIGN_TYPE => '签到',
+//        self::SIGN_TYPE => '签到',
 //        self::LOTTERY_TYPE => '摇奖',
 //        self::INVESTMENT_TYPE => '打卡',
-        self::INCOME_TYPE => '收益',
-        self::COMMISSION_TYPE => '返佣',
+//        self::INCOME_TYPE => '收益',
+//        self::COMMISSION_TYPE => '返佣',
 //        self::GIFT_TYPE => '红包',
 //        self::EXCHANGE_TYPE => '兑换',
 //        self::JK_TYPE => '集卡',
 //        self::Q_A => '碳问答',
-        self::FB_TYPE => '退本',
-        self::BUY_LEVEL_TYPE => '购买会员',
-        self::BUY_SHORT_PLAYS_TYPE => '购买授权',
-        self::SEND_SHORT_PLAYS_TYPE => '发货授权',
-        self::PROMOTION_TYPE => '推广',
+//        self::FB_TYPE => '退本',
+//        self::BUY_LEVEL_TYPE => '购买会员',
+//        self::BUY_SHORT_PLAYS_TYPE => '购买授权',
+//        self::SEND_SHORT_PLAYS_TYPE => '发货授权',
+//        self::PROMOTION_TYPE => '推广',
+        self::TASK_TYPE => '任务',
     ];
 
     /**

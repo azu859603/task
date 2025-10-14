@@ -2,6 +2,7 @@
 
 namespace backend\modules\task\controllers;
 
+use common\helpers\RedisHelper;
 use Yii;
 use common\models\task\Order;
 use common\traits\Curd;
@@ -53,6 +54,7 @@ class OrderController extends BaseController
                 'model' => $this->modelClass,
                 'scenario' => 'default',
                 'partialMatchAttributes' => [], // 模糊查询
+                'relations' => ['member' => ['mobile']],
                 'defaultOrder' => [
                     'id' => SORT_DESC
                 ],
@@ -62,10 +64,58 @@ class OrderController extends BaseController
             $dataProvider = $searchModel
                 ->search(Yii::$app->request->queryParams);
 
+            $default_lang = !empty($default_lang_model) ? $default_lang_model['code'] : "cn";
+            $lang = Yii::$app->request->get('lang', $default_lang);
+
+            $dataProvider->query
+                ->with([
+                    'project' => function ($query) use ($lang) {
+                        $query->with([
+                            'translation' => function ($query) use ($lang) {
+                                $query->where(['lang' => $lang]);
+                            },
+                        ]);
+                    },
+                ]);
+
             return $this->render('index', [
                 'dataProvider' => $dataProvider,
                 'searchModel' => $searchModel,
             ]);
         }
+    }
+
+    /**
+     * 审核提现订单
+     * @param $id
+     * @param $status
+     * @param string $remark
+     * @return mixed
+     */
+    public function actionCheck($id, $status, $remark = "")
+    {
+        RedisHelper::verify($id, $this->action->id);
+        $model = Order::find()->where(['id' => $id,'status'=>1])->one();
+        if (empty($model)) {
+            return $this->message("该条记录已被操作！", $this->redirect(Yii::$app->request->referrer), 'error');
+        }
+        $model->status = $status;
+        $model->remark = $remark;
+        $model->save(false);
+        return $this->message("审核成功！", $this->redirect(Yii::$app->request->referrer));
+    }
+
+    public function actionNoPass()
+    {
+        $id = Yii::$app->request->get('id');
+        $status = Yii::$app->request->get('status');
+        $model = Order::findOne($id);
+        $model->status = $status;
+        if ($model->load(Yii::$app->request->post())) {
+            return $this->redirect(['check', 'id' => $id, 'status' => $model->status, 'remark' => $model->remark]);
+        }
+        return $this->renderAjax($this->action->id, [
+            'model' => $model,
+        ]);
     }
 }

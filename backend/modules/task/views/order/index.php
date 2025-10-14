@@ -35,25 +35,182 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
 
                         'id',
-                        'member_id',
-                        'pid',
-                        'status',
-                        'created_at',
-                        'updated_at',
-                        'video_url:url',
-                        'images_list',
+                        [
+                            'headerOptions' => ['width' => '216px'],
+                            'label' => '关联用户',
+                            'attribute' => 'member.mobile',
+                            'filter' => Html::activeTextInput($searchModel, 'member.mobile', [
+                                    'class' => 'form-control',
+                                    'placeholder' => '输入账号查询'
+                                ]
+                            ),
+                            'value' => function ($model) {
+                                if (!empty($model->member->remark)) {
+                                    if (mb_strlen($model->member->remark) > 10) {
+                                        $remark = mb_substr($model->member->remark, 0, 10, 'utf-8') . "..";
+                                    } else {
+                                        $remark = $model->member->remark;
+                                    }
+                                } else {
+                                    $remark = "(暂无)";
+                                }
+                                $nickname = !empty($model->member->nickname) ? $model->member->nickname : "(暂无)";
+                                return Html::a(
+                                    "账号：" . $model->member->mobile . '<br>' .
+                                    "昵称：" . Html::encode($nickname) . '<br>' .
+                                    "备注：" . $remark . '<br>',
+                                    ['/member/member/view', 'id' => $model->member->id],
+                                    [
+                                        'data-toggle' => 'modal',
+                                        'data-target' => '#ajaxModal',
+                                    ]);
+                            },
+                            'format' => 'raw',
+                        ],
+                        [
+                            'attribute' => 'project.translation.title',
+                            'filter' => false,
+                            'value' => function ($model) {
+                                return $model->project->translation->title;
+                            }
+                        ],
+                        [
+                            'attribute' => 'video_url',
+                            'format' => 'raw',
+                            'value'=>function($model){
+                                return "<a href='$model->video_url' target='_blank'>$model->video_url";
+                            }
+                        ],
+                        [
+                            'headerOptions' => ['width' => '168px'],
+                            'attribute' => 'images_list',
+                            'filter' => false, //不显示搜索框
+                            'value' => function ($model) {
+                                return \common\helpers\ImageHelper::fancyBoxs($model->images_list);
+                            },
+                            'format' => 'raw'
+                        ],
                         'money',
                         'code',
                         [
+                            'class' => '\kartik\grid\EditableColumn',
+                            'attribute' => 'remark',
+                            'format' => 'raw',
+                            'headerOptions' => ['width' => '120px'],
+                            'editableOptions' => [
+                                'asPopover' => true,
+                                'inputType' => \kartik\editable\Editable::INPUT_TEXTAREA,//只需添加如下代码
+                                'options' => [
+                                    'rows' => 4,
+                                ],
+                            ],
+                            'value' => function ($model) {
+                                if (!empty($model->remark)) {
+                                    if (mb_strlen($model->remark) > 4) {
+                                        $remark = mb_substr($model->remark, 0, 4, 'utf-8') . "..";
+                                    } else {
+                                        $remark = $model->remark;
+                                    }
+                                } else {
+                                    $remark = "(暂无)";
+                                }
+                                return $remark;
+                            },
+                        ],
+                        [
+                            'attribute' => 'status',
+                            'value' => function ($model, $key, $index, $column) {
+                                return \common\models\task\Order::$statusExplain[$model->status];
+                            },
+                            'filter' => Html::activeDropDownList($searchModel, 'status', \common\models\task\Order::$statusExplain, [
+                                'prompt' => '全部',
+                                'class' => 'form-control'
+                            ])
+                        ],
+                        [
+                            'headerOptions' => ['width' => '102px'],
+                            'attribute' => 'created_at',
+                            'filter' => \kartik\daterange\DateRangePicker::widget([
+                                'model' => $searchModel,
+                                'convertFormat' => true,
+                                'name' => 'created_at',
+                                'attribute' => 'created_at',
+                                'hideInput' => true,
+                                'options' => ['placeholder' => '请选择时间段...', 'class' => 'form-control'],
+                                'pluginOptions' => [
+                                    'timePicker' => true,
+                                    'locale' => [
+                                        'format' => 'Y-m-d',
+                                        'separator' => '~'
+                                    ],
+                                    'opens' => 'left'
+                                ],
+                                'pluginEvents' => [
+                                    "cancel.daterangepicker" => "function(ev, picker) {
+                            $(picker.element[0].children[1]).val('');
+                            $(picker.element[0].children[0].children[1]).val('').trigger('change');
+                        }"
+                                ]
+                            ]),
+                            'value' => function ($model) {
+                                return \common\helpers\DateHelper::dateTime($model->created_at);
+                            },
+                        ],
+                        [
+                            'headerOptions' => ['width' => '102px'],
+                            'attribute' => 'updated_at',
+                            'filter' => \kartik\daterange\DateRangePicker::widget([
+                                'model' => $searchModel,
+                                'convertFormat' => true,
+                                'name' => 'updated_at',
+                                'attribute' => 'updated_at',
+                                'hideInput' => true,
+                                'options' => ['placeholder' => '请选择时间段...', 'class' => 'form-control'],
+                                'pluginOptions' => [
+                                    'timePicker' => true,
+                                    'locale' => [
+                                        'format' => 'Y-m-d',
+                                        'separator' => '~'
+                                    ],
+                                    'opens' => 'left'
+                                ],
+                                'pluginEvents' => [
+                                    "cancel.daterangepicker" => "function(ev, picker) {
+                            $(picker.element[0].children[1]).val('');
+                            $(picker.element[0].children[0].children[1]).val('').trigger('change');
+                        }"
+                                ]
+                            ]),
+                            'value' => function ($model) {
+                                return \common\helpers\DateHelper::dateTime($model->updated_at);
+                            },
+                        ],
+                        [
                             'class' => 'yii\grid\ActionColumn',
                             'header' => '操作',
-                            'template' => '{edit} {delete}',
+                            'template' => '{pass} {no-pass} {delete}',
                             'buttons' => [
-                                'edit' => function ($url, $model, $key) {
-                                    return Html::edit(['ajax-edit', 'id' => $model->id], '编辑', ['data-toggle' => 'modal', 'data-target' => '#ajaxModal']);
+                                'pass' => function ($url, $model, $key) {
+                                    if ($model->status == 1) {
+                                        return Html::linkButton(['check', 'id' => $model->id, 'status' => 2], '通过', [
+                                            'class' => 'btn btn-success btn-sm',
+                                            'onclick' => "rfTwiceAffirm(this, '是否立即执行通过操作？', '请谨慎操作');return false;",
+                                            'style' => 'margin-bottom: 10px',
+                                        ]);
+                                    }
+                                },
+                                'no-pass' => function ($url, $model, $key) {
+                                    if ($model->status == 1) {
+                                        return Html::linkButton(['no-pass', 'id' => $model->id, 'status' => 3], '驳回', [
+                                            'class' => 'btn btn-warning btn-sm',
+                                            'data-toggle' => 'modal',
+                                            'data-target' => '#ajaxModal',
+                                            'style' => 'margin-bottom: 10px',
+                                        ]);
+                                    }
                                 },
                                 'delete' => function ($url, $model, $key) {
-                                    return Html::delete(['delete', 'id' => $model->id]);
+                                    return Html::delete(['delete', 'id' => $model->id],'删除',[ 'style' => 'margin-bottom: 10px']);
                                 },
                             ],
                         ],
@@ -67,7 +224,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'panelFooterTemplate' => '{footer}<div class="clearfix"></div>',
                     'toolbar' => [
                         '<div class="pull-left btn-toolbar">'
-                        . Html::create(['ajax-edit'], '创建', ['data-toggle' => 'modal', 'data-target' => '#ajaxModal', 'class' => 'btn btn-primary'])
+//                        . Html::create(['ajax-edit'], '创建', ['data-toggle' => 'modal', 'data-target' => '#ajaxModal', 'class' => 'btn btn-primary'])
                         //. Html::a('批量删除', Url::to(['delete-all']), ['class' => 'btn btn-danger', 'onclick' => 'ycmcBatchVerify(this);return false;'])
                         . '</div>',
                         '{toggleData}',

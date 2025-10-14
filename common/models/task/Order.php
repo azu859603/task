@@ -2,6 +2,10 @@
 
 namespace common\models\task;
 
+use common\helpers\BcHelper;
+use common\models\common\Statistics;
+use common\models\forms\CreditsLogForm;
+use common\models\member\CreditsLog;
 use common\models\member\Member;
 use Yii;
 use yii\behaviors\BlameableBehavior;
@@ -22,6 +26,7 @@ use yii\db\ActiveRecord;
  * @property string $money 任务佣金
  * @property string $code 活动码
  * @property int $push_number
+ * @property string $remark
  */
 class Order extends \yii\db\ActiveRecord
 {
@@ -40,14 +45,14 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             [['member_id', 'pid', 'created_at'], 'required'],
-            [['member_id', 'pid', 'status', 'created_at', 'updated_at','push_number'], 'integer'],
+            [['member_id', 'pid', 'status', 'created_at', 'updated_at', 'push_number'], 'integer'],
             [['images_list'], 'safe'],
             [['money'], 'number'],
-            [['video_url', 'code'], 'string', 'max' => 255],
+            [['video_url', 'code', 'remark'], 'string', 'max' => 255],
         ];
     }
 
-    public static $statusExplain = [0 => '待提交', 1 => "已提交", 2 => "已通过", 3 => "已拒绝"];
+    public static $statusExplain = [0 => '待提交', 1 => "已提交", 2 => "已通过", 3 => "已驳回"];
 
 
     /**
@@ -67,7 +72,46 @@ class Order extends \yii\db\ActiveRecord
             'money' => '任务佣金',
             'code' => '活动码',
             'push_number' => '已提交次数',
+            'remark' => '备注',
         ];
+    }
+
+
+    /**
+     * @param bool $insert
+     * @return bool
+     * @throws \yii\base\Exception
+     */
+    public function beforeSave($insert)
+    {
+        // 修改
+        if (!$this->isNewRecord) {
+            // 如果是通过 则增加账户余额
+            if ($this->isAttributeChanged('status') && $this->status == 2) {
+                // 充值成功 用户本金增加
+                $member = Member::find()->where(['id' => $this->member_id])->with(['account'])->one();
+                $member->account->investment_number += 1;
+                if ($this->money > 0) {
+                    $member->account->investment_income = BcHelper::add($member->account->investment_income, $this->money);
+                    Yii::$app->services->memberCreditsLog->incrMoney(new CreditsLogForm([
+                        'member' => Member::findOne($this->member_id),
+                        'num' => $this->money,
+                        'credit_group' => CreditsLog::CREDIT_GROUP_MANAGER,
+                        'remark' => '【任务】完成任务获得佣金',
+                        'pay_type' => CreditsLog::TASK_TYPE
+                    ]));
+                }
+                $member->account->save(false);
+                // 加入统计表
+                if ($member['type'] == 1) {
+                    // 加入统计表 获取最上级用户ID
+                    $first_member = Member::getParentsFirst($member);
+                    $b_id = $first_member['b_id'] ?? 0;
+                    Statistics::updateOverTask(date("Y-m-d"), $this->money,  $b_id);
+                }
+            }
+        }
+        return parent::beforeSave($insert);
     }
 
     /**

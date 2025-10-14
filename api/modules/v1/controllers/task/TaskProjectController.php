@@ -96,6 +96,7 @@ class TaskProjectController extends OnAuthController
                     $query->where(['lang' => $lang]);
                 }
             ])
+            ->asArray()
             ->one();
     }
 

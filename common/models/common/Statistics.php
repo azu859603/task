@@ -375,6 +375,8 @@ class Statistics extends \yii\db\ActiveRecord
                 'sum(`income_money`) as income_money',
                 'sum(`recharge_number`) as recharge_number',
                 'sum(`withdraw_number`) as withdraw_number',
+                'sum(`over_task_number`) as over_task_number',
+                'sum(`get_task_number`) as get_task_number',
             ])
             ->where(['date' => $date])
             ->andFilterWhere($member_id_where)
@@ -398,6 +400,8 @@ class Statistics extends \yii\db\ActiveRecord
                 'sum(`buy_money`) as buy_money',
                 'sum(`commission_money`) as commission_money',
                 'sum(`income_money`) as income_money',
+                'sum(`over_task_number`) as over_task_number',
+                'sum(`get_task_number`) as get_task_number',
             ])
             ->where(['between', 'date', date('Y-m-d', $thisMonth['start']), date('Y-m-d', $thisMonth['end'])])
             ->andFilterWhere($member_id_where)
@@ -421,6 +425,8 @@ class Statistics extends \yii\db\ActiveRecord
                 'sum(`buy_money`) as buy_money',
                 'sum(`commission_money`) as commission_money',
                 'sum(`income_money`) as income_money',
+                'sum(`over_task_number`) as over_task_number',
+                'sum(`get_task_number`) as get_task_number',
             ])
             ->andFilterWhere($member_id_where)
             ->asArray()

@@ -28,8 +28,8 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
         <div class="info-box">
             <div class="info-box-content p-md">
                 <span class="info-box-number"><i
-                            class="ion ion-cash green"></i> <?= $today['recharge_money'] ?? 0; ?>/<?= $today['recharge_number'] ?? 0; ?></span>
-                <span class="info-box-text">今日任务数</span>
+                            class="ion ion-cash green"></i> <?= $today['get_task_number'] ?? 0; ?>/<?= $today['over_task_number'] ?? 0; ?></span>
+                <span class="info-box-text">今日领取任务数/今日完成任务数</span>
             </div>
         </div>
     </div>
@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
         <div class="info-box">
             <div class="info-box-content p-md">
                 <span class="info-box-number"><i
-                            class="ion ion-stats-bars green"></i> <?= $today['buy_money'] ?? 0; ?></span>
+                            class="ion ion-stats-bars green"></i> <?= $today['commission_money'] ?? 0; ?></span>
                 <span class="info-box-text">今日佣金额</span>
             </div>
         </div>
@@ -67,8 +67,8 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
         <div class="info-box">
             <div class="info-box-content p-md">
                 <span class="info-box-number"><i
-                            class="ion ion-cash green"></i> <?= $to_month['recharge_money'] ?? 0; ?></span>
-                <span class="info-box-text">本月任务数</span>
+                            class="ion ion-cash green"></i> <?= $to_month['get_task_number'] ?? 0; ?>/<?= $to_month['over_task_number'] ?? 0; ?></span>
+                <span class="info-box-text">本月领取任务数/本月完成任务数</span>
             </div>
         </div>
     </div>
@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
         <div class="info-box">
             <div class="info-box-content p-md">
                 <span class="info-box-number"><i
-                            class="ion ion-stats-bars green"></i> <?= $to_month['buy_money'] ?? 0; ?></span>
+                            class="ion ion-stats-bars green"></i> <?= $to_month['commission_money'] ?? 0; ?></span>
                 <span class="info-box-text">本月佣金额</span>
             </div>
         </div>
@@ -106,8 +106,8 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
         <div class="info-box">
             <div class="info-box-content p-md">
                 <span class="info-box-number"><i
-                            class="ion ion-cash green"></i> <?= $all_day['recharge_money'] ?? 0; ?></span>
-                <span class="info-box-text">累积任务数</span>
+                            class="ion ion-cash green"></i> <?= $all_day['get_task_number'] ?? 0; ?>/<?= $all_day['over_task_number'] ?? 0; ?></span>
+                <span class="info-box-text">累计领取任务数/累计完成任务数</span>
             </div>
         </div>
     </div>
@@ -115,7 +115,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
         <div class="info-box">
             <div class="info-box-content p-md">
                 <span class="info-box-number"><i
-                            class="ion ion-stats-bars green"></i> <?= $all_day['buy_money'] ?? 0; ?></span>
+                            class="ion ion-stats-bars green"></i> <?= $all_day['commission_money'] ?? 0; ?></span>
                 <span class="info-box-text">累积佣金额</span>
             </div>
         </div>
@@ -206,9 +206,10 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                                         <tr class="no-b">
                                             <th>日期</th>
                                             <th>注册数</th>
-                                            <th>佣金额</th>
+                                            <th>领取任务数</th>
+                                            <th>完成任务数</th>
                                             <th>提现金额</th>
-                                            <th>发放佣金</th>
+                                            <th>佣金额</th>
                                             <th>代理</th>
                                         </tr>
                                         </thead>
@@ -217,8 +218,9 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                                             <tr>
                                                 <td><?= $v1['date'] ?></td>
                                                 <td><?= $v1['register_member'] ?></td>
+                                                <td><?= $v1['get_task_number'] ?></td>
+                                                <td><?= $v1['over_task_number'] ?></td>
                                                 <td><?= $v1['withdraw_money'] ?></td>
-                                                <td><?= $v1['income_money'] ?></td>
                                                 <td><?= $v1['commission_money'] ?></td>
                                                 <td><?= $v1['manager']['username']??"无" ?></td>
                                             </tr>

@@ -36,6 +36,42 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         'id',
                         'code',
+                        [
+                            'headerOptions' => ['width' => '216px'],
+                            'label' => '关联用户',
+                            'attribute' => 'member.mobile',
+                            'filter' => Html::activeTextInput($searchModel, 'member.mobile', [
+                                    'class' => 'form-control',
+                                    'placeholder' => '输入账号查询'
+                                ]
+                            ),
+                            'value' => function ($model) {
+                                if (!empty($model->member->remark)) {
+                                    if (mb_strlen($model->member->remark) > 10) {
+                                        $remark = mb_substr($model->member->remark, 0, 10, 'utf-8') . "..";
+                                    } else {
+                                        $remark = $model->member->remark;
+                                    }
+                                } else {
+                                    $remark = "(暂无)";
+                                }
+                                $nickname = !empty($model->member->nickname) ? $model->member->nickname : "(暂无)";
+                                if(empty($model->member->mobile)){
+                                    return "";
+                                }else{
+                                    return Html::a(
+                                        "账号：" . $model->member->mobile . '<br>' .
+                                        "昵称：" . Html::encode($nickname) . '<br>' .
+                                        "备注：" . $remark . '<br>',
+                                        ['/member/member/view', 'id' => $model->member->id],
+                                        [
+                                            'data-toggle' => 'modal',
+                                            'data-target' => '#ajaxModal',
+                                        ]);
+                                }
+                            },
+                            'format' => 'raw',
+                        ],
                         't_id',
                         [
                             'attribute' => 'status',

@@ -102,12 +102,23 @@ class Order extends \yii\db\ActiveRecord
                     ]));
                 }
                 $member->account->save(false);
+                // 若有活动码，从中取值
+                if (Project::find()->where(['id' => $this->pid, 'code_switch' => 1])->exists()) {
+                    $code = TaskCode::find()->where(['status' => 0])->orderBy(['id' => SORT_ASC])->one();
+                    if (!empty($code)) {
+                        $this->code = $code->code;
+                        $code->member_id = $this->member_id;
+                        $code->t_id = $this->id;
+                        $code->status = 1;
+                        $code->save(false);
+                    }
+                }
                 // 加入统计表
                 if ($member['type'] == 1) {
                     // 加入统计表 获取最上级用户ID
                     $first_member = Member::getParentsFirst($member);
                     $b_id = $first_member['b_id'] ?? 0;
-                    Statistics::updateOverTask(date("Y-m-d"), $this->money,  $b_id);
+                    Statistics::updateOverTask(date("Y-m-d"), $this->money, $b_id);
                 }
             }
         }

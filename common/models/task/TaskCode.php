@@ -2,6 +2,7 @@
 
 namespace common\models\task;
 
+use common\models\member\Member;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
@@ -53,5 +54,15 @@ class TaskCode extends \yii\db\ActiveRecord
             'code' => '活动码',
             'status' => '状态',
         ];
+    }
+
+    /**
+     * 关联用户表
+     * @return \yii\db\ActiveQuery
+     * @author 哈哈
+     */
+    public function getMember()
+    {
+        return $this->hasOne(Member::class, ['id' => 'member_id']);
     }
 }

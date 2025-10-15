@@ -15,6 +15,7 @@ use common\helpers\BcHelper;
 use common\helpers\RedisHelper;
 use common\helpers\ResultHelper;
 use common\models\common\Languages;
+use common\models\common\Statistics;
 use common\models\forms\CreditsLogForm;
 use common\models\member\CreditsLog;
 use common\models\member\Member;
@@ -100,6 +101,13 @@ class TaskOrderController extends OnAuthController
             $order->money = $project->money;
             $order->save();
 
+            // 加入统计表
+            if ($memberInfo['type'] == 1) {
+                // 加入统计表 获取最上级用户ID
+                $first_member = Member::getParentsFirst($memberInfo);
+                $b_id = $first_member['b_id'] ?? 0;
+                Statistics::updateGetTask(date("Y-m-d"),  $b_id);
+            }
 
             $transaction->commit();
             return ResultHelper::json(ResultHelper::SUCCESS_CODE, "领取成功");

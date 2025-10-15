@@ -56,6 +56,7 @@ class TaskCodeController extends BaseController
                 'model' => $this->modelClass,
                 'scenario' => 'default',
                 'partialMatchAttributes' => [], // 模糊查询
+                'relations' => ['member' => ['mobile']],
                 'defaultOrder' => [
                     'id' => SORT_DESC
                 ],

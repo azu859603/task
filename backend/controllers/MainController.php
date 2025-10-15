@@ -40,6 +40,8 @@ class MainController extends BaseController
         'buy_money' => 0,
         'recharge_number' => 0,
         'withdraw_number' => 0,
+        'get_task_number' => 0,
+        'over_task_number' => 0,
     ];
 
     /**

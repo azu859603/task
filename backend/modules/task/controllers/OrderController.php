@@ -78,9 +78,23 @@ class OrderController extends BaseController
                     },
                 ]);
 
+
+            $categorys = \common\models\task\LaberList::find()
+                ->with(['translation' => function ($query)use ($lang) {
+                    $query->where(['lang' => $lang]);
+                }])
+                ->asArray()
+                ->all();
+            $category = [];
+            foreach ($categorys as $k => $v) {
+                $id = $v['id'];
+                $category[$id] = $v['translation']['title'];
+            }
+
             return $this->render('index', [
                 'dataProvider' => $dataProvider,
                 'searchModel' => $searchModel,
+                'category' => $category,
             ]);
         }
     }

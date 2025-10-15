@@ -26,6 +26,7 @@ use yii\db\ActiveRecord;
  * @property string $money 任务佣金
  * @property string $code 活动码
  * @property int $push_number
+ * @property int $cid
  * @property string $remark
  */
 class Order extends \yii\db\ActiveRecord
@@ -45,7 +46,7 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             [['member_id', 'pid', 'created_at'], 'required'],
-            [['member_id', 'pid', 'status', 'created_at', 'updated_at', 'push_number'], 'integer'],
+            [['member_id', 'pid', 'status', 'created_at', 'updated_at', 'push_number','cid'], 'integer'],
             [['images_list'], 'safe'],
             [['money'], 'number'],
             [['video_url', 'code', 'remark'], 'string', 'max' => 255],
@@ -73,6 +74,7 @@ class Order extends \yii\db\ActiveRecord
             'code' => '活动码',
             'push_number' => '已提交次数',
             'remark' => '备注',
+            'cid' => '任务类型',
         ];
     }
 

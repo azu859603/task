@@ -36,6 +36,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         'id',
                         [
+                            'attribute' => 'cid',
+                            'format' => 'raw',
+                            'filter' => Html::activeDropDownList($searchModel, 'cid', $category, [
+                                    'prompt' => '全部',
+                                    'class' => 'form-control'
+                                ]
+                            ),
+                            'value' => function ($model) use ($category) {
+                                return $category[$model->cid];
+                            },
+                        ],
+                        [
                             'headerOptions' => ['width' => '216px'],
                             'label' => '关联用户',
                             'attribute' => 'member.mobile',

@@ -36,6 +36,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         'id',
                         [
+                            'attribute' => 'pid',
+                            'format' => 'raw',
+                            'filter' => Html::activeDropDownList($searchModel, 'pid', $category, [
+                                    'prompt' => '全部',
+                                    'class' => 'form-control'
+                                ]
+                            ),
+                            'value' => function ($model) use ($category) {
+                                return $category[$model->pid];
+                            },
+                        ],
+                        [
                             'attribute' => 'translation.title',
                             'value' => function ($model) {
                                 return !empty($model->translation->title) ? $model->translation->title : "暂无";

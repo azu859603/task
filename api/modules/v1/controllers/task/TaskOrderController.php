@@ -97,6 +97,7 @@ class TaskOrderController extends OnAuthController
             $order = new Order();
             $order->member_id = $this->memberId;
             $order->pid = $id;
+            $order->cid = $project->pid;
             $order->created_at = time();
             $order->money = $project->money;
             $order->save();

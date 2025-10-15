@@ -85,7 +85,7 @@ class Project extends \yii\db\ActiveRecord
             'status' => '状态',
             'sort' => '排序',
             'experience' => '经验值',
-            'pid' => '分类',
+            'pid' => '任务类型',
             'created_at' => '分类',
             'limit_number' => '限制次数',
             'is_top' => '是否推荐',

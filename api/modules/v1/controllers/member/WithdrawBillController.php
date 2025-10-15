@@ -74,9 +74,9 @@ class WithdrawBillController extends OnAuthController
         }
         // 判断是否实名制
         $memberInfo = Member::find()->where(['id' => $this->memberId])->one();
-        if (empty($memberInfo->realname)) {
-            return ResultHelper::json(ResultHelper::ERROR_CODE, '请您先实名认证后再继续操作');
-        }
+//        if (empty($memberInfo->realname)) {
+//            return ResultHelper::json(ResultHelper::ERROR_CODE, '请您先实名认证后再继续操作');
+//        }
         // 判断是否能提现
         if ($memberInfo->withdraw_switch != 1) {
             return ResultHelper::json(ResultHelper::ERROR_CODE, '提现功能暂未开启');

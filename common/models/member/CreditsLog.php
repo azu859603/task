@@ -51,9 +51,9 @@ class CreditsLog extends \yii\db\ActiveRecord
     ];
 
     public static $creditTypeExplain = [
-        self::CREDIT_TYPE_USER_MONEY => '预存钱包',
+        self::CREDIT_TYPE_USER_MONEY => '余额钱包',
 //        self::CREDIT_TYPE_USER_INTEGRAL=>'积分',
-        self::CREDIT_TYPE_CAN_WITHDRAW_MONEY => '余额钱包',
+//        self::CREDIT_TYPE_CAN_WITHDRAW_MONEY => '余额钱包',
     ];
 
     const RECHARGE_PAY_TYPE = 1;

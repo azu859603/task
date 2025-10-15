@@ -7,7 +7,7 @@ use kartik\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '标签列表';
+$this->title = '分类列表';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

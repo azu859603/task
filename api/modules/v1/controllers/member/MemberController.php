@@ -81,9 +81,6 @@ class MemberController extends OnAuthController
      */
     public function actionList()
     {
-        $default_lang_model = Languages::find()->select(['code'])->where(['is_default' => 1])->one();
-        $default_lang = !empty($default_lang_model) ? $default_lang_model['code'] : "cn";
-        $lang = Yii::$app->request->get('lang', $default_lang);
         return new ActiveDataProvider([
             'query' => $this->modelClass::find()
                 ->select([
@@ -97,14 +94,13 @@ class MemberController extends OnAuthController
                 ])
                 ->where(['pid' => $this->memberId])
                 ->with([
-                    'sellerLevel' => function ($query) use ($lang) {
-                        $query->select(['id', 'level', 'number'])
-                            ->with(['translation' => function ($query) use ($lang) {
-                                $query->where(['lang' => $lang]);
-                            }]);
+                    'memberLevel' => function ($query) {
+                        $query->select([
+                            'name',
+                        ]);
                     },
                     'account' => function ($query) {
-                        $query->select(['id', 'member_id', 'recommend_number', 'investment_income']);
+                        $query->select(['id', 'member_id', 'investment_number', 'investment_income']);
                     }
                 ])
                 ->orderBy('created_at desc,id desc')
@@ -119,17 +115,14 @@ class MemberController extends OnAuthController
     public function actionTeam()
     {
         $data = [];
-        $account = Account::find()->where(['member_id' => $this->memberId])->select(['recommend_number', 'recommend_money'])->asArray()->one();
+        $account = Account::find()->where(['member_id' => $this->memberId])->select(['recommend_number', 'investment_income','investment_number'])->asArray()->one();
+        $data['investment_number'] = $account['investment_number'];
         $data['recommend_number'] = $account['recommend_number'];
-        $data['recommend_money'] = $account['recommend_money'];
+        $data['investment_income'] = $account['investment_income'];
         $today = DateHelper::today();
         $data['today_add'] = Member::find()
                 ->where(['pid' => $this->memberId, 'type' => 1])
                 ->andWhere(['between', 'created_at', $today['start'], $today['end']])
-                ->count() ?? 0;
-        $data['active_member'] = Member::find()
-                ->where(['pid' => $this->memberId, 'type' => 1])
-                ->andWhere(['>', 'recharge_money', 0])
                 ->count() ?? 0;
         return $data;
     }

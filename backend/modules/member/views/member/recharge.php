@@ -36,10 +36,10 @@ use backend\modules\member\forms\RechargeForm;
             <div class="col-sm-12">
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">预存钱包</a></li>
+                        <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">余额钱包</a></li>
 <!--                        <li><a data-toggle="tab" href="#tab-2" aria-expanded="false">充值积分</a></li>-->
 <!--                        <li><a data-toggle="tab" href="#tab-3" aria-expanded="false">充值经验</a></li>-->
-                        <li><a data-toggle="tab" href="#tab-4" aria-expanded="false">余额钱包</a></li>
+<!--                        <li><a data-toggle="tab" href="#tab-4" aria-expanded="false">余额钱包</a></li>-->
                     </ul>
                     <div class="tab-content">
                         <div id="tab-1" class="tab-pane active">

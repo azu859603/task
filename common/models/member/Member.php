@@ -516,6 +516,9 @@ class Member extends User
                         'recommend_number',
                         'contract_profit',
                         'non_contractual_profit',
+                        'platform_account',
+                        'gcash_name',
+                        'gcash_phone',
                     ]);
                 },
                 'memberLevel' => function ($query) {

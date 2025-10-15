@@ -29,7 +29,7 @@ class TaskProjectController extends OnAuthController
     public $modelClass = Project::class;
 
     // 不用进行登录验证的方法
-    protected $authOptional = ['index', 'list'];
+    protected $authOptional = ['index', 'list', 'top'];
 
     /**
      * 分类列表

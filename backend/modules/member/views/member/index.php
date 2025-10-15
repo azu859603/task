@@ -258,8 +258,8 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                                 return
 //                                    "信用分：" . $model->credit_score . '<br>' .
                                     "登录密码：" . $model->password_hash . '<br>' .
-//                                    "签到状态：" . '<span class="label label-' . Member::$status_color_array[$model->sign_status] . '">' . Member::$sign_array[$model->sign_status] . '</span>' . '<br>' .
-//                                    "累计签到天数：" . $model->sign_days . '<br>' .
+                                    "签到状态：" . '<span class="label label-' . Member::$status_color_array[$model->sign_status] . '">' . Member::$sign_array[$model->sign_status] . '</span>' . '<br>' .
+                                    "累计签到天数：" . $model->sign_days . '<br>' .
                                     "他的推荐人：" . $recommend_name . '<br>' .
                                     "已推荐人数：" . $recommend_number_html;
                             },

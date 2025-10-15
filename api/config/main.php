@@ -179,6 +179,7 @@ return [
                         'GET team' => 'team',
                         'POST seller-shipping-all' => 'seller-shipping-all',
                         'POST push' => 'push',
+                        'GET top' => 'top',
                     ]
                 ],
                 [

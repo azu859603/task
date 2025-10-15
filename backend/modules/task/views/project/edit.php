@@ -77,6 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= $form->field($model, 'money', ['options' => ['class' => ['chart']]])->textInput() ?>
                     <?= $form->field($model, 'limit_number', ['options' => ['class' => ['chart']]])->textInput()->hint("*单个会员最多重复领取该任务的次数", ['style' => 'color:red']) ?>
                     <?= $form->field($model, 'code_switch', ['options' => ['class' => ['chart']]])->radioList([1 => '启用', 0 => '禁用']) ?>
+                    <?= $form->field($model, 'is_top', ['options' => ['class' => ['chart']]])->radioList([1 => '是', 0 => '否']) ?>
                     <?= $form->field($model, 'images_list', ['options' => ['class' => ['chart']]])->widget(\common\widgets\webuploader\Files::class, [
                         'type' => 'images',
                         'theme' => 'default',

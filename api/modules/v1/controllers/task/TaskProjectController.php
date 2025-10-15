@@ -83,6 +83,32 @@ class TaskProjectController extends OnAuthController
         ]);
     }
 
+
+    /**
+     * 任务列表
+     */
+    public function actionTop()
+    {
+        $default_lang_model = Languages::find()->select(['code'])->where(['is_default' => 1])->one();
+        $default_lang = !empty($default_lang_model) ? $default_lang_model['code'] : "cn";
+        $lang = Yii::$app->request->get('lang', $default_lang);
+        return new ActiveDataProvider([
+            'query' => $this->modelClass::find()
+                ->where(['status' => StatusEnum::ENABLED, 'is_top' => StatusEnum::ENABLED])
+                ->with([
+                    'translation' => function ($query) use ($lang) {
+                        $query->where(['lang' => $lang]);
+                    }
+                ])
+                ->orderBy(['sort' => SORT_ASC, 'created_at' => SORT_DESC])
+                ->asArray(),
+            'pagination' => [
+                'pageSize' => $this->pageSize,
+                'validatePage' => false,// 超出分页不返回data
+            ],
+        ]);
+    }
+
     public function actionDetail()
     {
         $default_lang_model = Languages::find()->select(['code'])->where(['is_default' => 1])->one();

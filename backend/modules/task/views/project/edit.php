@@ -91,7 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]
                     ]); ?>
                     <?= $form->field($model, 'file_list', ['options' => ['class' => ['chart']]])->widget(\common\widgets\webuploader\Files::class, [
-                        'type' => 'images',
+                        'type' => 'files',
                         'theme' => 'default',
                         'config' => [
                             'pick' => [

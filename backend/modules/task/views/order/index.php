@@ -82,6 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'project.translation.title',
                             'filter' => false,
+                            'format' => 'raw',
                             'value' => function ($model) {
                                 return Html::a(
                                     "任务ID：" . $model->project->id . "</br>" . "任务标题:" . $model->project->translation->title,

@@ -3,6 +3,8 @@
 namespace backend\modules\task\controllers;
 
 use common\helpers\RedisHelper;
+use common\models\member\Member;
+use common\models\task\Project;
 use Yii;
 use common\models\task\Order;
 use common\traits\Curd;
@@ -80,7 +82,7 @@ class OrderController extends BaseController
 
 
             $categorys = \common\models\task\LaberList::find()
-                ->with(['translation' => function ($query)use ($lang) {
+                ->with(['translation' => function ($query) use ($lang) {
                     $query->where(['lang' => $lang]);
                 }])
                 ->asArray()
@@ -89,6 +91,14 @@ class OrderController extends BaseController
             foreach ($categorys as $k => $v) {
                 $id = $v['id'];
                 $category[$id] = $v['translation']['title'];
+            }
+
+
+            $backend_id = Yii::$app->user->identity->getId();
+            if ($backend_id != 1) {
+                $a_id = Yii::$app->user->identity->aMember->id;
+                $childrenIds = Member::getChildrenIds($a_id);
+                $dataProvider->query->andFilterWhere(['in', 'member_id', $childrenIds]);
             }
 
             return $this->render('index', [
@@ -109,7 +119,7 @@ class OrderController extends BaseController
     public function actionCheck($id, $status, $remark = "")
     {
         RedisHelper::verify($id, $this->action->id);
-        $model = Order::find()->where(['id' => $id,'status'=>1])->one();
+        $model = Order::find()->where(['id' => $id, 'status' => 1])->one();
         if (empty($model)) {
             return $this->message("该条记录已被操作！", $this->redirect(Yii::$app->request->referrer), 'error');
         }
@@ -128,6 +138,22 @@ class OrderController extends BaseController
         if ($model->load(Yii::$app->request->post())) {
             return $this->redirect(['check', 'id' => $id, 'status' => $model->status, 'remark' => $model->remark]);
         }
+        return $this->renderAjax($this->action->id, [
+            'model' => $model,
+        ]);
+    }
+
+
+    /**
+     * 查看账户信息
+     *
+     * @return mixed|string|\yii\web\Response
+     * @throws \yii\base\ExitException
+     */
+    public function actionView()
+    {
+        $id = Yii::$app->request->get('id');
+        $model = Project::find()->where(['id' => $id])->with(['translation'])->one();
         return $this->renderAjax($this->action->id, [
             'model' => $model,
         ]);

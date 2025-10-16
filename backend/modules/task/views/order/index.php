@@ -7,7 +7,7 @@ use kartik\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '任务列表';
+$this->title = '任务订单';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -83,13 +83,19 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'project.translation.title',
                             'filter' => false,
                             'value' => function ($model) {
-                                return $model->project->translation->title;
+                                return Html::a(
+                                    "任务ID：" . $model->project->id . "</br>" . "任务标题:" . $model->project->translation->title,
+                                    ['/task/order/view', 'id' => $model->project->id],
+                                    [
+                                        'data-toggle' => 'modal',
+                                        'data-target' => '#ajaxModal',
+                                    ]);
                             }
                         ],
                         [
                             'attribute' => 'video_url',
                             'format' => 'raw',
-                            'value'=>function($model){
+                            'value' => function ($model) {
                                 return "<a href='$model->video_url' target='_blank'>$model->video_url";
                             }
                         ],
@@ -222,7 +228,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     }
                                 },
                                 'delete' => function ($url, $model, $key) {
-                                    return Html::delete(['delete', 'id' => $model->id],'删除',[ 'style' => 'margin-bottom: 10px']);
+                                    return Html::delete(['delete', 'id' => $model->id], '删除', ['style' => 'margin-bottom: 10px']);
                                 },
                             ],
                         ],

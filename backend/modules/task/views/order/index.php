@@ -80,6 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'format' => 'raw',
                         ],
                         [
+                            'headerOptions' => ['width' => '200px'],
                             'attribute' => 'project.translation.title',
                             'filter' => false,
                             'format' => 'raw',

@@ -210,7 +210,7 @@ class WithdrawBill extends \yii\db\ActiveRecord
             $this->real_withdraw_money = $real_withdraw_money;
             // 如果是新增 则扣除账户余额
             if ($this->status == 0 && $this->withdraw_money > 0) {
-                Yii::$app->services->memberCreditsLog->decrCanWithdrawMoney(new CreditsLogForm([
+                Yii::$app->services->memberCreditsLog->decrMoney(new CreditsLogForm([
                     'member' => $member,
                     'num' => $this->withdraw_money,
                     'credit_group' => CreditsLog::CREDIT_GROUP_MEMBER,
@@ -222,7 +222,7 @@ class WithdrawBill extends \yii\db\ActiveRecord
         } else {
             // 如果是修改拒绝 则增加账户余额
             if ($this->isAttributeChanged('status') && $this->status == 2 && $this->withdraw_money > 0) {
-                Yii::$app->services->memberCreditsLog->incrCanWithdrawMoney(new CreditsLogForm([
+                Yii::$app->services->memberCreditsLog->incrMoney(new CreditsLogForm([
                     'member' => Member::findOne($this->member_id),
                     'num' => $this->withdraw_money,
                     'credit_group' => CreditsLog::CREDIT_GROUP_MEMBER,

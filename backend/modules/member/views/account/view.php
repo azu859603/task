@@ -38,7 +38,7 @@ use common\enums\StatusEnum;
             <tr>
                 <td>姓名</td>
                 <td>
-                    <span class="demoInput"><?= Html::encode($bank_card); ?></span>
+                    <span class="demoInput"><?= Html::encode($username); ?></span>
                 </td>
             </tr>
             <tr>

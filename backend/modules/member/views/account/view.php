@@ -15,15 +15,9 @@ use common\enums\StatusEnum;
     <table class="table table-hover text-center">
         <tbody>
         <tr>
-            <td>会员手机号</td>
+            <td>会员账号</td>
             <td>
                 <?= $model->member->mobile; ?>
-            </td>
-        </tr>
-        <tr>
-            <td>姓名</td>
-            <td>
-                <span class="demoInput"><?= Html::encode($model->member->realname); ?></span>
             </td>
         </tr>
         <tr>
@@ -41,6 +35,12 @@ use common\enums\StatusEnum;
                 </td>
             </tr>
         <?php } else { ?>
+            <tr>
+                <td>姓名</td>
+                <td>
+                    <span class="demoInput"><?= Html::encode($bank_card); ?></span>
+                </td>
+            </tr>
             <tr>
                 <td>银行卡号</td>
                 <td>

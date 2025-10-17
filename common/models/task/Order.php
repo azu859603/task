@@ -46,7 +46,7 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             [['member_id', 'pid', 'created_at'], 'required'],
-            [['member_id', 'pid', 'status', 'created_at', 'updated_at', 'push_number','cid'], 'integer'],
+            [['member_id', 'pid', 'status', 'created_at', 'updated_at', 'push_number', 'cid'], 'integer'],
             [['images_list'], 'safe'],
             [['money'], 'number'],
             [['video_url', 'code', 'remark'], 'string', 'max' => 255],
@@ -96,7 +96,7 @@ class Order extends \yii\db\ActiveRecord
                 if ($this->money > 0) {
                     $member->account->investment_income = BcHelper::add($member->account->investment_income, $this->money);
                     Yii::$app->services->memberCreditsLog->incrMoney(new CreditsLogForm([
-                        'member' => Member::findOne($this->member_id),
+                        'member' => $member,
                         'num' => $this->money,
                         'credit_group' => CreditsLog::CREDIT_GROUP_MANAGER,
                         'remark' => '【任务】完成任务获得佣金',
@@ -121,6 +121,17 @@ class Order extends \yii\db\ActiveRecord
                     $first_member = Member::getParentsFirst($member);
                     $b_id = $first_member['b_id'] ?? 0;
                     Statistics::updateOverTask(date("Y-m-d"), $this->money, $b_id);
+                }
+                // 上级获得奖金
+                $get_task_money = Yii::$app->debris->backendConfig('get_task_money');
+                if (!empty($member->pid) && $get_task_money > 0) {
+                    Yii::$app->services->memberCreditsLog->incrMoney(new CreditsLogForm([
+                        'member' => Member::findOne($member->pid),
+                        'pay_type' => CreditsLog::BUY_SHORT_PLAYS_TYPE,
+                        'num' => $get_task_money,
+                        'credit_group' => CreditsLog::CREDIT_GROUP_MEMBER,
+                        'remark' => "【返佣】下级完成任务获得佣金",
+                    ]));
                 }
             }
         }

@@ -85,7 +85,7 @@ class CreditsLog extends \yii\db\ActiveRecord
 //        self::LOTTERY_TYPE => '摇奖',
 //        self::INVESTMENT_TYPE => '打卡',
 //        self::INCOME_TYPE => '收益',
-//        self::COMMISSION_TYPE => '返佣',
+        self::COMMISSION_TYPE => '返佣',
 //        self::GIFT_TYPE => '红包',
 //        self::EXCHANGE_TYPE => '兑换',
 //        self::JK_TYPE => '集卡',

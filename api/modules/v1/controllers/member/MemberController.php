@@ -115,8 +115,8 @@ class MemberController extends OnAuthController
     public function actionTeam()
     {
         $data = [];
-        $account = Account::find()->where(['member_id' => $this->memberId])->select(['recommend_number', 'investment_income','investment_number'])->asArray()->one();
-        $data['investment_number'] = $account['investment_number'];
+        $account = Account::find()->where(['member_id' => $this->memberId])->select(['recommend_number', 'recommend_money','investment_number'])->asArray()->one();
+        $data['recommend_money'] = $account['recommend_money'];
         $data['recommend_number'] = $account['recommend_number'];
         $data['investment_income'] = $account['investment_income'];
         $today = DateHelper::today();

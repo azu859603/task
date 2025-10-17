@@ -375,7 +375,7 @@ class CreditsLogService extends Service
         }
 
         if ($status == false && $creditsLogForm->num < 0) {
-            throw new UnprocessableEntityHttpException('预存钱包余额不足');
+            throw new UnprocessableEntityHttpException('余额不足');
         }
 
         if ($status == false && $creditsLogForm->num > 0) {

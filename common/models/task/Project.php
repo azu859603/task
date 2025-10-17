@@ -80,7 +80,7 @@ class Project extends \yii\db\ActiveRecord
             'money' => '任务佣金',
             'code_switch' => '活动码',
             'images_list' => '图片素材',
-            'file_list' => '文件素材',
+            'file_list' => '视频素材',
             'keywords' => '关键词',
             'status' => '状态',
             'sort' => '排序',

@@ -71,8 +71,8 @@ class WithdrawBill extends \yii\db\ActiveRecord
         self::ALIPAY_ACCOUNT_URL => "alipay_account_url",
         self::BANK_CARD => "bank_card",
         self::USDT_TRC20 => "usdt_link",
-        self::PLATFORM_ACCOUNT => "usdt_link",
-        self::GCASH_ACCOUNT => "usdt_link",
+        self::PLATFORM_ACCOUNT => "platform_account",
+        self::GCASH_ACCOUNT => "gcash_name",
     ];
 
     public static $statusColorExplain = [

@@ -75,11 +75,19 @@ class AccountForm extends Model
                 'on' => 'alipay_account',
             ],
             [
+                ['gcash_name'],
+                'unique',
+                'targetClass' => Account::class,
+                'targetAttribute' => 'alipay_account',
+                'message' => '该账号已被绑定。',
+                'on' => 'gcash_name',
+            ],
+            [
                 ['platform_account'],
                 'unique',
                 'targetClass' => Account::class,
                 'targetAttribute' => 'alipay_account',
-                'message' => '该平台账号已被绑定。',
+                'message' => '该账号已被绑定。',
                 'on' => 'platform_account',
             ],
             [

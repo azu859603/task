@@ -12,6 +12,7 @@ namespace api\modules\v1\controllers\task;
 use api\controllers\OnAuthController;
 use common\enums\StatusEnum;
 use common\helpers\BcHelper;
+use common\helpers\DateHelper;
 use common\helpers\RedisHelper;
 use common\helpers\ResultHelper;
 use common\models\common\Languages;
@@ -84,8 +85,8 @@ class TaskOrderController extends OnAuthController
         if ($project->vip_level > $memberInfo->current_level) {
             return ResultHelper::json(ResultHelper::ERROR_CODE, '当前等级无法领取改任务');
         }
-
-        if (Order::find()->where(['member_id' => $this->memberId, 'pid' => $id])->count() >= $project->limit_number) {
+        $today = DateHelper::today();
+        if (Order::find()->where(['member_id' => $this->memberId, 'pid' => $id])->andWhere(['between', 'created_at', $today['start'], $today['end']])->count() >= $project->limit_number) {
             return ResultHelper::json(ResultHelper::ERROR_CODE, '该任务领取次数超过限制');
         }
 
@@ -107,7 +108,7 @@ class TaskOrderController extends OnAuthController
                 // 加入统计表 获取最上级用户ID
                 $first_member = Member::getParentsFirst($memberInfo);
                 $b_id = $first_member['b_id'] ?? 0;
-                Statistics::updateGetTask(date("Y-m-d"),  $b_id);
+                Statistics::updateGetTask(date("Y-m-d"), $b_id);
             }
 
             $transaction->commit();

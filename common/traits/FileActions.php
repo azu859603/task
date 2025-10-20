@@ -32,6 +32,7 @@ trait FileActions
         $upload_drive = Yii::$app->debris->config('app_upload_drive');
         $request = Yii::$app->request->post();
         $request['drive'] = $upload_drive;
+        $request['user_type'] = 2;
         $request['compress'] = true;
         $upload = new UploadHelper($request, Attachment::UPLOAD_TYPE_IMAGES);
         $upload->verifyFile();

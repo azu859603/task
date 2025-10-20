@@ -71,12 +71,14 @@ class AttachmentService extends Service
      * @param string $month
      * @return array
      */
-    public function getListPage($uploadType = '', $drive = '', $year = '', $month = '', $keyword = '')
+    public function getListPage($uploadType = '', $drive = '', $year = '', $month = '', $keyword = '', $type = '')
     {
+//        var_dump($type);exit;
         $data = Attachment::find()
             ->where(['status' => StatusEnum::ENABLED, 'upload_type' => $uploadType])
             ->andFilterWhere(['merchant_id' => $this->getMerchantId()])
             ->andFilterWhere(['drive' => $drive])
+            ->andFilterWhere(['type' => $type])
             ->andFilterWhere(['year' => $year])
             ->andFilterWhere(['month' => $month])
             ->andFilterWhere(['like', 'name', $keyword]);

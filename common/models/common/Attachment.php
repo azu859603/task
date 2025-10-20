@@ -23,6 +23,7 @@ use common\behaviors\MerchantBehavior;
  * @property string $day 日
  * @property string $upload_ip 上传者ip
  * @property int $status 状态[-1:删除;0:禁用;1启用]
+ * @property int $type
  * @property string $created_at 创建时间
  * @property string $updated_at 修改时间
  */
@@ -76,7 +77,7 @@ class Attachment extends \common\models\base\BaseModel
     public function rules()
     {
         return [
-            [['merchant_id', 'size', 'year', 'month', 'day', 'width', 'height', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['merchant_id', 'size', 'year', 'month', 'day', 'width', 'height', 'status', 'created_at', 'updated_at','type'], 'integer'],
             [['drive', 'extension'], 'string', 'max' => 50],
             [['upload_type'], 'string', 'max' => 10],
             [['specific_type', 'md5'], 'string', 'max' => 100],
@@ -109,6 +110,7 @@ class Attachment extends \common\models\base\BaseModel
             'status' => '状态',
             'created_at' => '创建时间',
             'updated_at' => '修改时间',
+            'type' => '上传类型',
         ];
     }
 

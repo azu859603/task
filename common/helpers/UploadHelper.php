@@ -54,6 +54,8 @@ class UploadHelper
      */
     protected $drive = 'local';
 
+    protected $user_type;
+
     /**
      * 拿取需要的数据
      *
@@ -117,6 +119,7 @@ class UploadHelper
      */
     public function __construct(array $config, $type, $superaddition = false)
     {
+        $this->user_type = $config['user_type'];
         // 过滤数据
         $this->filter($config, $type);
         // 设置文件类型
@@ -549,7 +552,7 @@ class UploadHelper
 
         $config = $this->config;
         // 保留原名称
-        $config['originalName'] == false && $this->baseInfo['name'] = $config['prefix']  . time()  . '_' . StringHelper::random(8);
+        $config['originalName'] == false && $this->baseInfo['name'] = $config['prefix'] . time() . '_' . StringHelper::random(8);
 
         // 文件路径
         $filePath = $config['path'] . date($config['subName'], time()) . "/";
@@ -643,6 +646,7 @@ class UploadHelper
 
         $data = [
             'drive' => $this->drive,
+            'type' => $this->user_type ?? 1,
             'upload_type' => $this->type,
             'specific_type' => $this->baseInfo['type'],
             'size' => $this->baseInfo['size'],

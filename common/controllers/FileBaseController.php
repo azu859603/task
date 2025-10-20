@@ -265,8 +265,9 @@ class FileBaseController extends Controller
         $month = Yii::$app->request->get('month', '');
         $keyword = Yii::$app->request->get('keyword', '');
         $drive = Yii::$app->request->get('drive', '');
-        list($models, $pages) = Yii::$app->services->attachment->getListPage($upload_type, $drive, $year, $month, $keyword);
-
+        $type = Yii::$app->request->get('type', '');
+        list($models, $pages) = Yii::$app->services->attachment->getListPage($upload_type, $drive, $year, $month, $keyword,$type);
+//        var_dump($type);exit;
         // 判断是否直接返回json格式
         if ($json == true) {
             return ResultHelper::json(200, '获取成功', $models);
@@ -276,6 +277,7 @@ class FileBaseController extends Controller
             'models' => Json::encode($models),
             'pages' => $pages,
             'upload_type' => $upload_type,
+            'type' => $type,
             'multiple' => Yii::$app->request->get('multiple', true),
             'upload_drive' => Yii::$app->request->get('upload_drive', Attachment::DRIVE_LOCAL),
             'drives' => Attachment::$driveExplain,

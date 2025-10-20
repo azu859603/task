@@ -56,7 +56,8 @@ class ProjectTranslations extends \yii\db\ActiveRecord
             [['pid'], 'required'],
             [['pid'], 'integer'],
             [['lang'], 'string', 'max' => 50],
-            [['title', 'content'], 'string', 'max' => 255],
+            [['title'], 'string', 'max' => 255],
+            [['content'], 'safe'],
         ];
     }
 

@@ -18,7 +18,7 @@ return [
     'user.httpSignValidity' => true,
     // 签名授权公钥秘钥
     'user.httpSignAccount' => [
-        'tea' => 'e3de382b2bab1232s',
+        'drama' => 'e3de382b2bab1232s',
     ],
     // 触发格式化返回
     'triggerBeforeSend' => true,

@@ -66,7 +66,7 @@ class OrderController extends BaseController
             $dataProvider = $searchModel
                 ->search(Yii::$app->request->queryParams);
 
-            $default_lang = !empty($default_lang_model) ? $default_lang_model['code'] : "cn";
+            $default_lang = !empty($default_lang_model) ? $default_lang_model['code'] : "en";
             $lang = Yii::$app->request->get('lang', $default_lang);
 
             $dataProvider->query

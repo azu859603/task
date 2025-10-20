@@ -78,7 +78,7 @@ class CreditsLog extends \yii\db\ActiveRecord
      * 类别
      */
     public static $PayTypeExplain = [
-//        self::RECHARGE_PAY_TYPE => '充值',
+        self::RECHARGE_PAY_TYPE => '充值',
         self::WITHDRAW_PAY_TYPE => '提现',
         self::REGISTER_TYPE => '注册',
         self::SIGN_TYPE => '签到',

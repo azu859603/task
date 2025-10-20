@@ -67,7 +67,7 @@ class LaberListController extends BaseController
 
 
 //            $default_lang_model = Languages::find()->select(['code'])->where(['is_default' => 1])->one();
-            $default_lang = !empty($default_lang_model) ? $default_lang_model['code'] : "en";
+            $default_lang = !empty($default_lang_model) ? $default_lang_model['code'] : "cn";
             $lang = Yii::$app->request->get('lang', $default_lang);
 
             $dataProvider->query

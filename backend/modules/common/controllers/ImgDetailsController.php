@@ -71,7 +71,7 @@ class ImgDetailsController extends BaseController
                 ->search(Yii::$app->request->queryParams);
 
 //            $default_lang_model = Languages::find()->select(['code'])->where(['is_default' => 1])->one();
-            $default_lang = !empty($default_lang_model) ? $default_lang_model['code'] : "en";
+            $default_lang = !empty($default_lang_model) ? $default_lang_model['code'] : "cn";
             $lang = Yii::$app->request->get('lang', $default_lang);
 
             $dataProvider->query
@@ -105,7 +105,7 @@ class ImgDetailsController extends BaseController
     {
         $id = Yii::$app->request->get('id', null);
 //        $default_lang_model = Languages::find()->select(['code'])->where(['is_default' => 1])->one();
-        $default_lang = !empty($default_lang_model) ? $default_lang_model['code'] : "en";
+        $default_lang = !empty($default_lang_model) ? $default_lang_model['code'] : "cn";
         $lang = Yii::$app->request->get('lang', $default_lang);
         $model = $this->findModel($id);
         $model_translations = ImgDetailsTranslations::find()->where(['lang' => $lang, 'pid' => $id])->one();

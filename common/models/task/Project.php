@@ -27,6 +27,7 @@ use yii\db\ActiveRecord;
  * @property int $created_at
  * @property int $limit_number
  * @property int $is_top
+ * @property int $cid
  */
 class Project extends \yii\db\ActiveRecord
 {
@@ -59,7 +60,7 @@ class Project extends \yii\db\ActiveRecord
     {
         return [
             [['all_number', 'remain_number'], 'required'],
-            [['all_number', 'remain_number', 'vip_level', 'code_switch', 'sort', 'status', 'experience', 'pid', 'created_at','limit_number','is_top'], 'integer'],
+            [['all_number', 'remain_number', 'vip_level', 'code_switch', 'sort', 'status', 'experience', 'pid', 'created_at','limit_number','is_top','cid'], 'integer'],
             [['money'], 'number'],
             [['images_list', 'file_list'], 'safe'],
             [['banner', 'keywords'], 'string', 'max' => 255],
@@ -89,6 +90,7 @@ class Project extends \yii\db\ActiveRecord
             'created_at' => '分类',
             'limit_number' => '限制次数',
             'is_top' => '是否推荐',
+            'cid' => '平台分类',
         ];
     }
 

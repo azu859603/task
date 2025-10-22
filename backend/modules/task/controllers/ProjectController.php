@@ -77,21 +77,23 @@ class ProjectController extends BaseController
 
 
 
-            $categorys = \common\models\task\LaberList::find()
+            $laber_categorys = \common\models\task\LaberList::find()
                 ->with(['translation' => function ($query)use ($lang) {
                     $query->where(['lang' => $lang]);
                 }])
                 ->asArray()
                 ->all();
-            $category = [];
-            foreach ($categorys as $k => $v) {
+            $laber_category = [];
+            foreach ($laber_categorys as $k => $v) {
                 $id = $v['id'];
-                $category[$id] = $v['translation']['title'];
+                $laber_category[$id] = $v['translation']['title'];
             }
+            $category = \yii\helpers\ArrayHelper::map(\common\models\tea\CategoryList::find()->asArray()->all(), 'id', 'title');
             return $this->render('index', [
                 'dataProvider' => $dataProvider,
                 'searchModel' => $searchModel,
                 'category' => $category,
+                'laber_category' => $laber_category,
             ]);
         }
     }

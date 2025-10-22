@@ -44,7 +44,7 @@ class CategoryList extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => '分类名',
+            'title' => '平台分类名',
             'status' => '状态',
             'sort' => '排序',
         ];

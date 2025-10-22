@@ -38,13 +38,25 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'pid',
                             'format' => 'raw',
-                            'filter' => Html::activeDropDownList($searchModel, 'pid', $category, [
+                            'filter' => Html::activeDropDownList($searchModel, 'pid', $laber_categorys, [
+                                    'prompt' => '全部',
+                                    'class' => 'form-control'
+                                ]
+                            ),
+                            'value' => function ($model) use ($laber_categorys) {
+                                return $laber_categorys[$model->pid];
+                            },
+                        ],
+                        [
+                            'attribute' => 'cid',
+                            'format' => 'raw',
+                            'filter' => Html::activeDropDownList($searchModel, 'cid', $category, [
                                     'prompt' => '全部',
                                     'class' => 'form-control'
                                 ]
                             ),
                             'value' => function ($model) use ($category) {
-                                return $category[$model->pid];
+                                return $category[$model->cid];
                             },
                         ],
                         [

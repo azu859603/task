@@ -88,18 +88,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return $model->old_num . $operational . abs($model->num) . '=' . $model->new_num;
                             },
                         ],
-                        [
-                            'class' => '\kartik\grid\EditableColumn',
-                            'attribute' => 'remark',
-                            'format' => 'raw',
-                            'editableOptions' => [
-                                'asPopover' => true,
-                                'inputType' => \kartik\editable\Editable::INPUT_TEXTAREA,//只需添加如下代码
-                                'options' => [
-                                    'rows' => 4,
-                                ],
-                            ],
-                        ],
+//                        [
+//                            'class' => '\kartik\grid\EditableColumn',
+//                            'attribute' => 'remark',
+//                            'format' => 'raw',
+//                            'editableOptions' => [
+//                                'asPopover' => true,
+//                                'inputType' => \kartik\editable\Editable::INPUT_TEXTAREA,//只需添加如下代码
+//                                'options' => [
+//                                    'rows' => 4,
+//                                ],
+//                            ],
+//                        ],
                         'remark',
 //                        [
 //                            'attribute' => 'app_id',

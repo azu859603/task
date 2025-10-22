@@ -103,9 +103,10 @@ class Order extends \yii\db\ActiveRecord
                         'pay_type' => CreditsLog::TASK_TYPE
                     ]));
                 }
-                $member->account->save(false);
+
                 // 若有活动码，从中取值
-                if (Project::find()->where(['id' => $this->pid, 'code_switch' => 1])->exists()) {
+                $project = Project::find()->where(['id' => $this->pid])->one();
+                if ($project->code_switch == 1) {
                     $code = TaskCode::find()->where(['status' => 0])->orderBy(['id' => SORT_ASC])->one();
                     if (!empty($code)) {
                         $this->code = $code->code;
@@ -115,6 +116,14 @@ class Order extends \yii\db\ActiveRecord
                         $code->save(false);
                     }
                 }
+
+                // 如果任务有经验，添加经验
+                if ($project->experience > 0) {
+                    $member->account->experience = BcHelper::add($member->account->experience,$project->experience,0);
+                }
+                $member->account->save(false);
+                Yii::$app->services->memberLevel->updateLevel($member);
+
                 // 加入统计表
                 if ($member['type'] == 1) {
                     // 加入统计表 获取最上级用户ID

@@ -78,7 +78,7 @@ class Level extends \common\models\base\BaseModel
             'created_at' => '创建时间',
             'updated_at' => '修改时间',
             'sign_gift_number' => '签到赠送积分',
-            'sign_gift_money' => '签到赠送奖金',
+            'sign_gift_money' => '签到赠送经验',
             'experience' => '经验值',
             'income' => '额外收益率',
             'q_a_number' => '碳问答赠送积分',

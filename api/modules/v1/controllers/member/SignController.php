@@ -10,6 +10,7 @@ namespace api\modules\v1\controllers\member;
 
 
 use api\controllers\OnAuthController;
+use common\helpers\BcHelper;
 use common\helpers\RedisHelper;
 use common\helpers\ResultHelper;
 use common\models\common\Statistics;
@@ -65,13 +66,16 @@ class SignController extends OnAuthController
 //                ]));
 //            }
             if ($member->memberLevel->sign_gift_money > 0) {
-                Yii::$app->services->memberCreditsLog->incrMoney(new CreditsLogForm([
-                    'member' => $member,
-                    'pay_type' => CreditsLog::SIGN_TYPE,
-                    'num' => $member->memberLevel->sign_gift_money,
-                    'credit_group' => CreditsLog::CREDIT_GROUP_MEMBER,
-                    'remark' => "【系统】签到赠送奖金",
-                ]));
+//                Yii::$app->services->memberCreditsLog->incrMoney(new CreditsLogForm([
+//                    'member' => $member,
+//                    'pay_type' => CreditsLog::SIGN_TYPE,
+//                    'num' => $member->memberLevel->sign_gift_money,
+//                    'credit_group' => CreditsLog::CREDIT_GROUP_MEMBER,
+//                    'remark' => "【系统】签到赠送奖金",
+//                ]));
+                $member->account->experience = BcHelper::add($member->account->experience,$member->memberLevel->sign_gift_money,0);
+                $member->account->save(false);
+                Yii::$app->services->memberLevel->updateLevel($member);
             } else {
                 throw new UnprocessableEntityHttpException('签到功能暂未开放');
             }

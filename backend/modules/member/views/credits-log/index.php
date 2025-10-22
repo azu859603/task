@@ -100,6 +100,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                             ],
                         ],
+                        'remark',
 //                        [
 //                            'attribute' => 'app_id',
 //                            'filter' => Html::activeDropDownList($searchModel, 'app_id', AppEnum::getMap(), [

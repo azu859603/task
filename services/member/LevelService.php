@@ -255,32 +255,32 @@ class LevelService extends Service
         if ($level != false) {
             Member::updateAll(['current_level' => $level->level], ['id' => $memberInfo->id]);
             // 如果当前升级内容
-            if ($level->level > $memberInfo->current_level) {
-                //  如果是升级 判断用户升级次数
-                for ($i = $memberInfo->current_level + 1; $i <= $level->level; $i++) {
-                    $title = "您已成功升级为VIP" . $i . "会员";
-                    $level_array = Level::find()->where(['level' => $i])->select(['upgrade_money'])->asArray()->one();
-                    if (!empty($level_array['upgrade_money'])) {
-                        $upgrade_money = $level_array['upgrade_money'];
-                        if ($upgrade_money > 0 && !RedEnvelope::find()->where(['member_id' => $memberInfo->id, 'title' => $title, 'type' => 2])->exists()) {
-                            Yii::$app->services->memberCreditsLog->incrMoney(new CreditsLogForm([
-                                'member' => $memberInfo,
-                                'pay_type' => CreditsLog::GIFT_TYPE,
-                                'num' => $upgrade_money,
-                                'credit_group' => CreditsLog::CREDIT_GROUP_MEMBER,
-                                'remark' => "【系统】升级VIP" . $i . "，获得系统赠送红包",
-                            ]));
-                            // 添加升级弹窗提示
-                            $model = new RedEnvelope();
-                            $model->member_id = $memberInfo->id;
-                            $model->title = $title;
-                            $model->money = $upgrade_money;
-                            $model->type = 2;
-                            $model->save();
-                        }
-                    }
-                }
-            }
+//            if ($level->level > $memberInfo->current_level) {
+//                //  如果是升级 判断用户升级次数
+//                for ($i = $memberInfo->current_level + 1; $i <= $level->level; $i++) {
+//                    $title = "您已成功升级为VIP" . $i . "会员";
+//                    $level_array = Level::find()->where(['level' => $i])->select(['upgrade_money'])->asArray()->one();
+//                    if (!empty($level_array['upgrade_money'])) {
+//                        $upgrade_money = $level_array['upgrade_money'];
+//                        if ($upgrade_money > 0 && !RedEnvelope::find()->where(['member_id' => $memberInfo->id, 'title' => $title, 'type' => 2])->exists()) {
+//                            Yii::$app->services->memberCreditsLog->incrMoney(new CreditsLogForm([
+//                                'member' => $memberInfo,
+//                                'pay_type' => CreditsLog::GIFT_TYPE,
+//                                'num' => $upgrade_money,
+//                                'credit_group' => CreditsLog::CREDIT_GROUP_MEMBER,
+//                                'remark' => "【系统】升级VIP" . $i . "，获得系统赠送红包",
+//                            ]));
+//                            // 添加升级弹窗提示
+//                            $model = new RedEnvelope();
+//                            $model->member_id = $memberInfo->id;
+//                            $model->title = $title;
+//                            $model->money = $upgrade_money;
+//                            $model->type = 2;
+//                            $model->save();
+//                        }
+//                    }
+//                }
+//            }
         }
     }
 

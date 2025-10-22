@@ -208,7 +208,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'class' => 'yii\grid\ActionColumn',
                             'header' => '操作',
-                            'template' => '{pass} {no-pass} {delete}',
+                            'template' => '{pass} {no-pass}',
                             'buttons' => [
                                 'pass' => function ($url, $model, $key) {
                                     if ($model->status == 1) {

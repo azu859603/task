@@ -102,6 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //                        ],
                         [
                             'attribute' => 'remark',
+                            'format' => 'raw',
                             'value' => function ($model) {
                                 if ($model->pay_type < 3 && !empty($model->map_id)) {
                                     return $model->remark . "</br>操作人：" . \common\models\backend\Member::find()

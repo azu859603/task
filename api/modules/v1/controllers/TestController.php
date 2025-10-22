@@ -43,6 +43,7 @@ class TestController extends OnAuthController
 
     public function actionIndex()
     {
+        var_dump(Yii::$app->debris->backendConfig('sign_gift_money'));exit;
         $seller_member = Member::find()->where(['id'=>1547])->one();
         Yii::$app->services->memberLevel->updateSellerLevel($seller_member);
         exit('完成');

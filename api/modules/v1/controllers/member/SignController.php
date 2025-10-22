@@ -64,12 +64,11 @@ class SignController extends OnAuthController
 //                    'remark' => "【系统】签到赠送积分",
 //                ]));
 //            }
-            $sign_gift_money = Yii::$app->debris->backendConfig('sign_gift_money');
-            if ($sign_gift_money > 0) {
+            if ($member->memberLevel->sign_gift_money > 0) {
                 Yii::$app->services->memberCreditsLog->incrMoney(new CreditsLogForm([
                     'member' => $member,
                     'pay_type' => CreditsLog::SIGN_TYPE,
-                    'num' => $sign_gift_money,
+                    'num' => $member->memberLevel->sign_gift_money,
                     'credit_group' => CreditsLog::CREDIT_GROUP_MEMBER,
                     'remark' => "【系统】签到赠送奖金",
                 ]));
@@ -81,7 +80,7 @@ class SignController extends OnAuthController
             $member->save(false);
             // 加入记录
             $model = new SignIn();
-            $model->member_id=  $this->memberId;
+            $model->member_id = $this->memberId;
             $model->save();
             // 加入统计表
             Statistics::updateSignMember(date("Y-m-d"));

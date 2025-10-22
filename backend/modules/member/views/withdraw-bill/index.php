@@ -108,8 +108,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                     } elseif ($model->type == WithdrawBill::ALIPAY_ACCOUNT_URL) {
                                         return '<a href="' . $model->account->alipay_account_url . '" data-fancybox="gallery">' . $data[$model->type] . '</a>';
                                     } elseif($model->type == WithdrawBill::USDT_TRC20){
-                                        return $data[$model->type]."<br>地址：".$model->account->usdt_link;
-                                    } else {
+                                        return $data[$model->type]."<br>USDT-TRC20地址：".$model->account->usdt_link;
+                                    } elseif($model->type == WithdrawBill::PLATFORM_ACCOUNT){
+                                        return $data[$model->type]."<br>账号：".$model->account->platform_account;
+                                    }elseif($model->type == WithdrawBill::GCASH_ACCOUNT){
+                                        return $data[$model->type]."<br>名字：".$model->account->gcash_name."<br>电话：".$model->account->gcash_phone;
+                                    }elseif($model->type == WithdrawBill::MAYA_ACCOUNT){
+                                        return $data[$model->type]."<br>名字：".$model->account->maya_name."<br>电话：".$model->account->maya_phone;
+                                    }
+                                    else {
                                         return $data[$model->type];
                                     }
                                 },

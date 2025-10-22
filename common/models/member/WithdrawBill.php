@@ -48,6 +48,7 @@ class WithdrawBill extends \yii\db\ActiveRecord
     const USDT_TRC20 = 6;
     const PLATFORM_ACCOUNT = 7;
     const GCASH_ACCOUNT = 8;
+    const MAYA_ACCOUNT = 9;
 
     public static $typeExplain = [
 //        self::WECHAT_ACCOUNT_URL => "微信收款码",
@@ -58,6 +59,7 @@ class WithdrawBill extends \yii\db\ActiveRecord
 //        self::USDT_TRC20 => "USDT-TRC20",
         self::PLATFORM_ACCOUNT => "平台账号",
         self::GCASH_ACCOUNT => "Gcash钱包",
+        self::MAYA_ACCOUNT => "Maya账户",
     ];
 
     public static $payTypeExplain = [
@@ -73,6 +75,7 @@ class WithdrawBill extends \yii\db\ActiveRecord
         self::USDT_TRC20 => "usdt_link",
         self::PLATFORM_ACCOUNT => "platform_account",
         self::GCASH_ACCOUNT => "gcash_name",
+        self::MAYA_ACCOUNT => "maya_name",
     ];
 
     public static $statusColorExplain = [

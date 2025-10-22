@@ -43,6 +43,8 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                 <?= $form->field($model->account, 'platform_account')->textInput() ?>
                 <?= $form->field($model->account, 'gcash_name')->textInput() ?>
                 <?= $form->field($model->account, 'gcash_phone')->textInput() ?>
+                <?= $form->field($model->account, 'maya_name')->textInput() ?>
+                <?= $form->field($model->account, 'maya_phone')->textInput() ?>
                 <?= $form->field($model, 'withdraw_switch')->radioList(['1' => '开启', '0' => '关闭']) ?>
                 <?= $form->field($model, 'status')->radioList(StatusEnum::getMap()) ?>
             </div>

@@ -109,6 +109,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                             ->where(['id' => $model->map_id])
                                             ->select(['username'])
                                             ->asArray()->one()['username'];
+                                }else{
+                                    return $model->remark;
                                 }
                             }
 

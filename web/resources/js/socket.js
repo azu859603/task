@@ -19,7 +19,7 @@ layui.define(['jquery', 'layer', 'contextMenu', 'form', 'layim'], function (expo
     var socket = {
         config: function (options) {
             conf = $.extend(conf, options);
-            this.createWebSocket(); //创建websocket连接
+            // this.createWebSocket(); //创建websocket连接
         },
         socketHandle: function () {
             ws.onerror = function () {

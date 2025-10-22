@@ -48,8 +48,7 @@ class ChatController extends BaseController
      */
     public function actionIndex()
     {
-        return '';
-//        return $this->render('index');
+        return $this->render('index');
     }
 
 

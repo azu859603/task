@@ -110,7 +110,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'video_url',
                             'format' => 'raw',
                             'value' => function ($model) {
-                                return "<a href='$model->video_url' target='_blank'>$model->video_url";
+                                if (!empty($model->video_url)) {
+                                    return "<a href='$model->video_url' target='_blank'>点击查看";
+                                } else {
+                                    return "";
+                                }
                             }
                         ],
                         [

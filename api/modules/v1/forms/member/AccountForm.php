@@ -33,6 +33,8 @@ class AccountForm extends Model
     public $platform_account;
     public $gcash_name;
     public $gcash_phone;
+    public $maya_name;
+    public $maya_phone;
 
 
     public static $scenario_type_array = [
@@ -45,6 +47,8 @@ class AccountForm extends Model
         'platform_account',
         'gcash_name',
         'gcash_phone',
+        'maya_name',
+        'maya_phone',
     ];
 
 
@@ -57,6 +61,9 @@ class AccountForm extends Model
             [['scenario_type'], 'required'],
 //            [['alipay_account', 'alipay_user_name'], 'required', 'on' => 'alipay_account'],
             [['alipay_account'], 'required', 'on' => 'alipay_account'],
+
+            [['maya_name','maya_phone'], 'required', 'on' => 'maya_name'],
+
             [['gcash_phone','gcash_name'], 'required', 'on' => 'gcash_name'],
             [['platform_account'], 'required', 'on' => 'platform_account'],
             [['wechat_account'], 'required', 'on' => 'wechat_account'],
@@ -81,6 +88,14 @@ class AccountForm extends Model
                 'targetAttribute' => 'gcash_name',
                 'message' => '该账号已被绑定。',
                 'on' => 'gcash_name',
+            ],
+            [
+                ['maya_name'],
+                'unique',
+                'targetClass' => Account::class,
+                'targetAttribute' => 'maya_name',
+                'message' => '该账号已被绑定。',
+                'on' => 'maya_name',
             ],
             [
                 ['platform_account'],
@@ -135,6 +150,8 @@ class AccountForm extends Model
             'platform_account' => '平台账号',
             'gcash_name' => 'Gcash名字',
             'gcash_phone' => 'Gcash电话',
+            'maya_name' => 'Maya电话',
+            'maya_phone' => 'Maya电话',
         ];
     }
 }

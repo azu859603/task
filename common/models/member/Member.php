@@ -519,6 +519,8 @@ class Member extends User
                         'platform_account',
                         'gcash_name',
                         'gcash_phone',
+                        'maya_name',
+                        'maya_phone',
                     ]);
                 },
                 'memberLevel' => function ($query) {

@@ -255,7 +255,7 @@ class UploadHelper
 
         if (!empty($this->config['extensions']) && !in_array($this->baseInfo['extension'],
                 $this->config['extensions'])) {
-            throw new NotFoundHttpException('文件类型不允许');
+            throw new NotFoundHttpException('文件类型不允许123123');
         }
 
         // 存储本地进行安全校验

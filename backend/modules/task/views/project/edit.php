@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                     ?>
                     <?= $form->field($model, 'pid', ['options' => ['class' => ['chart']]])->dropDownList($laberList) ?>
-                    <?= $form->field($model, 'cid', ['options' => ['class' => ['chart']]])->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\common\ImgCategory::find()->asArray()->all(), 'id', 'title')) ?>
+                    <?= $form->field($model, 'cid', ['options' => ['class' => ['chart']]])->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\tea\CategoryList::find()->asArray()->all(), 'id', 'title')) ?>
                     <?= $form->field($model, 'banner', ['options' => ['class' => ['chart']]])->widget(\common\widgets\webuploader\Files::class, [
                         'type' => 'images',
                         'theme' => 'default',

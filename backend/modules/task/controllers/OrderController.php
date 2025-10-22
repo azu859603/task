@@ -56,7 +56,7 @@ class OrderController extends BaseController
                 'model' => $this->modelClass,
                 'scenario' => 'default',
                 'partialMatchAttributes' => [], // 模糊查询
-                'relations' => ['member' => ['mobile']],
+                'relations' => ['member' => ['mobile'], 'project' => ['cid']],
                 'defaultOrder' => [
                     'id' => SORT_DESC
                 ],
@@ -80,20 +80,6 @@ class OrderController extends BaseController
                     },
                 ]);
 
-
-            $categorys = \common\models\task\LaberList::find()
-                ->with(['translation' => function ($query) use ($lang) {
-                    $query->where(['lang' => $lang]);
-                }])
-                ->asArray()
-                ->all();
-            $category = [];
-            foreach ($categorys as $k => $v) {
-                $id = $v['id'];
-                $category[$id] = $v['translation']['title'];
-            }
-
-
             $backend_id = Yii::$app->user->identity->getId();
             if ($backend_id != 1) {
                 $a_id = Yii::$app->user->identity->aMember->id;
@@ -101,9 +87,24 @@ class OrderController extends BaseController
                 $dataProvider->query->andFilterWhere(['in', 'member_id', $childrenIds]);
             }
 
+
+            $laber_categorys = \common\models\task\LaberList::find()
+                ->with(['translation' => function ($query)use ($lang) {
+                    $query->where(['lang' => $lang]);
+                }])
+                ->asArray()
+                ->all();
+            $laber_category = [];
+            foreach ($laber_categorys as $k => $v) {
+                $id = $v['id'];
+                $laber_category[$id] = $v['translation']['title'];
+            }
+            $category = \yii\helpers\ArrayHelper::map(\common\models\tea\CategoryList::find()->asArray()->all(), 'id', 'title');
+
             return $this->render('index', [
                 'dataProvider' => $dataProvider,
                 'searchModel' => $searchModel,
+                'laber_category' => $laber_category,
                 'category' => $category,
             ]);
         }

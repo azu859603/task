@@ -2,6 +2,7 @@
 
 namespace common\models\task;
 
+use common\models\tea\CategoryList;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;

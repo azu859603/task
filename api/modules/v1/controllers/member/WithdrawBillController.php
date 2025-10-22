@@ -10,6 +10,7 @@ namespace api\modules\v1\controllers\member;
 
 
 use api\controllers\OnAuthController;
+use common\helpers\DateHelper;
 use common\helpers\RedisHelper;
 use common\helpers\ResultHelper;
 use common\models\member\Member;
@@ -67,6 +68,20 @@ class WithdrawBillController extends OnAuthController
         if (!Yii::$app->debris->config('withdraw_switch')) {
             return ResultHelper::json(ResultHelper::ERROR_CODE, "提现功能暂未开启");
         }
+
+        // 判断当前提现次数
+        $every_day_withdraw_times = Yii::$app->debris->config('every_day_withdraw_times');
+        if ($every_day_withdraw_times > 0) {
+            $today = DateHelper::today();
+            $today_withdraw_times = WithdrawBill::find()
+                ->where(['member_id' => $this->memberId])
+                ->andWhere(['between', 'created_at', $today['start'], $today['end']])
+                ->count();
+            if ($today_withdraw_times > $every_day_withdraw_times) {
+                return ResultHelper::json(ResultHelper::ERROR_CODE, '已超过今日最多提现次数');
+            }
+        }
+
         $minimum_withdraw_amount = Yii::$app->debris->config('minimum_withdraw_amount');
         if (Yii::$app->request->post('withdraw_money') < $minimum_withdraw_amount) {
 //            return ResultHelper::json(ResultHelper::ERROR_CODE, '最低提现金额为' . $minimum_withdraw_amount . '元');
@@ -120,7 +135,7 @@ class WithdrawBillController extends OnAuthController
         }
         $model = new WithdrawBill();
         if ($model->load(Yii::$app->request->post(), '') && $model->validate() && $model->save(false)) {
-            return ResultHelper::json(ResultHelper::SUCCESS_CODE, "提交成功", ['sn' => $model->sn, 'created_at' => $model->created_at,'handling_fees'=>$model->handling_fees]);
+            return ResultHelper::json(ResultHelper::SUCCESS_CODE, "提交成功", ['sn' => $model->sn, 'created_at' => $model->created_at, 'handling_fees' => $model->handling_fees]);
         } else {
             $error = array_values($model->errors) ? array_values($model->errors) : [['系统繁忙,请稍后再试']];
             return ResultHelper::json(ResultHelper::ERROR_CODE, $error[0][0]);

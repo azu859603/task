@@ -93,19 +93,19 @@ class RechargeForm extends Model
             $num = $this->int;
         }
 
-        $username = Yii::$app->user->identity->username;
+        $u_id = Yii::$app->user->identity->getId();
         if ($action == "decrMoney") {
-            $message = '【后台】管理员'.$username.'操作扣除余额';
+            $message = '【后台】管理员操作扣除余额';
         } elseif ($action == "incrMoney") {
-            $message = '【后台】管理员'.$username.'操作添加余额';
+            $message = '【后台】管理员操作添加余额';
         } elseif ($action == "decrInt") {
-            $message = '【后台】管理员'.$username.'操作扣除积分';
+            $message = '【后台】管理员操作扣除积分';
         } elseif ($action == "incrInt") {
-            $message = '【后台】管理员'.$username.'操作添加积分';
+            $message = '【后台】管理员操作添加积分';
         } elseif ($action == "decrCanWithdrawMoney") {
-            $message = '【后台】管理员'.$username.'操作扣除可提余额';
+            $message = '【后台】管理员操作扣除可提余额';
         } elseif ($action == "incrCanWithdrawMoney") {
-            $message = '【后台】管理员'.$username.'操作添加可提余额';
+            $message = '【后台】管理员操作添加可提余额';
         } else {
             $message = '【后台】管理员操作';
         }
@@ -127,6 +127,7 @@ class RechargeForm extends Model
                 'credit_group' => CreditsLog::CREDIT_GROUP_MANAGER,
                 'remark' => !empty($this->remark) ? $this->remark : $message,
                 'pay_type' => $pay_type,
+                'map_id' => $u_id,
             ]));
 
             $transaction->commit();

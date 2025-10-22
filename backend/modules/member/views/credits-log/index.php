@@ -100,7 +100,18 @@ $this->params['breadcrumbs'][] = $this->title;
 //                                ],
 //                            ],
 //                        ],
-                        'remark',
+                        [
+                            'attribute' => 'remark',
+                            'value' => function ($model) {
+                                if ($model->pay_type < 3 && !empty($model->map_id)) {
+                                    return $model->remark . "</br>操作人：" . \common\models\backend\Member::find()
+                                            ->where(['id' => $model->map_id])
+                                            ->select(['username'])
+                                            ->asArray()->one()['username'];
+                                }
+                            }
+
+                        ],
 //                        [
 //                            'attribute' => 'app_id',
 //                            'filter' => Html::activeDropDownList($searchModel, 'app_id', AppEnum::getMap(), [

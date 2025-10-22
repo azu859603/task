@@ -3,6 +3,7 @@
 namespace backend\modules\task\controllers;
 
 use common\helpers\RedisHelper;
+use common\models\common\Languages;
 use common\models\member\Member;
 use common\models\task\Project;
 use Yii;
@@ -65,7 +66,7 @@ class OrderController extends BaseController
 
             $dataProvider = $searchModel
                 ->search(Yii::$app->request->queryParams);
-
+            $default_lang_model = Languages::find()->select(['code'])->where(['is_default' => 1])->one();
             $default_lang = !empty($default_lang_model) ? $default_lang_model['code'] : "cn";
             $lang = Yii::$app->request->get('lang', $default_lang);
 
@@ -154,7 +155,14 @@ class OrderController extends BaseController
     public function actionView()
     {
         $id = Yii::$app->request->get('id');
-        $model = Project::find()->where(['id' => $id])->with(['translation'])->one();
+        $default_lang_model = Languages::find()->select(['code'])->where(['is_default' => 1])->one();
+        $default_lang = !empty($default_lang_model) ? $default_lang_model['code'] : "cn";
+        $lang = Yii::$app->request->get('lang', $default_lang);
+        $model = Project::find()->where(['id' => $id])->with([
+            'translation' => function ($query) use ($lang) {
+                $query->where(['lang' => $lang]);
+            },
+        ])->one();
         return $this->renderAjax($this->action->id, [
             'model' => $model,
         ]);

@@ -2,6 +2,7 @@
 
 namespace backend\modules\task\controllers;
 
+use common\models\common\Languages;
 use common\models\task\ProjectTranslations;
 use Yii;
 use common\models\task\Project;
@@ -64,7 +65,7 @@ class ProjectController extends BaseController
 
             $dataProvider = $searchModel
                 ->search(Yii::$app->request->queryParams);
-
+            $default_lang_model = Languages::find()->select(['code'])->where(['is_default' => 1])->one();
             $default_lang = !empty($default_lang_model) ? $default_lang_model['code'] : "cn";
             $lang = Yii::$app->request->get('lang', $default_lang);
 
@@ -106,7 +107,7 @@ class ProjectController extends BaseController
     public function actionEdit()
     {
         $id = Yii::$app->request->get('id', null);
-//        $default_lang_model = Languages::find()->select(['code'])->where(['is_default' => 1])->one();
+        $default_lang_model = Languages::find()->select(['code'])->where(['is_default' => 1])->one();
         $default_lang = !empty($default_lang_model) ? $default_lang_model['code'] : "cn";
         $lang = Yii::$app->request->get('lang', $default_lang);
         $model = $this->findModel($id);

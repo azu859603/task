@@ -47,6 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                     </div>
                     <?php
+                    $default_lang_model = \common\models\common\Languages::find()->select(['code'])->where(['is_default' => 1])->one();
                     $default_lang = !empty($default_lang_model) ? $default_lang_model['code'] : "cn";
                     $lang = $default_lang;
                     $laberLists = \common\models\task\LaberList::find()->with(['translation' => function ($query) use ($lang) {

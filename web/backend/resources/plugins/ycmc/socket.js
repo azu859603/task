@@ -151,8 +151,8 @@ function get_message_count() {
         url: '/backend/base/member/get-message',
         success: function (result) {
             if (result.code == 200) {
-                var member_count = document.getElementById('member_count')
-                member_count.innerText =result.data.member_count;
+                // var member_count = document.getElementById('member_count')
+                // member_count.innerText =result.data.member_count;
                 if (result.data.recharge_count > 0) {// 判断充值提示
                     getMessage({
                         "data": {

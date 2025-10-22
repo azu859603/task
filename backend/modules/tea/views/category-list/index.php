@@ -70,10 +70,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'class' => 'yii\grid\ActionColumn',
                             'header' => '操作',
-                            'template' => '{edit}',
+                            'template' => '{edit} {delete}',
                             'buttons' => [
                                 'edit' => function ($url, $model, $key) {
                                     return Html::edit(['ajax-edit', 'id' => $model->id], '编辑', ['data-toggle' => 'modal', 'data-target' => '#ajaxModal']);
+                                },
+                                'delete' => function ($url, $model, $key) {
+                                    return Html::delete(['delete', 'id' => $model->id]);
                                 },
                             ],
                         ],

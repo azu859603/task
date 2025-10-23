@@ -101,26 +101,28 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ),
                                 'value' => function ($model) {
                                     $data = WithdrawBill::$typeExplain;
-                                    if ($model->type == WithdrawBill::ALIPAY_ACCOUNT || $model->type == WithdrawBill::BANK_CARD) {
-                                        return '<a href="/backend/member/account/view?id=' . $model->id . '" data-toggle="modal" data-target="#ajaxModal">' . $data[$model->type] . '</a>';
-                                    } elseif ($model->type == WithdrawBill::WECHAT_ACCOUNT_URL) {
+//                                    if ($model->type == WithdrawBill::ALIPAY_ACCOUNT || $model->type == WithdrawBill::BANK_CARD) {
+//                                        return '<a href="/backend/member/account/view?id=' . $model->id . '" data-toggle="modal" data-target="#ajaxModal">' . $data[$model->type] . '</a>';
+//                                    }
+                                    if ($model->type == WithdrawBill::WECHAT_ACCOUNT_URL) {
                                         return '<a href="' . $model->account->wechat_account_url . '" data-fancybox="gallery">' . $data[$model->type] . '</a>';
                                     } elseif ($model->type == WithdrawBill::ALIPAY_ACCOUNT_URL) {
                                         return '<a href="' . $model->account->alipay_account_url . '" data-fancybox="gallery">' . $data[$model->type] . '</a>';
-                                    } elseif($model->type == WithdrawBill::USDT_TRC20){
-                                        return $data[$model->type]."<br>USDT-TRC20地址：".$model->account->usdt_link;
-                                    } elseif($model->type == WithdrawBill::PLATFORM_ACCOUNT){
-                                        return $data[$model->type]."<br>账号：".$model->account->platform_account;
-                                    }elseif($model->type == WithdrawBill::GCASH_ACCOUNT){
-                                        return $data[$model->type]."<br>名字：".$model->account->gcash_name."<br>电话：".$model->account->gcash_phone;
-                                    }elseif($model->type == WithdrawBill::MAYA_ACCOUNT){
-                                        return $data[$model->type]."<br>名字：".$model->account->maya_name."<br>电话：".$model->account->maya_phone;
-                                    }
-                                    else {
+                                    } elseif ($model->type == WithdrawBill::USDT_TRC20) {
+                                        return $data[$model->type] . "<br>USDT-TRC20地址：" . $model->account->usdt_link;
+                                    } elseif ($model->type == WithdrawBill::PLATFORM_ACCOUNT) {
+                                        return $data[$model->type] . "<br>账号：" . $model->account->platform_account;
+                                    } elseif ($model->type == WithdrawBill::GCASH_ACCOUNT) {
+                                        return $data[$model->type] . "<br>名字：" . $model->account->gcash_name . "<br>电话：" . $model->account->gcash_phone;
+                                    } elseif ($model->type == WithdrawBill::MAYA_ACCOUNT) {
+                                        return $data[$model->type] . "<br>名字：" . $model->account->maya_name . "<br>电话：" . $model->account->maya_phone;
+                                    } elseif ($model->type == WithdrawBill::BANK_CARD) {
+                                        return $data[$model->type] . "<br>名字：" . $model->card->username . "<br>卡号：" . $model->card->bank_card . "<br>开户行：" . $model->card->bank_address;
+                                    } else {
                                         return $data[$model->type];
                                     }
                                 },
-                                'headerOptions' => ['width' => '114px'],
+                                'headerOptions' => ['width' => '250px'],
                             ],
                             [
                                 'headerOptions' => ['width' => '114px'],

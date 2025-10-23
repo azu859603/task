@@ -31,7 +31,7 @@ class AccountController extends BaseController
         $withdraw_money = $withdraw['withdraw_money'];
         $bank_card = !empty($withdraw['card']['bank_card']) ? $withdraw['card']['bank_card'] : "已删除";
         $bank_address = !empty($withdraw['card']['bank_address']) ? $withdraw['card']['bank_address'] : "已删除";
-        $username = !empty($withdraw['card']['bank_address']) ? $withdraw['card']['username'] : "已删除";
+        $username = !empty($withdraw['card']['username']) ? $withdraw['card']['username'] : "已删除";
 
         return $this->renderAjax($this->action->id, [
             'model' => $model,

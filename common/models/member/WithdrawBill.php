@@ -204,7 +204,7 @@ class WithdrawBill extends \yii\db\ActiveRecord
             $this->member_id = Yii::$app->user->identity['member_id'];
             $member = Member::find()->where(['id' => $this->member_id])->with(['memberLevel'])->one();
             $this->sn = CommonPluginHelper::getSn($this->member_id);
-            $this->handling_fees = BcHelper::mul($this->withdraw_money, BcHelper::div($member->sellerLevel->handling_fees_percentage, 100, 4));
+            $this->handling_fees = BcHelper::mul($this->withdraw_money, BcHelper::div($member->memberLevel->handling_fees_percentage, 100, 4));
 //            if ($this->type == self::USDT_TRC20) {
 //                $real_withdraw_money = BcHelper::mul(BcHelper::sub($this->withdraw_money, $this->handling_fees), Yii::$app->debris->backendConfig('usdt_exchange_rate_withdraw'));
 //            } else {

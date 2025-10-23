@@ -33,11 +33,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'visible' => false,
                             ],
                             // 若要全选则关闭上面打开下面的代码
-                            [
-                                'class' => '\kartik\grid\CheckboxColumn',
-                                'rowSelectedClass' => GridView::TYPE_INFO,
-                                'visible' => true,
-                            ],
+//                            [
+//                                'class' => '\kartik\grid\CheckboxColumn',
+//                                'rowSelectedClass' => GridView::TYPE_INFO,
+//                                'visible' => true,
+//                            ],
 
                             'id',
                             [

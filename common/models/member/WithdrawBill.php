@@ -205,12 +205,12 @@ class WithdrawBill extends \yii\db\ActiveRecord
             $member = Member::find()->where(['id' => $this->member_id])->with(['memberLevel'])->one();
             $this->sn = CommonPluginHelper::getSn($this->member_id);
             $this->handling_fees = BcHelper::mul($this->withdraw_money, BcHelper::div($member->sellerLevel->handling_fees_percentage, 100, 4));
-            if ($this->type == self::USDT_TRC20) {
-                $real_withdraw_money = BcHelper::mul(BcHelper::sub($this->withdraw_money, $this->handling_fees), Yii::$app->debris->backendConfig('usdt_exchange_rate_withdraw'));
-            } else {
-                $real_withdraw_money = BcHelper::mul(BcHelper::sub($this->withdraw_money, $this->handling_fees), Yii::$app->debris->backendConfig('platform_exchange_rate'));
-            }
-            $this->real_withdraw_money = $real_withdraw_money;
+//            if ($this->type == self::USDT_TRC20) {
+//                $real_withdraw_money = BcHelper::mul(BcHelper::sub($this->withdraw_money, $this->handling_fees), Yii::$app->debris->backendConfig('usdt_exchange_rate_withdraw'));
+//            } else {
+//                $real_withdraw_money = BcHelper::mul(BcHelper::sub($this->withdraw_money, $this->handling_fees), Yii::$app->debris->backendConfig('platform_exchange_rate'));
+//            }
+            $this->real_withdraw_money = BcHelper::sub($this->withdraw_money, $this->handling_fees);
             // 如果是新增 则扣除账户余额
             if ($this->status == 0 && $this->withdraw_money > 0) {
                 Yii::$app->services->memberCreditsLog->decrMoney(new CreditsLogForm([

@@ -89,6 +89,9 @@ class TaskOrderController extends OnAuthController
         if (Order::find()->where(['member_id' => $this->memberId, 'pid' => $id])->andWhere(['between', 'created_at', $today['start'], $today['end']])->count() >= $project->limit_number) {
             return ResultHelper::json(ResultHelper::ERROR_CODE, '该任务领取次数超过限制');
         }
+        if(Order::find()->where(['member_id' => $this->memberId, 'pid' => $id])->count() >= $project->member_limit_number){
+            return ResultHelper::json(ResultHelper::ERROR_CODE, '该任务领取次数超过限制');
+        }
 
         $transaction = Yii::$app->db->beginTransaction();
         try {

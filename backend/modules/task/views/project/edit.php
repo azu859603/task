@@ -42,6 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="panel-body">
                                     <?= $form->field($model_translations, 'title', ['options' => ['class' => ['chart']]])->textInput() ?>
                                     <?= $form->field($model_translations, 'content', ['options' => ['class' => ['chart']]])->widget(\common\widgets\ueditor\UEditor::class, []) ?>
+                                    <?= $form->field($model_translations, 'tutorial', ['options' => ['class' => ['chart']]])->widget(\common\widgets\ueditor\UEditor::class, []) ?>
                                 </div>
                             </div>
                         </div>

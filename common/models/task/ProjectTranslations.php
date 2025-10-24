@@ -15,6 +15,7 @@ use yii\db\ActiveRecord;
  * @property string $lang
  * @property string $title 标题
  * @property string $content 任务要求
+ * @property string $tutorial
  */
 class ProjectTranslations extends \yii\db\ActiveRecord
 {
@@ -57,7 +58,7 @@ class ProjectTranslations extends \yii\db\ActiveRecord
             [['pid'], 'integer'],
             [['lang'], 'string', 'max' => 50],
             [['title'], 'string', 'max' => 255],
-            [['content'], 'safe'],
+            [['content','tutorial'], 'safe'],
         ];
     }
 
@@ -72,6 +73,7 @@ class ProjectTranslations extends \yii\db\ActiveRecord
             'lang' => 'Lang',
             'title' => '标题',
             'content' => '任务要求',
+            'tutorial' => '教程',
         ];
     }
 }

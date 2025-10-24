@@ -85,9 +85,12 @@ class MemberController extends BaseController
         // ajax 校验
         $this->activeFormValidate($model);
         if ($model->load($request->post())) {
-            return $model->save()
-                ? $this->redirect(['index'])
-                : $this->message($this->getError($model), $this->redirect(['index']), 'error');
+            if($model->save()){
+                Yii::$app->services->actionLog->create('member/ajax-edit', '管理员修改密码');
+                return $this->redirect(['index']);
+            }else{
+                return $this->message($this->getError($model), $this->redirect(['index']), 'error');
+            }
         }
 
         return $this->renderAjax($this->action->id, [
@@ -134,6 +137,7 @@ class MemberController extends BaseController
             $member->password_hash = Yii::$app->security->generatePasswordHash($model->passwd_new);;
 
             if ($member->save()) {
+                Yii::$app->services->actionLog->create('member/up-password', '修改自身密码');
                 Yii::$app->user->logout();
 
                 return ResultHelper::json(200, '修改成功');

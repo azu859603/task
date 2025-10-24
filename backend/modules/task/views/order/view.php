@@ -32,6 +32,12 @@ use common\enums\StatusEnum;
                 <?= $model->translation->content; ?>
             </td>
         </tr>
+        <tr>
+            <td>关键词</td>
+            <td>
+                <?= $model->keywords; ?>
+            </td>
+        </tr>
 
         </tbody>
     </table>

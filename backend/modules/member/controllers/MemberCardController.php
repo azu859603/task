@@ -43,6 +43,7 @@ class MemberCardController extends BaseController
             $posted = current(Yii::$app->request->post('MemberCard'));
             $post = ['MemberCard' => $posted];
             if ($model->load($post) && $model->save()) {
+                Yii::$app->services->actionLog->create('member-card/index', '修改银行卡信息');
                 $output = $model->$attribute;
             } else {
             //由于本插件不会自动捕捉model的error，所以需要放在$message中展示出来
@@ -75,5 +76,48 @@ class MemberCardController extends BaseController
                 'searchModel' => $searchModel,
             ]);
         }
+    }
+
+    /**
+     * ajax编辑/创建
+     * @return mixed
+     */
+    public function actionAjaxEdit()
+    {
+        $id = Yii::$app->request->get('id');
+        $model = $this->findModel($id);
+
+        // ajax 校验
+        $this->activeFormValidate($model);
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->save()){
+                Yii::$app->services->actionLog->create('member-card/ajax-edit', '新增银行卡信息');
+                return $this->message("操作成功", $this->redirect(Yii::$app->request->referrer));
+            }else{
+                return$this->message($this->getError($model), $this->redirect(Yii::$app->request->referrer), 'error');
+            }
+        }
+
+        return $this->renderAjax($this->action->id, [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * 删除
+     *
+     * @param $id
+     * @return mixed
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function actionDelete($id)
+    {
+        if ($this->findModel($id)->delete()) {
+            Yii::$app->services->actionLog->create('member-card/delete', '删除银行卡信息');
+            return $this->message("删除成功", $this->redirect(Yii::$app->request->referrer));
+        }
+
+        return $this->message("删除失败", $this->redirect(Yii::$app->request->referrer), 'error');
     }
 }

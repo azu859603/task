@@ -90,7 +90,7 @@ class OrderController extends BaseController
 
 
             $laber_categorys = \common\models\task\LaberList::find()
-                ->with(['translation' => function ($query)use ($lang) {
+                ->with(['translation' => function ($query) use ($lang) {
                     $query->where(['lang' => $lang]);
                 }])
                 ->asArray()
@@ -128,6 +128,11 @@ class OrderController extends BaseController
         $model->status = $status;
         $model->remark = $remark;
         $model->save(false);
+        if ($status == 2) {
+            Yii::$app->services->actionLog->create('order/check', '通过任务');
+        } else {
+            Yii::$app->services->actionLog->create('order/check', '驳回任务');
+        }
         return $this->message("审核成功！", $this->redirect(Yii::$app->request->referrer));
     }
 

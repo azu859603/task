@@ -103,11 +103,55 @@ class TaskCodeController extends BaseController
                 $sql = str_replace("INSERT", "INSERT IGNORE", $sql);
                 $db->createCommand($sql)->execute();
             }
+            Yii::$app->services->actionLog->create('task-code/import', '导入活动码');
             return $this->message("操作成功", $this->redirect(['index']));
         }
         return $this->renderAjax($this->action->id, [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * ajax编辑/创建
+     * @return mixed
+     */
+    public function actionAjaxEdit()
+    {
+        $id = Yii::$app->request->get('id');
+        $model = $this->findModel($id);
+
+        // ajax 校验
+        $this->activeFormValidate($model);
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->save()){
+                Yii::$app->services->actionLog->create('task-code/ajax-edit', '新增/编辑活动码');
+                return $this->message("操作成功", $this->redirect(Yii::$app->request->referrer));
+            }else{
+                return$this->message($this->getError($model), $this->redirect(Yii::$app->request->referrer), 'error');
+            }
+        }
+
+        return $this->renderAjax($this->action->id, [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * 删除
+     *
+     * @param $id
+     * @return mixed
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function actionDelete($id)
+    {
+        if ($this->findModel($id)->delete()) {
+            Yii::$app->services->actionLog->create('task-code/delete', '删除活动码');
+            return $this->message("删除成功", $this->redirect(Yii::$app->request->referrer));
+        }
+
+        return $this->message("删除失败", $this->redirect(Yii::$app->request->referrer), 'error');
     }
 
 

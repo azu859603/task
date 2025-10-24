@@ -121,6 +121,7 @@ class ProjectController extends BaseController
             if ($model->save()) {
                 $model_translations->pid = $model->id;
                 if ($model_translations->save()) {
+                    Yii::$app->services->actionLog->create('project/edit', '新增/编辑任务');
                     return $this->message("操作成功", $this->redirect(['index']));
                 }
                 return $this->message($this->getError($model_translations), $this->redirect(Yii::$app->request->referrer), 'error');

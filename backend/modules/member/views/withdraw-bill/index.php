@@ -231,6 +231,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         if ($model->status == 0) {
                                             return Html::linkButton(['check', 'id' => $model->id, 'status' => 1], '通过', [
                                                 'class' => 'btn btn-success btn-sm',
+                                                'style' => 'margin-bottom: 10px',
                                             ]);
                                         }
                                     },
@@ -240,6 +241,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 'class' => 'btn btn-primary btn-sm',
                                                 'data-toggle' => 'modal',
                                                 'data-target' => '#ajaxModal',
+                                                'style' => 'margin-bottom: 10px',
                                             ]);
                                         }
                                     },

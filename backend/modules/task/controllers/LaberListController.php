@@ -104,6 +104,7 @@ class LaberListController extends BaseController
             if ($model->save()) {
                 $model_translations->pid = $model->id;
                 if ($model_translations->save()) {
+                    Yii::$app->services->actionLog->create('laber-list/edit', '新增/编辑任务分类');
                     return $this->message("操作成功", $this->redirect(['index']));
                 }
                 return $this->message($this->getError($model_translations), $this->redirect(Yii::$app->request->referrer), 'error');
@@ -117,5 +118,23 @@ class LaberListController extends BaseController
             'model_translations' => $model_translations,
             'lang' => $lang,
         ]);
+    }
+
+    /**
+     * 删除
+     *
+     * @param $id
+     * @return mixed
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function actionDelete($id)
+    {
+        if ($this->findModel($id)->delete()) {
+            Yii::$app->services->actionLog->create('laber-list/delete', '删除任务分类');
+            return $this->message("删除成功", $this->redirect(Yii::$app->request->referrer));
+        }
+
+        return $this->message("删除失败", $this->redirect(Yii::$app->request->referrer), 'error');
     }
 }

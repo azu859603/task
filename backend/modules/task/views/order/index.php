@@ -224,7 +224,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                         [
-                            'headerOptions' => ['width' => '216px'],
                             'label' => '审核人',
                             'attribute' => 'manager.username',
                             'filter' => Html::activeTextInput($searchModel, 'manager.username', [

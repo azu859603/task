@@ -221,6 +221,23 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return \common\helpers\DateHelper::dateTime($model->updated_at);
                             },
                         ],
+
+
+                        [
+                            'headerOptions' => ['width' => '216px'],
+                            'label' => '审核人',
+                            'attribute' => 'manager.username',
+                            'filter' => Html::activeTextInput($searchModel, 'manager.username', [
+                                    'class' => 'form-control',
+                                    'placeholder' => '输入账号查询'
+                                ]
+                            ),
+                            'value' => function ($model) {
+                                return $model->manager->username;
+                            },
+                            'format' => 'raw',
+                        ],
+
                         [
                             'class' => 'yii\grid\ActionColumn',
                             'header' => '操作',

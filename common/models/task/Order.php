@@ -27,6 +27,7 @@ use yii\db\ActiveRecord;
  * @property string $code 活动码
  * @property int $push_number
  * @property int $cid
+ * @property int $updated_by
  * @property string $remark
  */
 class Order extends \yii\db\ActiveRecord
@@ -46,7 +47,7 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             [['member_id', 'pid', 'created_at'], 'required'],
-            [['member_id', 'pid', 'status', 'created_at', 'updated_at', 'push_number', 'cid'], 'integer'],
+            [['member_id', 'pid', 'status', 'created_at', 'updated_at', 'push_number', 'cid','updated_by'], 'integer'],
             [['images_list'], 'safe'],
             [['money'], 'number'],
             [['video_url', 'code', 'remark'], 'string', 'max' => 255],
@@ -68,6 +69,7 @@ class Order extends \yii\db\ActiveRecord
             'status' => '状态',
             'created_at' => '添加时间',
             'updated_at' => '完成时间',
+            'updated_by' => '审核人',
             'video_url' => '视频地址',
             'images_list' => '任务截图',
             'money' => '任务佣金',
@@ -165,5 +167,15 @@ class Order extends \yii\db\ActiveRecord
     public function getProject()
     {
         return $this->hasOne(Project::class, ['id' => 'pid']);
+    }
+
+    /**
+     * 关联用户表
+     * @return \yii\db\ActiveQuery
+     * @author 哈哈
+     */
+    public function getManager()
+    {
+        return $this->hasOne(\common\models\backend\Member::class, ['id' => 'updated_by']);
     }
 }

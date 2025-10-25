@@ -57,7 +57,7 @@ class OrderController extends BaseController
                 'model' => $this->modelClass,
                 'scenario' => 'default',
                 'partialMatchAttributes' => [], // 模糊查询
-                'relations' => ['member' => ['mobile'], 'project' => ['cid']],
+                'relations' => ['member' => ['mobile'], 'project' => ['cid'], 'manager' => 'username'],
                 'defaultOrder' => [
                     'id' => SORT_DESC
                 ],
@@ -125,6 +125,7 @@ class OrderController extends BaseController
         if (empty($model)) {
             return $this->message("该条记录已被操作！", $this->redirect(Yii::$app->request->referrer), 'error');
         }
+        $model->updated_by = Yii::$app->user->getId();
         $model->status = $status;
         $model->remark = $remark;
         $model->save(false);

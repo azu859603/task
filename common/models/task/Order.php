@@ -48,9 +48,9 @@ class Order extends \yii\db\ActiveRecord
         return [
             [['member_id', 'pid', 'created_at'], 'required'],
             [['member_id', 'pid', 'status', 'created_at', 'updated_at', 'push_number', 'cid','updated_by'], 'integer'],
-            [['images_list'], 'safe'],
+            [['images_list','video_url'], 'safe'],
             [['money'], 'number'],
-            [['video_url', 'code', 'remark'], 'string', 'max' => 255],
+            [['code', 'remark'], 'string', 'max' => 255],
         ];
     }
 

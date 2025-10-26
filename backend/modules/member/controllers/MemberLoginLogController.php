@@ -42,12 +42,12 @@ class MemberLoginLogController extends BaseController
         $dataProvider = $searchModel
             ->search(Yii::$app->request->queryParams);
 
-        $backend_id = Yii::$app->user->identity->getId();
-        if ($backend_id != 1) {
-            $a_id = Yii::$app->user->identity->aMember->id;
-            $childrenIds = Member::getChildrenIds($a_id);
-            $dataProvider->query->andFilterWhere(['in', 'member_id', $childrenIds]);
-        }
+//        $backend_id = Yii::$app->user->identity->getId();
+//        if ($backend_id != 1) {
+//            $a_id = Yii::$app->user->identity->aMember->id;
+//            $childrenIds = Member::getChildrenIds($a_id);
+//            $dataProvider->query->andFilterWhere(['in', 'member_id', $childrenIds]);
+//        }
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,

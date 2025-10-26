@@ -118,12 +118,12 @@ class MemberController extends BaseController
                     }
                 ]);
 
-            $backend_id = Yii::$app->user->identity->getId();
-            if ($backend_id != 1) {
-                $a_id = Yii::$app->user->identity->aMember->id;
-                $childrenIds = Member::getChildrenIds($a_id);
-                $dataProvider->query->andFilterWhere(['in', 'rf_member.id', $childrenIds]);
-            }
+//            $backend_id = Yii::$app->user->identity->getId();
+//            if ($backend_id != 1) {
+//                $a_id = Yii::$app->user->identity->aMember->id;
+//                $childrenIds = Member::getChildrenIds($a_id);
+//                $dataProvider->query->andFilterWhere(['in', 'rf_member.id', $childrenIds]);
+//            }
 
             $memberLevel = yii\helpers\ArrayHelper::map(\common\models\member\Level::find()->orderBy(['level' => SORT_ASC])->asArray()->all(), 'level', 'name');
 
@@ -220,12 +220,12 @@ class MemberController extends BaseController
                     }
                 ]);
 
-            $backend_id = Yii::$app->user->identity->getId();
-            if ($backend_id != 1) {
-                $a_id = Yii::$app->user->identity->aMember->id;
-                $childrenIds = Member::getChildrenIds($a_id);
-                $dataProvider->query->andFilterWhere(['in', 'rf_member.id', $childrenIds]);
-            }
+//            $backend_id = Yii::$app->user->identity->getId();
+//            if ($backend_id != 1) {
+//                $a_id = Yii::$app->user->identity->aMember->id;
+//                $childrenIds = Member::getChildrenIds($a_id);
+//                $dataProvider->query->andFilterWhere(['in', 'rf_member.id', $childrenIds]);
+//            }
 
 //            $memberLevel = yii\helpers\ArrayHelper::map(\common\models\member\Level::find()->orderBy(['level' => SORT_ASC])->asArray()->all(), 'level', 'name');
 

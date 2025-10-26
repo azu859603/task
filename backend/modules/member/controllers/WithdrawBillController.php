@@ -76,12 +76,12 @@ class WithdrawBillController extends BaseController
                 ->with('member');
 
 
-            $backend_id = Yii::$app->user->identity->getId();
-            if ($backend_id != 1) {
-                $a_id = Yii::$app->user->identity->aMember->id;
-                $childrenIds = Member::getChildrenIds($a_id);
-                $dataProvider->query->andFilterWhere(['in', 'member_id', $childrenIds]);
-            }
+//            $backend_id = Yii::$app->user->identity->getId();
+//            if ($backend_id != 1) {
+//                $a_id = Yii::$app->user->identity->aMember->id;
+//                $childrenIds = Member::getChildrenIds($a_id);
+//                $dataProvider->query->andFilterWhere(['in', 'member_id', $childrenIds]);
+//            }
 
             $sum_withdraw_money = $dataProvider->query->sum('withdraw_money')??0;
 

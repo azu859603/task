@@ -76,12 +76,12 @@ class RechargeBillController extends BaseController
             $dataProvider->query
                 ->with('member');
 
-            $backend_id = Yii::$app->user->identity->getId();
-            if ($backend_id != 1) {
-                $a_id = Yii::$app->user->identity->aMember->id;
-                $childrenIds = Member::getChildrenIds($a_id);
-                $dataProvider->query->andFilterWhere(['in', 'member_id', $childrenIds]);
-            }
+//            $backend_id = Yii::$app->user->identity->getId();
+//            if ($backend_id != 1) {
+//                $a_id = Yii::$app->user->identity->aMember->id;
+//                $childrenIds = Member::getChildrenIds($a_id);
+//                $dataProvider->query->andFilterWhere(['in', 'member_id', $childrenIds]);
+//            }
 
             $sum_recharge_money = $dataProvider->query->sum('base_recharge_bill.recharge_money') ?? 0;
             $category = \yii\helpers\ArrayHelper::map(\common\models\member\RechargeCategory::find()->asArray()->all(), 'id', 'title');

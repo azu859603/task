@@ -81,12 +81,12 @@ class OrderController extends BaseController
                     },
                 ]);
 
-            $backend_id = Yii::$app->user->identity->getId();
-            if ($backend_id != 1) {
-                $a_id = Yii::$app->user->identity->aMember->id;
-                $childrenIds = Member::getChildrenIds($a_id);
-                $dataProvider->query->andFilterWhere(['in', 'member_id', $childrenIds]);
-            }
+//            $backend_id = Yii::$app->user->identity->getId();
+//            if ($backend_id != 1) {
+//                $a_id = Yii::$app->user->identity->aMember->id;
+//                $childrenIds = Member::getChildrenIds($a_id);
+//                $dataProvider->query->andFilterWhere(['in', 'member_id', $childrenIds]);
+//            }
 
 
             $laber_categorys = \common\models\task\LaberList::find()

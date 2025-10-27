@@ -45,7 +45,8 @@ class WithdrawBillController extends OnAuthController
                     'FROM_UNIXTIME(`created_at`,\'%Y-%m-%d %H:%i:%s\') as created_at',
                     'FROM_UNIXTIME(`updated_at`,\'%Y-%m-%d %H:%i:%s\') as updated_at',
                     'status',
-                    'remark'
+                    'remark',
+                    'user_remark',
                 ])
                 ->where(['member_id' => $this->memberId, 'status' => $status])
                 ->orderBy('created_at desc')

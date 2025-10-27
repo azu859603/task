@@ -26,6 +26,7 @@ use yii\web\UnprocessableEntityHttpException;
  * @property int $updated_at 审核时间
  * @property int $status 状态(0未审核,1通过,2拒绝,3取消)
  * @property string $remark 备注
+ * @property string $user_remark 备注
  * @property int $card_id 银行卡ID
  * @property string $real_withdraw_money
  * @property int $pay_type
@@ -117,7 +118,7 @@ class WithdrawBill extends \yii\db\ActiveRecord
             [['member_id', 'created_at', 'updated_at', 'status', 'card_id', 'pay_type', 'id'], 'integer'],
             [['sn'], 'string', 'max' => 50],
             [['type'], 'string', 'max' => 30],
-            [['remark'], 'string', 'max' => 255],
+            [['remark','user_remark'], 'string', 'max' => 255],
             [['type'], 'in', 'range' => array_keys(self::$typeExplain)],
             [['type'], 'verifyType'],
             [['real_withdraw_money', 'handling_fees', 'withdraw_money'], 'number', 'numberPattern' => '/^\d+(.\d{1,2})?$/', 'message' => '小数点后位数不能大于俩位'],
@@ -165,7 +166,8 @@ class WithdrawBill extends \yii\db\ActiveRecord
             'created_at' => '提现时间',
             'updated_at' => '审核时间',
             'status' => '状态',
-            'remark' => '备注',
+            'remark' => '后台备注',
+            'user_remark' => '用户端备注',
             'card_id' => '银行卡',
             'real_withdraw_money' => '汇款金额',
             'pay_type' => '代付平台',

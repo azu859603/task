@@ -162,6 +162,31 @@ $this->params['breadcrumbs'][] = $this->title;
                                     return $remark;
                                 },
                             ],
+                            [
+                                'class' => '\kartik\grid\EditableColumn',
+                                'attribute' => 'user_remark',
+                                'format' => 'raw',
+                                'headerOptions' => ['width' => '120px'],
+                                'editableOptions' => [
+                                    'asPopover' => true,
+                                    'inputType' => \kartik\editable\Editable::INPUT_TEXTAREA,//只需添加如下代码
+                                    'options' => [
+                                        'rows' => 4,
+                                    ],
+                                ],
+                                'value' => function ($model) {
+                                    if (!empty($model->user_remark)) {
+                                        if (mb_strlen($model->user_remark) > 4) {
+                                            $user_remark = mb_substr($model->user_remark, 0, 4, 'utf-8') . "..";
+                                        } else {
+                                            $user_remark = $model->user_remark;
+                                        }
+                                    } else {
+                                        $user_remark = "(暂无)";
+                                    }
+                                    return $user_remark;
+                                },
+                            ],
 
                             [
                                 'headerOptions' => ['width' => '102px'],

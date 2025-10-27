@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ]); ?>
                 <div class="col-sm-12">
-                    <?= $form->field($model, 'remark')->textarea(['rows' => '6']) ?>
+                    <?= $form->field($model, 'user_remark')->textarea(['rows' => '6']) ?>
                     <?= $form->field($model, 'status')->radioList([2 => '拒绝'])->hint("*拒绝后提现金额将退还给用户", ['style' => 'color:red']) ?>
                 </div>
                 <div class="form-group">

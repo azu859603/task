@@ -117,7 +117,6 @@ class ProjectController extends BaseController
             $model_translations->lang = $lang;
         }
         if ($model->load(Yii::$app->request->post()) && $model_translations->load(Yii::$app->request->post())) {
-            $model->remain_number = $model->all_number;
             if ($model->save()) {
                 $model_translations->pid = $model->id;
                 if ($model_translations->save()) {

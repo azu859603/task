@@ -115,7 +115,7 @@ class TaskProjectController extends OnAuthController
         $default_lang = !empty($default_lang_model) ? $default_lang_model['code'] : "cn";
         $lang = Yii::$app->request->get('lang', $default_lang);
         $id = Yii::$app->request->get('id');
-        return $this->modelClass::find()
+        $model = $this->modelClass::find()
             ->where(['id' => $id])
             ->with([
                 'translation' => function ($query) use ($lang) {
@@ -124,6 +124,9 @@ class TaskProjectController extends OnAuthController
             ])
             ->asArray()
             ->one();
+        $model['translation']['content'] =  str_replace('text-wrap-mode: nowrap;', '', $model['translation']['content']);
+        $model['translation']['tutorial'] = str_replace('text-wrap-mode: nowrap;', '', $model['translation']['tutorial']);
+        return $model;
     }
 
     /**

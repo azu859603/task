@@ -115,13 +115,13 @@ class ArticleDetails extends \yii\db\ActiveRecord
      * @return array|null|\yii\db\ActiveRecord
      * @author 原创脉冲
      */
-    public static function getModelById($id,$lang)
+    public static function getModelById($id, $lang)
     {
         return self::find()
             ->select(['id', 'title', 'banner', 'content', 'FROM_UNIXTIME(`created_at`,\'%Y-%m-%d %H:%i:%s\') as created_at'])
             ->where(['id' => $id, 'status' => StatusEnum::ENABLED])
-            ->with(['translation'=>function($query)use($lang){
-                $query->where(['lang'=>$lang]);
+            ->with(['translation' => function ($query) use ($lang) {
+                $query->where(['lang' => $lang]);
             }])
             ->asArray()
             ->one();

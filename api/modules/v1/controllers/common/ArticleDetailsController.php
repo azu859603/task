@@ -76,7 +76,9 @@ class ArticleDetailsController extends OnAuthController
         if (!isset($id)) {
             return ResultHelper::json(ResultHelper::ERROR_CODE, "ID不能为空");
         }
-        return ArticleDetails::getModelById($id,$lang);
+        $model = ArticleDetails::getModelById($id,$lang);
+        $model['translation']['content'] =  str_replace('text-wrap-mode: nowrap;', '', $model['translation']['content']);
+        return $model;
     }
 
     /**

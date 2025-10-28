@@ -46,7 +46,7 @@ class UpdateSafetyPasswordForm extends Model
         if (!$this->hasErrors()) {
             $member = $this->getMember();
             if (!$member || !$member->validateSafetyPassword($this->old_safety_password)) {
-                $this->addError($attribute, '旧安全密码错误!');
+                $this->addError($attribute, '旧安全密码错误');
             }
         }
     }

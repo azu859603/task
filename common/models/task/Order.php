@@ -92,6 +92,7 @@ class Order extends \yii\db\ActiveRecord
         if (!$this->isNewRecord) {
             // 如果是通过 则增加账户余额
             if ($this->isAttributeChanged('status') && $this->status == 2) {
+                $this->updated_at = time();
                 // 充值成功 用户本金增加
                 $member = Member::find()->where(['id' => $this->member_id])->with(['account'])->one();
                 $member->account->investment_number += 1;

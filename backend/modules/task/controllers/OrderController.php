@@ -127,9 +127,7 @@ class OrderController extends BaseController
         }
         $model->updated_by = Yii::$app->user->getId();
         $model->status = $status;
-        if (!empty($remark)) {
-            $model->remark = $remark;
-        }
+        $model->remark = $remark;
         $model->save(false);
         if ($status == 2) {
             Yii::$app->services->actionLog->create('order/check', '通过任务');

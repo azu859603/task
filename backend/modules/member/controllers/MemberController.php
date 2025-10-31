@@ -544,6 +544,7 @@ class MemberController extends BaseController
             'model' => $this->modelClass,
             'scenario' => 'default',
             'partialMatchAttributes' => ['realname', 'mobile'], // 模糊查询
+            'relations' => ['account' => ['investment_number'],],
             'defaultOrder' => [
                 'id' => SORT_DESC
             ],

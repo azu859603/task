@@ -81,37 +81,107 @@ class MemberController extends OnAuthController
      */
     public function actionList()
     {
-        return new ActiveDataProvider([
-            'query' => $this->modelClass::find()
-                ->select([
-                    'id',
-                    'nickname',
-                    'realname',
-                    'mobile',
-                    'head_portrait',
-                    'current_level',
-                    'FROM_UNIXTIME(`created_at`,\'%Y-%m-%d\') as created_at',
-                ])
-                ->where(['pid' => $this->memberId])
-                ->with([
-                    'memberLevel' => function ($query) {
-                        $query->select([
-                            'level',
-                            'name',
-                        ]);
-                    },
-                    'account' => function ($query) {
-                        $query->select(['id', 'member_id', 'investment_number', 'investment_income']);
-                    }
-                ])
-                ->orderBy('created_at desc,id desc')
-                ->asArray(),
-            'pagination' => [
-                'pageSize' => $this->pageSize,
-                'validatePage' => false,// 超出分页不返回data
-            ],
-        ]);
+        $status = Yii::$app->request->get('status');
+        if (!empty($status)) {
+            if ($status == 1) {
+                return new ActiveDataProvider([
+                    'query' => $this->modelClass::find()
+                        ->select([
+                            'id',
+                            'nickname',
+                            'realname',
+                            'mobile',
+                            'head_portrait',
+                            'current_level',
+                            'FROM_UNIXTIME(`created_at`,\'%Y-%m-%d\') as created_at',
+                        ])
+                        ->where(['pid' => $this->memberId])
+                        ->joinWith([
+                            'memberLevel' => function ($query) {
+                                $query->select([
+                                    'level',
+                                    'name',
+                                ]);
+                            },
+                            'account' => function ($query) {
+                                $query->select(['id', 'member_id', 'investment_number', 'investment_income'])
+                                    ->where(['investment_number' => 0]);
+                            }
+                        ])
+                        ->orderBy('created_at desc,id desc')
+                        ->asArray(),
+                    'pagination' => [
+                        'pageSize' => $this->pageSize,
+                        'validatePage' => false,// 超出分页不返回data
+                    ],
+                ]);
+            } else {
+                return new ActiveDataProvider([
+                    'query' => $this->modelClass::find()
+                        ->select([
+                            'id',
+                            'nickname',
+                            'realname',
+                            'mobile',
+                            'head_portrait',
+                            'current_level',
+                            'FROM_UNIXTIME(`created_at`,\'%Y-%m-%d\') as created_at',
+                        ])
+                        ->where(['pid' => $this->memberId])
+                        ->joinWith([
+                            'memberLevel' => function ($query) {
+                                $query->select([
+                                    'level',
+                                    'name',
+                                ]);
+                            },
+                            'account' => function ($query) {
+                                $query->select(['id', 'member_id', 'investment_number', 'investment_income'])
+                                    ->where(['>', 'investment_number', 0]);
+                            }
+                        ])
+                        ->orderBy('created_at desc,id desc')
+                        ->asArray(),
+                    'pagination' => [
+                        'pageSize' => $this->pageSize,
+                        'validatePage' => false,// 超出分页不返回data
+                    ],
+                ]);
+            }
+        } else {
+            return new ActiveDataProvider([
+                'query' => $this->modelClass::find()
+                    ->select([
+                        'id',
+                        'nickname',
+                        'realname',
+                        'mobile',
+                        'head_portrait',
+                        'current_level',
+                        'FROM_UNIXTIME(`created_at`,\'%Y-%m-%d\') as created_at',
+                    ])
+                    ->where(['pid' => $this->memberId])
+                    ->with([
+                        'memberLevel' => function ($query) {
+                            $query->select([
+                                'level',
+                                'name',
+                            ]);
+                        },
+                        'account' => function ($query) {
+                            $query->select(['id', 'member_id', 'investment_number', 'investment_income']);
+                        }
+                    ])
+                    ->orderBy('created_at desc,id desc')
+                    ->asArray(),
+                'pagination' => [
+                    'pageSize' => $this->pageSize,
+                    'validatePage' => false,// 超出分页不返回data
+                ],
+            ]);
+        }
     }
+
 
     public function actionTeam()
     {

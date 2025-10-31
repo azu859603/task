@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                                 return Html::a(
                                     "账号：" . $model->recommendMember->mobile . '<br>' .
                                     "昵称：" . $model->recommendMember->nickname . '<br>' .
-                                    "姓名：" . $realname . '<br>' .
+//                                    "姓名：" . $realname . '<br>' .
                                     "备注：" . $remark . '<br>',
                                     ['/member/member/view', 'id' => $model->recommendMember->id],
                                     [
@@ -63,12 +63,12 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                             'format' => 'raw',
                             'headerOptions' => ['width' => '209px'],
                         ],
-                        [
-                            'label' => '上线真实姓名',
-                            'value' => function ($model) {
-                                return !empty($model->recommendMember->realname) ? $model->recommendMember->realname : "(暂无)";
-                            },
-                        ],
+//                        [
+//                            'label' => '上线真实姓名',
+//                            'value' => function ($model) {
+//                                return !empty($model->recommendMember->realname) ? $model->recommendMember->realname : "(暂无)";
+//                            },
+//                        ],
 //                        [
 //                            'label' => '上线签到状态',
 //                            'value' => function ($model) {
@@ -105,7 +105,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                                 return Html::a(
                                     "账号：" . $model->mobile . '<br>' .
                                     "昵称：" . $model->nickname . '<br>' .
-                                    "姓名：" . $realname . '<br>' .
+//                                    "姓名：" . $realname . '<br>' .
                                     "余额：" . $model->account->user_money . '<br>' .
                                     "备注：" . $remark . '<br>',
                                     ['/member/member/view', 'id' => $model->id],
@@ -157,10 +157,10 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
 //                            'headerOptions' => ['width' => '88px'],
 //                        ],
                         [
-                            'label' => '下线真实姓名',
-                            'attribute' => 'realname',
+                            'label' => '下线完成任务数量',
+                            'attribute' => 'account.investment_number',
                             'value' => function ($model) {
-                                return !empty($model->realname) ? $model->realname : "(暂无)";
+                                return $model->account->investment_number;
                             },
                         ],
 //                        [

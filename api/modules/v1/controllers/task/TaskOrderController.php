@@ -145,9 +145,11 @@ class TaskOrderController extends OnAuthController
             return ResultHelper::json(ResultHelper::ERROR_CODE, '截图必须提交');
         }
         $video_url = Yii::$app->request->post('video_url');
+        $username = Yii::$app->request->post('username');
         $order->push_number += 1;
         $order->images_list = $images_list;
         $order->video_url = $video_url;
+        $order->username = $username;
         $order->status = 1;
         $order->save();
         return ResultHelper::json(ResultHelper::SUCCESS_CODE, "提交成功，请等待管理员审核");

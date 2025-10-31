@@ -96,6 +96,7 @@ class MemberController extends OnAuthController
                 ->with([
                     'memberLevel' => function ($query) {
                         $query->select([
+                            'level',
                             'name',
                         ]);
                     },

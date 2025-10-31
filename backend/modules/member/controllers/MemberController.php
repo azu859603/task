@@ -554,7 +554,7 @@ class MemberController extends BaseController
             ->search(Yii::$app->request->queryParams);
         $dataProvider->query
             ->andWhere(['<>', 'pid', 0])
-            ->andWhere(['>=', 'status', StatusEnum::DISABLED])
+//            ->andWhere(['>=', 'status', StatusEnum::DISABLED])
             ->with(['recommendMember', 'account']);
 
         return $this->render($this->action->id, [

@@ -119,7 +119,7 @@ class MemberController extends OnAuthController
         $account = Account::find()->where(['member_id' => $this->memberId])->select(['recommend_number', 'recommend_money','investment_number'])->asArray()->one();
         $data['recommend_money'] = $account['recommend_money'];
         $data['recommend_number'] = $account['recommend_number'];
-        $data['investment_income'] = $account['investment_income'];
+        $data['investment_number'] = $account['investment_number'];
         $today = DateHelper::today();
         $data['today_add'] = Member::find()
                 ->where(['pid' => $this->memberId, 'type' => 1])

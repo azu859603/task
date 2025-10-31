@@ -139,7 +139,7 @@ class Order extends \yii\db\ActiveRecord
                 if (!empty($member->pid) && $get_task_money > 0) {
                     Yii::$app->services->memberCreditsLog->incrMoney(new CreditsLogForm([
                         'member' => Member::findOne($member->pid),
-                        'pay_type' => CreditsLog::BUY_SHORT_PLAYS_TYPE,
+                        'pay_type' => CreditsLog::COMMISSION_TYPE,
                         'num' => $get_task_money,
                         'credit_group' => CreditsLog::CREDIT_GROUP_MEMBER,
                         'remark' => "【返佣】下级完成任务获得佣金",

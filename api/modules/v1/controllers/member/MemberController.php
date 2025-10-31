@@ -116,10 +116,12 @@ class MemberController extends OnAuthController
     public function actionTeam()
     {
         $data = [];
-        $account = Account::find()->where(['member_id' => $this->memberId])->select(['recommend_number', 'recommend_money','investment_number'])->asArray()->one();
+        $account = Account::find()->where(['member_id' => $this->memberId])->select(['recommend_number', 'recommend_money', 'investment_number'])->asArray()->one();
         $data['recommend_money'] = $account['recommend_money'];
         $data['recommend_number'] = $account['recommend_number'];
-        $data['investment_number'] = $account['investment_number'];
+        // 团队完成任务数量
+        $team_ids = Member::find()->where(['pid' => $this->memberId])->select(['id'])->column();
+        $data['investment_number'] = Account::find()->where(['in', 'member_id', $team_ids])->sum('investment_number') ?? 0;
         $today = DateHelper::today();
         $data['today_add'] = Member::find()
                 ->where(['pid' => $this->memberId, 'type' => 1])

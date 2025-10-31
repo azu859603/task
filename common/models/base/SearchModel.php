@@ -305,10 +305,6 @@ class SearchModel extends Model
                     }
                     continue;
                 }
-            }
-
-            if (call_user_func([$this->modelClassName, 'tableName']) == "{{%member}}") {
-                // 根据用户名查询用户信息
                 if ($name == 'account.investment_number' && $value) {
                     if (!empty($value)) {
                         if ($value == 1) {

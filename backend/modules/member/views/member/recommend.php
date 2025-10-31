@@ -159,6 +159,11 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                         [
                             'label' => '下线完成任务数量',
                             'attribute' => 'account.investment_number',
+                            'filter' => Html::activeDropDownList($searchModel, 'account.investment_number', [1=>"完成过任务",2=>"未完成过任务"], [
+                                    'prompt' => '全部',
+                                    'class' => 'form-control'
+                                ]
+                            ),
                             'value' => function ($model) {
                                 return $model->account->investment_number;
                             },

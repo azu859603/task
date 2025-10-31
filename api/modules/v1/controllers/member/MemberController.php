@@ -105,7 +105,7 @@ class MemberController extends OnAuthController
                             },
                             'account' => function ($query) {
                                 $query->select(['id', 'member_id', 'investment_number', 'investment_income'])
-                                    ->where(['investment_number' => 0]);
+                                    ->where(['>', 'investment_number', 0]);
                             }
                         ])
                         ->orderBy('created_at desc,id desc')
@@ -137,7 +137,7 @@ class MemberController extends OnAuthController
                             },
                             'account' => function ($query) {
                                 $query->select(['id', 'member_id', 'investment_number', 'investment_income'])
-                                    ->where(['>', 'investment_number', 0]);
+                                    ->where(['investment_number' => 0]);
                             }
                         ])
                         ->orderBy('created_at desc,id desc')

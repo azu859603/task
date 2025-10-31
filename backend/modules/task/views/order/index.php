@@ -98,7 +98,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             'format' => 'raw',
                             'value' => function ($model) {
                                 return Html::a(
-                                    "任务ID：" . $model->project->id . "</br>" . "任务标题:" . $model->project->translation->title,
+                                    "社媒平台用户名：" . $model->username . "</br>" .
+                                    "任务ID：" . $model->project->id . "</br>" .
+                                    "任务标题:" . $model->project->translation->title,
                                     ['/task/order/view', 'id' => $model->project->id],
                                     [
                                         'data-toggle' => 'modal',

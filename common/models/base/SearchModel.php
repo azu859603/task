@@ -306,6 +306,21 @@ class SearchModel extends Model
                     continue;
                 }
             }
+
+            if (call_user_func([$this->modelClassName, 'tableName']) == "{{%member}}") {
+                // 根据用户名查询用户信息
+                if ($name == 'account.investment_number' && $value) {
+                    if (!empty($value)) {
+                        if ($value == 1) {
+                            $query->andWhere(['>', 'rf_member_account.investment_number', 0]);
+                        } else {
+                            $query->andWhere(['rf_member_account.investment_number' => 0]);
+                        }
+                    }
+                    continue;
+                }
+            }
+
             if ($name == 'start_time' && $value) {
                 $between_time = explode('~', $this->start_time);
                 $first_time = strtotime($between_time[0]);

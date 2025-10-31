@@ -29,6 +29,7 @@ use yii\db\ActiveRecord;
  * @property int $cid
  * @property int $updated_by
  * @property string $remark
+ * @property string $username
  */
 class Order extends \yii\db\ActiveRecord
 {
@@ -50,7 +51,7 @@ class Order extends \yii\db\ActiveRecord
             [['member_id', 'pid', 'status', 'created_at', 'updated_at', 'push_number', 'cid','updated_by'], 'integer'],
             [['images_list','video_url'], 'safe'],
             [['money'], 'number'],
-            [['code', 'remark'], 'string', 'max' => 255],
+            [['code', 'remark','username'], 'string', 'max' => 255],
         ];
     }
 
@@ -77,6 +78,7 @@ class Order extends \yii\db\ActiveRecord
             'push_number' => '已提交次数',
             'remark' => '备注',
             'cid' => '任务类型',
+            'username' => '社媒平台用户名',
         ];
     }
 

@@ -97,8 +97,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             'filter' => false,
                             'format' => 'raw',
                             'value' => function ($model) {
+                                $username = !empty($model->username) ? $model->username : "无";
                                 return Html::a(
-                                    "社媒平台用户名：" . $model->username . "</br>" .
+                                    "社媒平台用户名：" . $username . "</br>" .
                                     "任务ID：" . $model->project->id . "</br>" .
                                     "任务标题:" . $model->project->translation->title,
                                     ['/task/order/view', 'id' => $model->project->id],

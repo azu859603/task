@@ -38,7 +38,7 @@ class ImgDetailsController extends OnAuthController
 
         return new ActiveDataProvider([
             'query' => $this->modelClass::find()
-                ->select(['id', 'content', 'jump_url', 'jump_type'])
+                ->select(['id', 'content', 'title', 'jump_url', 'jump_type'])
                 ->where(['status' => StatusEnum::ENABLED, 'pid' => $form->pid])
                 ->orderBy('sort asc, id desc')
                 ->with(['translation' => function ($query) use ($lang) {

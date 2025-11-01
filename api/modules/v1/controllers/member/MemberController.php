@@ -87,13 +87,12 @@ class MemberController extends OnAuthController
                 return new ActiveDataProvider([
                     'query' => $this->modelClass::find()
                         ->select([
-                            'id',
+                            'rf_member.id',
                             'nickname',
                             'realname',
                             'mobile',
                             'head_portrait',
                             'current_level',
-                            'FROM_UNIXTIME(`created_at`,\'%Y-%m-%d\') as created_at',
                         ])
                         ->where(['pid' => $this->memberId])
                         ->joinWith([
@@ -104,11 +103,11 @@ class MemberController extends OnAuthController
                                 ]);
                             },
                             'account' => function ($query) {
-                                $query->select(['id', 'member_id', 'investment_number', 'investment_income'])
+                                $query->select(['member_id', 'investment_number', 'investment_income'])
                                     ->where(['>', 'investment_number', 0]);
                             }
                         ])
-                        ->orderBy('created_at desc,id desc')
+                        ->orderBy(['rf_member.id'=>SORT_DESC])
                         ->asArray(),
                     'pagination' => [
                         'pageSize' => $this->pageSize,
@@ -119,13 +118,12 @@ class MemberController extends OnAuthController
                 return new ActiveDataProvider([
                     'query' => $this->modelClass::find()
                         ->select([
-                            'id',
+                            'rf_member.id',
                             'nickname',
                             'realname',
                             'mobile',
                             'head_portrait',
                             'current_level',
-                            'FROM_UNIXTIME(`created_at`,\'%Y-%m-%d\') as created_at',
                         ])
                         ->where(['pid' => $this->memberId])
                         ->joinWith([
@@ -136,11 +134,11 @@ class MemberController extends OnAuthController
                                 ]);
                             },
                             'account' => function ($query) {
-                                $query->select(['id', 'member_id', 'investment_number', 'investment_income'])
+                                $query->select(['member_id', 'investment_number', 'investment_income'])
                                     ->where(['investment_number' => 0]);
                             }
                         ])
-                        ->orderBy('created_at desc,id desc')
+                        ->orderBy(['rf_member.id'=>SORT_DESC])
                         ->asArray(),
                     'pagination' => [
                         'pageSize' => $this->pageSize,

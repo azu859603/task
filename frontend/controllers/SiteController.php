@@ -97,8 +97,8 @@ class SiteController extends Controller
         $url = Yii::$app->request->hostInfo;
         $url = explode("//", $url);
         $url = explode(".", $url[1]);
-        if ($url[0] == "promotion") {
-            return $this->redirect('/promotion/index.html');
+        if ($url[0] == "pc") {
+            return $this->redirect('/pc/index.html');
         } else {
             return $this->redirect('/h5/index.html');
         }

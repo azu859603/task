@@ -89,7 +89,7 @@ class TaskOrderController extends OnAuthController
         if (Order::find()->where(['member_id' => $this->memberId, 'pid' => $id])->andWhere(['between', 'created_at', $today['start'], $today['end']])->count() >= $project->limit_number) {
             return ResultHelper::json(ResultHelper::ERROR_CODE, '该任务领取次数超过限制');
         }
-        if(Order::find()->where(['member_id' => $this->memberId, 'pid' => $id])->count() >= $project->member_limit_number){
+        if (Order::find()->where(['member_id' => $this->memberId, 'pid' => $id])->count() >= $project->member_limit_number) {
             return ResultHelper::json(ResultHelper::ERROR_CODE, '该任务领取次数超过限制');
         }
 
@@ -165,7 +165,7 @@ class TaskOrderController extends OnAuthController
         $default_lang = !empty($default_lang_model) ? $default_lang_model['code'] : "cn";
         $lang = Yii::$app->request->get('lang', $default_lang);
         $id = Yii::$app->request->get('id');
-        return $this->modelClass::find()
+        $model = $this->modelClass::find()
             ->where(['id' => $id])
             ->with([
                 'project' => function ($query) use ($lang) {
@@ -178,6 +178,8 @@ class TaskOrderController extends OnAuthController
             ])
             ->asArray()
             ->one();
+        $model['project']['translation']['content'] = str_replace('text-wrap-mode: nowrap;', '', $model['project']['translation']['content']);
+        return $model;
     }
 
     /**

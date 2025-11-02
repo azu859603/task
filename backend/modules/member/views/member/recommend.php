@@ -211,6 +211,14 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                             },
                         ],
                         [
+                            'label' => '下线注册IP',
+                            'format' => 'raw',
+                            'attribute' => 'register_ip',
+                            'value' => function ($model) {
+                                return $model['register_ip'] . "<br>" . \common\helpers\DebrisHelper::analysisIp($model['register_ip']);
+                            }
+                        ],
+                        [
                             'headerOptions' => ['width' => '60px'],
                             'class' => 'yii\grid\ActionColumn',
                             'header' => '操作',

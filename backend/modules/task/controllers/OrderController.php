@@ -120,7 +120,10 @@ class OrderController extends BaseController
      */
     public function actionCheck($id, $status, $remark = "")
     {
-        RedisHelper::verify($id, $this->action->id);
+        if ($status == 2) {
+            RedisHelper::verify($id, $this->action->id);
+        }
+
         $model = Order::find()->where(['id' => $id, 'status' => 1])->one();
         if (empty($model)) {
             return $this->message("该条记录已被操作！", $this->redirect(Yii::$app->request->referrer), 'error');

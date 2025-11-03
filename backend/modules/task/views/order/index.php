@@ -247,7 +247,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'buttons' => [
                                 'pass' => function ($url, $model, $key) {
                                     if ($model->status == 1) {
-                                        return Html::linkButton(['check', 'id' => $model->id, 'status' => 2], '通过', [
+                                        return Html::linkButton(['check', 'id' => $model->id], '通过', [
                                             'class' => 'btn btn-success btn-sm',
                                             'onclick' => "rfTwiceAffirm(this, '是否立即执行通过操作？', '请谨慎操作');return false;",
                                             'style' => 'margin-bottom: 10px',
@@ -256,7 +256,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 },
                                 'no-pass' => function ($url, $model, $key) {
                                     if ($model->status == 1) {
-                                        return Html::linkButton(['no-pass', 'id' => $model->id, 'status' => 3], '驳回', [
+                                        return Html::linkButton(['no-pass', 'id' => $model->id], '驳回', [
                                             'class' => 'btn btn-warning btn-sm',
                                             'data-toggle' => 'modal',
                                             'data-target' => '#ajaxModal',

@@ -118,36 +118,31 @@ class OrderController extends BaseController
      * @param string $remark
      * @return mixed
      */
-    public function actionCheck($id, $status, $remark = "")
+    public function actionCheck($id)
     {
-        if ($status == 2) {
-            RedisHelper::verify($id, $this->action->id);
-        }
-
+        RedisHelper::verify($id, $this->action->id);
         $model = Order::find()->where(['id' => $id, 'status' => 1])->one();
         if (empty($model)) {
             return $this->message("该条记录已被操作！", $this->redirect(Yii::$app->request->referrer), 'error');
         }
         $model->updated_by = Yii::$app->user->getId();
-        $model->status = $status;
-        $model->remark = $remark;
+        $model->status = 2;
         $model->save(false);
-        if ($status == 2) {
-            Yii::$app->services->actionLog->create('order/check', '通过任务');
-        } else {
-            Yii::$app->services->actionLog->create('order/check', '驳回任务');
-        }
+        Yii::$app->services->actionLog->create('order/check', '通过任务');
+
         return $this->message("审核成功！", $this->redirect(Yii::$app->request->referrer));
     }
 
-    public function actionNoPass()
+    public function actionNoPass($id)
     {
-        $id = Yii::$app->request->get('id');
-        $status = Yii::$app->request->get('status');
         $model = Order::findOne($id);
-        $model->status = $status;
+        $model->status = 3;
         if ($model->load(Yii::$app->request->post())) {
-            return $this->redirect(['check', 'id' => $id, 'status' => $model->status, 'remark' => $model->remark]);
+            RedisHelper::verify($id, $this->action->id);
+            $model->updated_by = Yii::$app->user->getId();
+            $model->save(false);
+            Yii::$app->services->actionLog->create('order/check', '驳回任务');
+            return $this->message("审核成功！", $this->redirect(Yii::$app->request->referrer));
         }
         return $this->renderAjax($this->action->id, [
             'model' => $model,

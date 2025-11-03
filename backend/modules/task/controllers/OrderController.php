@@ -135,7 +135,10 @@ class OrderController extends BaseController
 
     public function actionNoPass($id)
     {
-        $model = Order::findOne($id);
+        $model = Order::find()->where(['id' => $id, 'status' => 1])->one();
+        if (empty($model)) {
+            return $this->message("该条记录已被操作！", $this->redirect(Yii::$app->request->referrer), 'error');
+        }
         $model->status = 3;
         if ($model->load(Yii::$app->request->post())) {
             RedisHelper::verify($id, $this->action->id);

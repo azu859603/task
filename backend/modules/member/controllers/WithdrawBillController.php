@@ -132,27 +132,29 @@ class WithdrawBillController extends BaseController
      * @param string $remark
      * @return mixed
      */
-    public function actionCheck($id, $status, $remark = "")
+    public function actionCheck($id)
     {
         RedisHelper::verify($id, $this->action->id);
         $model = WithdrawBill::find()->where(['id' => $id, 'status' => 0])->one();
         if (empty($model)) {
             return $this->message("该条记录已被操作！", $this->redirect(Yii::$app->request->referrer), 'error');
         }
-        $model->status = $status;
-        $model->remark = $remark;
+        $model->status = 1;
         $model->save(false);
         return $this->message("审核成功！", $this->redirect(Yii::$app->request->referrer));
     }
 
-    public function actionNoPass()
+    public function actionNoPass($id)
     {
-        $id = Yii::$app->request->get('id');
-        $status = Yii::$app->request->get('status');
-        $model = WithdrawBill::findOne($id);
-        $model->status = $status;
+        $model = WithdrawBill::find()->where(['id' => $id, 'status' => 0])->one();
+        if (empty($model)) {
+            return $this->message("该条记录已被操作！", $this->redirect(Yii::$app->request->referrer), 'error');
+        }
+        $model->status = 2;
         if ($model->load(Yii::$app->request->post())) {
-            return $this->redirect(['check', 'id' => $id, 'status' => $model->status, 'remark' => $model->remark]);
+            RedisHelper::verify($id, $this->action->id);
+            $model->save(false);
+            return $this->message("审核成功！", $this->redirect(Yii::$app->request->referrer));
         }
         return $this->renderAjax($this->action->id, [
             'model' => $model,

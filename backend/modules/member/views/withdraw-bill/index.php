@@ -254,7 +254,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'buttons' => [
                                     'pass' => function ($url, $model, $key) {
                                         if ($model->status == 0) {
-                                            return Html::linkButton(['check', 'id' => $model->id, 'status' => 1], '通过', [
+                                            return Html::linkButton(['check', 'id' => $model->id], '通过', [
                                                 'class' => 'btn btn-success btn-sm',
                                                 'style' => 'margin-bottom: 10px',
                                             ]);
@@ -262,20 +262,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                     },
                                     'refuse' => function ($url, $model, $key) {
                                         if ($model->status == 0) {
-                                            return Html::linkButton(['no-pass', 'id' => $model->id, 'status' => 2], '拒绝', [
+                                            return Html::linkButton(['no-pass', 'id' => $model->id], '拒绝', [
                                                 'class' => 'btn btn-primary btn-sm',
                                                 'data-toggle' => 'modal',
                                                 'data-target' => '#ajaxModal',
                                                 'style' => 'margin-bottom: 10px',
-                                            ]);
-                                        }
-                                    },
-                                    'cancel' => function ($url, $model, $key) {
-                                        if ($model->status == 0) {
-                                            return Html::linkButton(['no-pass', 'id' => $model->id, 'status' => 3], '取消', [
-                                                'class' => 'btn btn-warning btn-sm',
-                                                'data-toggle' => 'modal',
-                                                'data-target' => '#ajaxModal',
                                             ]);
                                         }
                                     },

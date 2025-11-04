@@ -279,7 +279,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'panelFooterTemplate' => '{footer}<div class="clearfix"></div>',
                     'toolbar' => [
                         '<div class="pull-left btn-toolbar">'
-//                        . Html::create(['ajax-edit'], '创建', ['data-toggle' => 'modal', 'data-target' => '#ajaxModal', 'class' => 'btn btn-primary'])
+                        . Html::linkButton(['export'], '日期导出', ['data-toggle' => 'modal', 'data-target' => '#ajaxModal', 'class' => 'btn btn-primary'])
                         //. Html::a('批量删除', Url::to(['delete-all']), ['class' => 'btn btn-danger', 'onclick' => 'ycmcBatchVerify(this);return false;'])
                         . '</div>',
                         '{toggleData}',

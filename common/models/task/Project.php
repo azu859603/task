@@ -62,7 +62,7 @@ class Project extends \yii\db\ActiveRecord
     {
         return [
             [['all_number', 'remain_number'], 'required'],
-            [['all_number', 'remain_number', 'vip_level', 'code_switch', 'sort', 'status', 'experience', 'pid', 'created_at','limit_number','is_top','cid','member_limit_number'], 'integer'],
+            [['all_number', 'remain_number', 'vip_level', 'code_switch', 'sort', 'status', 'experience', 'pid', 'created_at', 'limit_number', 'is_top', 'cid', 'member_limit_number'], 'integer'],
             [['money'], 'number'],
             [['images_list', 'file_list'], 'safe'],
             [['banner', 'keywords'], 'string', 'max' => 255],
@@ -105,5 +105,15 @@ class Project extends \yii\db\ActiveRecord
     public function getTranslations()
     {
         return $this->hasMany(ProjectTranslations::class, ['pid' => 'id']);
+    }
+
+    public function getCategory()
+    {
+        return $this->hasOne(CategoryList::class, ['id' => 'cid']);
+    }
+
+    public function getLaberCategory()
+    {
+        return $this->hasOne(LaberList::class, ['id' => 'pid']);
     }
 }

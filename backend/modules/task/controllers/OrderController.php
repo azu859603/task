@@ -2,6 +2,8 @@
 
 namespace backend\modules\task\controllers;
 
+use backend\modules\task\forms\ExportForm;
+use common\helpers\ExcelHelper;
 use common\helpers\RedisHelper;
 use common\models\common\Languages;
 use common\models\member\Member;
@@ -170,6 +172,68 @@ class OrderController extends BaseController
                 $query->where(['lang' => $lang]);
             },
         ])->one();
+        return $this->renderAjax($this->action->id, [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionExport()
+    {
+        // 解除内存限制
+        ini_set('memory_limit', '-1');
+        set_time_limit(0);
+        $model = new ExportForm();
+        // ajax 校验
+        $this->activeFormValidate($model);
+        if ($model->load(Yii::$app->request->post())) {
+            $times = explode("~", $model->created_at);
+            $default_lang_model = Languages::find()->select(['code'])->where(['is_default' => 1])->one();
+            $default_lang = !empty($default_lang_model) ? $default_lang_model['code'] : "cn";
+            $lang = Yii::$app->request->get('lang', $default_lang);
+            $models = Order::find()
+                ->where(['between', 'created_at', strtotime($times[0]), strtotime($times[1]) + 86400])
+                ->with([
+                    'member',
+                    'manager',
+                    'project' => function ($query) use ($lang) {
+                        $query->with([
+                            'translation' => function ($query) use ($lang) {
+                                $query->where(['lang' => $lang]);
+                            },
+                            'category',
+                            'laberCategory' => function ($query) use ($lang) {
+                                $query->with([
+                                    'translation' => function ($query) use ($lang) {
+                                        $query->where(['lang' => $lang]);
+                                    },
+                                ]);
+                            }
+                        ]);
+                    },
+                ])
+                ->asArray()
+                ->all();
+            $header = [
+                ['ID', 'id'],
+                ['任务类型','project.laberCategory.translation.title'],
+                ['平台分类','project.category.title'],
+                ['账号', 'member.mobile'],
+                ['社媒平台用户名', 'username'],
+                ['任务ID','project.id'],
+                ['任务标题','project.translation.title'],
+                ['视频地址','video_url'],
+                ['任务佣金','money'],
+                ['活动码','code'],
+                ['备注','remark'],
+                ['状态','status','selectd', \common\models\task\Order::$statusExplain],
+                ['添加时间', 'created_at', 'date', 'Y-m-d H:i:s'],
+                ['完成时间', 'updated_at', 'date', 'Y-m-d H:i:s'],
+                ['审核人', 'manager.username'],
+            ];
+
+            return ExcelHelper::exportData($models, $header, '导出订单_' . $model->created_at);
+        }
+
         return $this->renderAjax($this->action->id, [
             'model' => $model,
         ]);

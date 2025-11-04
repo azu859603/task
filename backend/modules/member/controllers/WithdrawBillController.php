@@ -2,6 +2,8 @@
 
 namespace backend\modules\member\controllers;
 
+use backend\modules\member\forms\WithdrawExportForm;
+use common\helpers\ExcelHelper;
 use common\helpers\RedisHelper;
 use common\helpers\ResultHelper;
 use common\models\member\Member;
@@ -83,7 +85,7 @@ class WithdrawBillController extends BaseController
 //                $dataProvider->query->andFilterWhere(['in', 'member_id', $childrenIds]);
 //            }
 
-            $sum_withdraw_money = $dataProvider->query->sum('withdraw_money')??0;
+            $sum_withdraw_money = $dataProvider->query->sum('withdraw_money') ?? 0;
 
             return $this->render('index', [
                 'dataProvider' => $dataProvider,
@@ -206,5 +208,43 @@ class WithdrawBillController extends BaseController
         } else {
             return $this->message("提现消息提示音已关闭！", $this->redirect(Yii::$app->request->referrer), 'error');
         }
+    }
+
+    public function actionExport()
+    {
+        // 解除内存限制
+        ini_set('memory_limit', '-1');
+        set_time_limit(0);
+        $model = new WithdrawExportForm();
+        // ajax 校验
+        $this->activeFormValidate($model);
+        if ($model->load(Yii::$app->request->post())) {
+            $times = explode("~", $model->created_at);
+            $models = WithdrawBill::find()
+                ->where(['between', 'created_at', strtotime($times[0]), strtotime($times[1]) + 86400])
+                ->with([
+                    'member'
+                ])
+                ->asArray()
+                ->all();
+            $header = [
+                ['ID', 'id'],
+                ['账号', 'member.mobile'],
+                ['账号', 'sn'],
+                ['提现金额', 'withdraw_money'],
+                ['汇款金额', 'real_withdraw_money'],
+                ['提现类型', 'type', 'selectd', WithdrawBill::$typeExplain],
+                ['状态', 'status', 'selectd', WithdrawBill::$statusExplain],
+                ['后台备注', 'remark'],
+                ['用户端备注', 'user_remark'],
+                ['提现时间', 'created_at', 'date', 'Y-m-d H:i:s'],
+                ['审核时间', 'updated_at', 'date', 'Y-m-d H:i:s'],
+            ];
+            return ExcelHelper::exportData($models, $header, '导出提现订单_' . $model->created_at);
+        }
+
+        return $this->renderAjax($this->action->id, [
+            'model' => $model,
+        ]);
     }
 }

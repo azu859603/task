@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     return Html::a(
                                         "账号：" . $model->member->mobile . '<br>' .
                                         "昵称：" . Html::encode($nickname) . '<br>' .
-                                        "姓名：" . Html::encode($realname) . '<br>' .
+//                                        "姓名：" . Html::encode($realname) . '<br>' .
                                         "备注：" . $remark . '<br>',
                                         ['/member/member/view', 'id' => $model->member->id],
                                         [
@@ -291,6 +291,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //                            . Html::a('批量取消', Url::to(['batch-edit']), ['class' => 'btn btn-warning', 'onclick' => 'ycmcBatchVerify(this, 3, document.getElementById("remark").value);return false;'])
 //                        . Html::a('批量删除', Url::to(['delete-all']), ['class' => 'btn btn-danger', 'onclick' => 'ycmcBatchVerify(this);return false;'])
 //                            . Html::a('支付导出', Url::to(['pay-export']), ['class' => 'btn btn-dropbox pay-export'])
+                            . Html::linkButton(['export'], '日期导出', ['data-toggle' => 'modal', 'data-target' => '#ajaxModal', 'class' => 'btn btn-primary'])
                             . Html::a('提示音开关', Url::to(['withdraw-switch']), ['class' => 'btn btn-info'])
                             . '</div>',
                             '{toggleData}',

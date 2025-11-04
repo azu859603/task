@@ -500,7 +500,7 @@ class Member extends User
     {
         $memberInfo = Member::find()
             ->where(['id' => $member_id])
-            ->select(['id', 'mobile', 'automatic_delivery_switch', 'push_flow_switch', 'nickname', 'realname', 'head_portrait', 'current_level', 'promo_code', 'sign_days', 'identification_number', 'created_at', 'type', 'vip_level', 'credit_score', 'register_type'])
+            ->select(['id', 'mobile', 'automatic_delivery_switch', 'push_flow_switch', 'nickname', 'realname', 'head_portrait', 'current_level', 'promo_code', 'sign_days', 'identification_number', 'created_at', 'type', 'vip_level', 'credit_score', 'register_type','username'])
             ->with([
                 'account' => function ($query) {
                     $query->select([

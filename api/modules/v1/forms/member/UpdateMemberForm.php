@@ -29,9 +29,10 @@ class UpdateMemberForm extends Model
     public $automatic_delivery_switch;
     public $push_flow_switch;
     public $register_type;
+    public $username;
 
     public $scenario_type_array = [
-        'nickname', 'head_portrait', 'mobile', 'realname', 'email', 'automatic_delivery_switch','push_flow_switch','register_type'
+        'nickname', 'head_portrait', 'mobile', 'realname', 'email', 'automatic_delivery_switch','push_flow_switch','register_type','username'
     ];
 
     public function rules()
@@ -49,6 +50,16 @@ class UpdateMemberForm extends Model
             [['nickname'], 'string', 'max' => 50, 'on' => 'nickname'],
 
             [['email'], 'required', 'on' => 'email'],
+            [['username'], 'required', 'on' => 'username'],
+            [
+                ['username'],
+                'unique',
+                'targetClass' => Member::class,
+                'targetAttribute' => 'username',
+                'message' => '此{attribute}已存在。'
+            ],
+
+
             [['email'], 'string', 'max' => 60, 'on' => 'email'],
             ['email', 'match', 'pattern' => RegularHelper::email(), 'message' => '请输入正确的邮箱'],
 
@@ -144,12 +155,13 @@ class UpdateMemberForm extends Model
             'nickname' => '昵称',
             'head_portrait' => '头像',
             'code' => '验证码',
-            'mobile' => '手机号',
+            'mobile' => '账号',
             'realname' => '真实姓名',
             'identification_number' => '身份证号码',
             'email' => "邮箱",
             'automatic_delivery_switch' => "发货开关",
             'push_flow_switch' => "推流开关",
+            'username' => "手机号码",
         ];
     }
 }

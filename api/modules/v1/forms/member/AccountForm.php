@@ -150,7 +150,7 @@ class AccountForm extends Model
             'platform_account' => '平台账号',
             'gcash_name' => 'Gcash名字',
             'gcash_phone' => 'Gcash电话',
-            'maya_name' => 'Maya电话',
+            'maya_name' => 'Maya名字',
             'maya_phone' => 'Maya电话',
         ];
     }

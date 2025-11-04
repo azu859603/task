@@ -215,23 +215,23 @@ class OrderController extends BaseController
                 ->all();
             $header = [
                 ['ID', 'id'],
-                ['任务类型','project.laberCategory.translation.title'],
-                ['平台分类','project.category.title'],
+                ['任务类型', 'project.laberCategory.translation.title'],
+                ['平台分类', 'project.category.title'],
                 ['账号', 'member.mobile'],
                 ['社媒平台用户名', 'username'],
-                ['任务ID','project.id'],
-                ['任务标题','project.translation.title'],
-                ['视频地址','video_url'],
-                ['任务佣金','money'],
-                ['活动码','code'],
-                ['备注','remark'],
-                ['状态','status','selectd', \common\models\task\Order::$statusExplain],
+                ['任务ID', 'project.id'],
+                ['任务标题', 'project.translation.title'],
+                ['视频地址', 'video_url'],
+                ['任务佣金', 'money'],
+                ['活动码', 'code'],
+                ['备注', 'remark'],
+                ['状态', 'status', 'selectd', \common\models\task\Order::$statusExplain],
                 ['添加时间', 'created_at', 'date', 'Y-m-d H:i:s'],
                 ['完成时间', 'updated_at', 'date', 'Y-m-d H:i:s'],
                 ['审核人', 'manager.username'],
             ];
 
-            return ExcelHelper::exportData($models, $header, '导出任务订单_' . $model->created_at);
+            return ExcelHelper::exportData($models, $header, '导出任务订单_' . time() . "日期" . $model->created_at);
         }
 
         return $this->renderAjax($this->action->id, [

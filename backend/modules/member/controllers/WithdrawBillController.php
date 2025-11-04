@@ -240,7 +240,7 @@ class WithdrawBillController extends BaseController
                 ['提现时间', 'created_at', 'date', 'Y-m-d H:i:s'],
                 ['审核时间', 'updated_at', 'date', 'Y-m-d H:i:s'],
             ];
-            return ExcelHelper::exportData($models, $header, '导出提现订单_' . $model->created_at);
+            return ExcelHelper::exportData($models, $header, '导出提现订单_' . time() . "日期" . $model->created_at);
         }
 
         return $this->renderAjax($this->action->id, [

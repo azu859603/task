@@ -113,7 +113,7 @@ function getMessage(data, type) {
         },
         "showDuration": "400",
         "hideDuration": "1000",
-        "timeOut": "1000",//设置自动关闭时间
+        "timeOut": "5000",//设置自动关闭时间
         "extendedTimeOut": "0",
         "hideEasing": "linear",
         "showMethod": "fadeIn",
@@ -175,16 +175,16 @@ function get_message_count() {
                         }, 'withdraw');
                     }, 10000)
                 }
-                if (result.data.realname_count > 0) {// 判断提示
+                if (result.data.project > 0) {// 判断提示
                     setTimeout(() => {
                         getMessage({
                             "data": {
-                                'title': '实名认证',
-                                'content': '您有新的认证审核，请及时处理！',
-                                'jump_url': '/backend/member/realname-audit/index',
+                                'title': '任务列表',
+                                'content': '当前有任务数量不足,任务ID：' + result.data.project,
+                                'jump_url': '/backend/task/project/index',
                                 'created_at': result.data.created_at,
                             }
-                        }, 'realname');
+                        }, 'project');
                     }, 20000)
                 }
             }

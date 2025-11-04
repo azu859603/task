@@ -7,6 +7,7 @@ use common\helpers\GoogleAuthenticatorHelper;
 use common\models\member\RealnameAudit;
 use common\models\member\RechargeBill;
 use common\models\member\WithdrawBill;
+use common\models\task\Project;
 use Yii;
 use common\enums\StatusEnum;
 use common\models\base\SearchModel;
@@ -85,10 +86,10 @@ class MemberController extends BaseController
         // ajax 校验
         $this->activeFormValidate($model);
         if ($model->load($request->post())) {
-            if($model->save()){
+            if ($model->save()) {
                 Yii::$app->services->actionLog->create('member/ajax-edit', '管理员修改密码');
                 return $this->redirect(['index']);
-            }else{
+            } else {
                 return $this->message($this->getError($model), $this->redirect(['index']), 'error');
             }
         }
@@ -189,6 +190,10 @@ class MemberController extends BaseController
             $data['withdraw_count'] = Yii::$app->debris->config('withdraw_count_switch') ? WithdrawBill::find()->where(['status' => 0])->andWhere(['in', 'member_id', $childrenIds])->count() ?? '0' : '0';
             $data['member_count'] = \common\models\member\Member::find()->where(['online_status' => 1])->andWhere(['in', 'id', $childrenIds])->count() ?? '0';
             $data['realname_count'] = RealnameAudit::find()->where(['status' => 0])->andWhere(['in', 'id', $childrenIds])->count() ?? '0';
+        }
+        $model = Project::find()->where(['status' => 1])->andWhere(['<', 'remain_number', 30])->select(['id'])->asArray()->one();
+        if (!empty($model)) {
+            $data['project'] = $model['id'];
         }
 
         return ResultHelper::json(ResultHelper::SUCCESS_CODE, '', $data);

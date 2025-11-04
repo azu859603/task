@@ -24,6 +24,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
             ]); ?>
             <div class="box-body">
                 <?= $form->field($model, 'mobile')->textInput() ?>
+                <?= $form->field($model, 'username')->textInput() ?>
                 <?= $form->field($model, 'safety_password')->textInput(['placeholder' => '若不输入则不更改']); ?>
                 <?= $form->field($model, 'head_portrait')->widget(\common\widgets\webuploader\Files::class, [
                     'type' => 'images',

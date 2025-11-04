@@ -175,7 +175,7 @@ class Member extends User
         return [
             'id' => 'ID',
             'merchant_id' => 'Merchant ID',
-            'username' => '账号',
+            'username' => '手机号码',
             'password_hash' => '密码',
             'auth_key' => '授权登录key',
             'password_reset_token' => '密码重置token',

@@ -145,6 +145,7 @@ class OrderController extends BaseController
         if ($model->load(Yii::$app->request->post())) {
             RedisHelper::verify($id, $this->action->id);
             $model->updated_by = Yii::$app->user->getId();
+            $model->status = 3;
             $model->save(false);
             Yii::$app->services->actionLog->create('order/check', '驳回任务');
             return $this->message("审核成功！", $this->redirect(Yii::$app->request->referrer));

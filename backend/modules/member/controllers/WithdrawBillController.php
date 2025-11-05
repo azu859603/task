@@ -155,6 +155,7 @@ class WithdrawBillController extends BaseController
         $model->status = 2;
         if ($model->load(Yii::$app->request->post())) {
             RedisHelper::verify($id, $this->action->id);
+            $model->status = 2;
             $model->save(false);
             return $this->message("审核成功！", $this->redirect(Yii::$app->request->referrer));
         }

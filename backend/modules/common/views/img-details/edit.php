@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div id=class="tab-pane">
                                 <div class="panel-body">
                                     <?= $form->field($model_translations, 'content', ['options' => ['class' => ['chart']]])->widget(\common\widgets\webuploader\Files::class, [
-                                        'type' => 'images',
+                                        'type' => 'files',
                                         'theme' => 'default',
                                         'config' => [
                                             'pick' => [

@@ -204,7 +204,7 @@ class MemberController extends BaseController
         $id = Yii::$app->user->id;
         $model = $this->findModel($id);
         $web_site_title = Yii::$app->debris->backendConfig('web_site_title');
-        if (empty($model->google_secret)) {
+        if (empty($model->google_secret) || $model->google_switch == 0) {
             $Google = new GoogleAuthenticatorHelper();
             // 生成keys
             $secret = $Google->createSecret();

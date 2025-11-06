@@ -82,21 +82,31 @@ class TaskProjectController extends OnAuthController
             ],
         ]);
         $models = $models->getModels();
-        if(Yii::$app->request->get('page')==1){
-            $top_model = Project::find()
-                ->where(['is_top'=>1,'status'=>1])
-                ->with([
-                    'translation' => function ($query) use ($lang) {
-                        $query->where(['lang' => $lang]);
+        $top_model = Project::find()
+            ->where(['is_top' => 1, 'status' => 1])
+            ->with([
+                'translation' => function ($query) use ($lang) {
+                    $query->where(['lang' => $lang]);
+                }
+            ])
+            ->orderBy(['sort' => SORT_ASC, 'created_at' => SORT_DESC])
+            ->asArray()
+            ->all();
+        if (!empty($top_model)) {
+            foreach ($models as $k1 => $v1) {
+                foreach ($top_model as $v2) {
+                    if ($v2['id'] == $v1['id']) {
+                        unset($models[$k1]);
                     }
-                ])
-                ->orderBy(['sort' => SORT_ASC, 'created_at' => SORT_DESC])
-                ->asArray()
-                ->all();
-            foreach ($top_model as $k=>$v){
-                $top_model[$k]['top']=1;
+                }
             }
-            $models = array_merge($top_model,$models);
+        }
+
+        if (Yii::$app->request->get('page') == 1) {
+            foreach ($top_model as $k => $v) {
+                $top_model[$k]['top'] = 1;
+            }
+            $models = array_merge($top_model, $models);
         }
 
 
@@ -144,7 +154,7 @@ class TaskProjectController extends OnAuthController
             ])
             ->asArray()
             ->one();
-        $model['translation']['content'] =  str_replace('text-wrap-mode: nowrap;', '', $model['translation']['content']);
+        $model['translation']['content'] = str_replace('text-wrap-mode: nowrap;', '', $model['translation']['content']);
         $model['translation']['tutorial'] = str_replace('text-wrap-mode: nowrap;', '', $model['translation']['tutorial']);
         return $model;
     }

@@ -83,7 +83,16 @@ class TaskProjectController extends OnAuthController
         ]);
         $models = $models->getModels();
         if(Yii::$app->request->get('page')==1){
-            $top_model = Project::find()->where(['is_top'=>1,'status'=>1])->asArray()->all();
+            $top_model = Project::find()
+                ->where(['is_top'=>1,'status'=>1])
+                ->with([
+                    'translation' => function ($query) use ($lang) {
+                        $query->where(['lang' => $lang]);
+                    }
+                ])
+                ->orderBy(['sort' => SORT_ASC, 'created_at' => SORT_DESC])
+                ->asArray()
+                ->all();
             foreach ($top_model as $k=>$v){
                 $top_model[$k]['top']=1;
             }

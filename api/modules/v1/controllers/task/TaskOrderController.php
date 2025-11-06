@@ -78,17 +78,22 @@ class TaskOrderController extends OnAuthController
         RedisHelper::verify($this->memberId, $this->action->id);
 
         // 判断特定任务
-//        $specific_task_settings = Yii::$app->debris->backendConfig('specific_task_settings');
-//        !empty($specific_task_settings) && $specific_task_settings = ArrayHelper::map(Json::decode($specific_task_settings), 'number', 'task_id');
-//        if (!empty($specific_task_settings)) {
-//            $order_count = Order::find()->where(['member_id' => $this->memberId])->count();
-//            foreach ($specific_task_settings as $k => $v) {
-//                // 如果已经领取的任务大于了领取特定任务数量，并且没有完成过特定任务
-//                if ($order_count >= $k && empty(Order::find()->where(['pid' => $v, 'member_id' => $this->memberId, 'status' => 2])->exists())) {
-//                    return ResultHelper::json(ResultHelper::ERROR_CODE, '必须完成特定任务才能继续领取下一个任务', ['task_id' => $v]);
-//                }
-//            }
-//        }
+        $specific_task_settings = Yii::$app->debris->backendConfig('specific_task_settings');
+        !empty($specific_task_settings) && $specific_task_settings = ArrayHelper::map(Json::decode($specific_task_settings), 'number', 'task_id');
+        if (!empty($specific_task_settings)) {
+            $order_count = Order::find()->where(['member_id' => $this->memberId])->count();
+            foreach ($specific_task_settings as $k => $v) {
+                // 如果已经领取的任务大于了领取特定任务数量，并且没有完成过特定任务
+                if (!empty($v) && $order_count >= $k && empty(Order::find()->where(['pid' => $v, 'member_id' => $this->memberId, 'status' => 2])->exists())) {
+                    return ResultHelper::json(ResultHelper::ERROR_CODE, '必须完成特定任务才能继续领取下一个任务', ['task_id' => $v]);
+                }
+            }
+        }
+        $memberInfo = Member::findOne($this->memberId);
+        // 判断是否绑定手机号
+        if (empty($memberInfo->username)) {
+            return ResultHelper::json(ResultHelper::ERROR_CODE, '请先绑定手机号码后再进行操作');
+        }
 
 
         $id = Yii::$app->request->post('id');
@@ -96,7 +101,7 @@ class TaskOrderController extends OnAuthController
         if (empty($project)) {
             return ResultHelper::json(ResultHelper::ERROR_CODE, '任务数量不足');
         }
-        $memberInfo = Member::findOne($this->memberId);
+
         if ($project->vip_level > $memberInfo->current_level) {
             return ResultHelper::json(ResultHelper::ERROR_CODE, '当前等级无法领取改任务');
         }

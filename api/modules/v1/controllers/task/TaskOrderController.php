@@ -85,7 +85,7 @@ class TaskOrderController extends OnAuthController
             foreach ($specific_task_settings as $k => $v) {
                 // 如果已经领取的任务大于了领取特定任务数量，并且没有完成过特定任务
                 if (!empty($v) && $order_count >= $k && empty(Order::find()->where(['pid' => $v, 'member_id' => $this->memberId, 'status' => 2])->exists())) {
-                    return ResultHelper::json(ResultHelper::ERROR_CODE, '必须完成特定任务才能继续领取下一个任务', ['task_id' => $v]);
+                    return ResultHelper::json(ResultHelper::ERROR_CODE, 'OK', ['task_id' => $v, 'message' => '必须完成特定任务才能继续领取下一个任务']);
                 }
             }
         }

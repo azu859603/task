@@ -66,7 +66,7 @@ class TaskProjectController extends OnAuthController
         if (empty($pid)) {
             return ResultHelper::json(ResultHelper::ERROR_CODE, "父级不能为空");
         }
-        return new ActiveDataProvider([
+        $models = new ActiveDataProvider([
             'query' => $this->modelClass::find()
                 ->where(['status' => StatusEnum::ENABLED, 'pid' => $pid])
                 ->with([
@@ -81,6 +81,17 @@ class TaskProjectController extends OnAuthController
                 'validatePage' => false,// 超出分页不返回data
             ],
         ]);
+        $models = $models->getModels();
+        if(Yii::$app->request->get('page')==1){
+            $top_model = Project::find()->where(['is_top'=>1,'status'=>1])->asArray()->all();
+            foreach ($top_model as $k=>$v){
+                $top_model[$k]['top']=1;
+            }
+            $models = array_merge($top_model,$models);
+        }
+
+
+        return $models;
     }
 
 

@@ -91,7 +91,7 @@ class Project extends \yii\db\ActiveRecord
             'pid' => '任务类型',
             'created_at' => '分类',
             'limit_number' => '每日限制次数',
-            'is_top' => '是否推荐',
+            'is_top' => '是否置顶',
             'cid' => '平台分类',
             'member_limit_number' => '限制次数',
         ];

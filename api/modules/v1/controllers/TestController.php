@@ -44,34 +44,27 @@ class TestController extends OnAuthController
 
     public function actionIndex()
     {
-		var_dump(123);exit;
-//        $a = Order::find()->where(['member_id' => 1, 'status' => 2])->count();
-//        var_dump($a);exit;
-//        $seller_member = Member::find()->where(['id'=>1547])->one();
-//        Yii::$app->services->memberLevel->updateSellerLevel($seller_member);
-        exit('完成');
-        var_dump($this->getEmail(rand(3, 8)));
-        exit;
-        var_dump(date('Y-m-d', strtotime("-6 day")));
-        exit;
-        var_dump(md5(123456));
-        exit;
+        // 使用示例
+        try {
+            $apiKey = '';
+            $imageAI = new AdvancedOpenAIImage($apiKey);
 
-        $host = "https://vdo.weseehort.com";
-        $url = "/movie/auto/67ef851c3c6ad62d6956c37f.m3u8";
-        $start = strpos($url, '/auto');
-        $end = strpos($url, '.m3u8');
-        $str = substr($url, $start, $end - 6);
-        $key = "abcd123456";
-        $time = CommonPluginHelper::msectime() + (60 * 1000 * 60);
-        $counts = 2;
-        $str2 = $str . "&counts=$counts&timestamp=" . $time . $key;
-        $sign = md5($str2);
-//        $return_url = htmlentities($host . $url . "?counts=$counts&timestamp=" . $time . "&key=" . $sign);
-        $return_url = $host . $url . "?counts=$counts&timestamp=" . $time . "&key=" . $sign;
-        var_dump($return_url);
-        exit;
-        return $return_url;
+            // 生成图片URL
+            $result = $imageAI->generateImageUrl(
+                '一只穿着宇航服的柴犬在太空中漂浮，地球在背景中',
+                'large',
+                1
+            );
+
+            $imageUrl = $result['data'][0]['url'];
+            echo "图片URL: " . $imageUrl;
+
+            // 下载图片
+            // $imageAI->downloadImage($imageUrl, 'my_image.png');
+
+        } catch (\Exception $e) {
+            echo "错误: " . $e->getMessage();
+        }
     }
 
     public function getEmail($number)

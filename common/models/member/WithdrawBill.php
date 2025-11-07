@@ -118,8 +118,8 @@ class WithdrawBill extends \yii\db\ActiveRecord
             [['member_id', 'created_at', 'updated_at', 'status', 'card_id', 'pay_type', 'id'], 'integer'],
             [['sn'], 'string', 'max' => 50],
             [['type'], 'string', 'max' => 30],
-            [['remark','user_remark'], 'string', 'max' => 255],
-            [['type'], 'in', 'range' => array_keys(self::$typeExplain)],
+            [['remark', 'user_remark'], 'string', 'max' => 255],
+            [['type'], 'in', 'range' => array_keys(self::$typeExplain), 'message' => '请选择正确的提现方式'],
             [['type'], 'verifyType'],
             [['real_withdraw_money', 'handling_fees', 'withdraw_money'], 'number', 'numberPattern' => '/^\d+(.\d{1,2})?$/', 'message' => '小数点后位数不能大于俩位'],
         ];

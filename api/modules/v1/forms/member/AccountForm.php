@@ -31,6 +31,7 @@ class AccountForm extends Model
     public $bank_address;
     public $usdt_link;
     public $platform_account;
+    public $platform_name;
     public $gcash_name;
     public $gcash_phone;
     public $maya_name;
@@ -72,7 +73,7 @@ class AccountForm extends Model
             [['usdt_link'], 'required', 'on' => 'usdt_link'],
             [['alipay_account_url'], 'required', 'on' => 'alipay_account_url'],
             [['alipay_account', 'alipay_user_name', 'wechat_account'], 'string', 'max' => 50],
-            [['wechat_account_url', 'alipay_account_url', 'bank_card', 'bank_address'], 'string', 'max' => 255],
+            [['wechat_account_url', 'alipay_account_url', 'bank_card', 'bank_address','platform_name'], 'string', 'max' => 255],
             [
                 ['alipay_account'],
                 'unique',
@@ -148,6 +149,7 @@ class AccountForm extends Model
             'bank_address' => '开户行',
             'usdt_link' => 'USDT地址',
             'platform_account' => '平台账号',
+            'platform_name' => '平台姓名',
             'gcash_name' => 'Gcash名字',
             'gcash_phone' => 'Gcash电话',
             'maya_name' => 'Maya名字',

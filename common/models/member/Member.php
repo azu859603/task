@@ -517,6 +517,7 @@ class Member extends User
                         'contract_profit',
                         'non_contractual_profit',
                         'platform_account',
+                        'platform_name',
                         'gcash_name',
                         'gcash_phone',
                         'maya_name',

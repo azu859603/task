@@ -81,7 +81,7 @@ class TaskOrderController extends OnAuthController
         $specific_task_settings = Yii::$app->debris->backendConfig('specific_task_settings');
         !empty($specific_task_settings) && $specific_task_settings = ArrayHelper::map(Json::decode($specific_task_settings), 'number', 'task_id');
         if (!empty($specific_task_settings)) {
-            $order_count = Order::find()->where(['member_id' => $this->memberId, 'status' => 2])->count();
+            $order_count = Order::find()->where(['member_id' => $this->memberId])->count();
             foreach ($specific_task_settings as $k => $v) {
                 // 如果已经领取的任务大于了领取特定任务数量，并且没有完成过特定任务
                 if (!empty($v) && $order_count >= $k && empty(Order::find()->where(['pid' => $v, 'member_id' => $this->memberId, 'status' => 2])->exists())) {

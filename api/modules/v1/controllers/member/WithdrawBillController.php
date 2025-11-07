@@ -78,7 +78,7 @@ class WithdrawBillController extends OnAuthController
                 ->where(['member_id' => $this->memberId])
                 ->andWhere(['between', 'created_at', $today['start'], $today['end']])
                 ->count();
-            if ($today_withdraw_times > $every_day_withdraw_times) {
+            if ($today_withdraw_times >= $every_day_withdraw_times) {
                 return ResultHelper::json(ResultHelper::ERROR_CODE, '已超过今日最多提现次数');
             }
         }

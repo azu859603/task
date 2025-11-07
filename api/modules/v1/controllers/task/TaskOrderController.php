@@ -76,7 +76,7 @@ class TaskOrderController extends OnAuthController
     public function actionCreate()
     {
         RedisHelper::verify($this->memberId, $this->action->id);
-
+        $id = Yii::$app->request->post('id');
         // 判断特定任务
         $specific_task_settings = Yii::$app->debris->backendConfig('specific_task_settings');
         !empty($specific_task_settings) && $specific_task_settings = ArrayHelper::map(Json::decode($specific_task_settings), 'number', 'task_id');
@@ -85,11 +85,14 @@ class TaskOrderController extends OnAuthController
             foreach ($specific_task_settings as $k => $v) {
                 // 如果已经领取的任务大于了领取特定任务数量，并且没有完成过特定任务
                 if (!empty($v) && $order_count >= $k && empty(Order::find()->where(['pid' => $v, 'member_id' => $this->memberId, 'status' => 2])->exists())) {
-//                    if (!empty($order = Order::find()->where(['pid' => $v, 'member_id' => $this->memberId])->select(['id'])->asArray()->one())) {
-//                        return ResultHelper::json(ResultHelper::ERROR_CODE, 'OK', ['order_id' => $order['id'], 'message' => '需要先完成这个任务才可解锁其他的任务领取']);
-//                    } else {
-                    return ResultHelper::json(ResultHelper::ERROR_CODE, 'OK', ['task_id' => $v, 'message' => '必须完成特定任务才能继续领取下一个任务']);
-//                    }
+                    if (!empty($order = Order::find()->where(['pid' => $v, 'member_id' => $this->memberId])->select(['id'])->asArray()->one())) {
+                        return ResultHelper::json(ResultHelper::ERROR_CODE, 'OK', ['order_id' => $order['id'], 'message' => '需要先完成这个任务才可解锁其他的任务领取']);
+                    } else {
+                        if ($id != $v) {
+                            return ResultHelper::json(ResultHelper::ERROR_CODE, 'OK', ['task_id' => $v, 'message' => '必须完成特定任务才能继续领取下一个任务']);
+                        }
+
+                    }
                 }
             }
         }
@@ -100,7 +103,6 @@ class TaskOrderController extends OnAuthController
         }
 
 
-        $id = Yii::$app->request->post('id');
         $project = Project::find()->where(['id' => $id, 'status' => StatusEnum::ENABLED])->andWhere(['>', 'remain_number', 0])->one();
         if (empty($project)) {
             return ResultHelper::json(ResultHelper::ERROR_CODE, '任务数量不足');

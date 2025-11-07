@@ -44,6 +44,7 @@ class TestController extends OnAuthController
 
     public function actionIndex()
     {
+		var_dump(123);exit;
 //        $a = Order::find()->where(['member_id' => 1, 'status' => 2])->count();
 //        var_dump($a);exit;
 //        $seller_member = Member::find()->where(['id'=>1547])->one();

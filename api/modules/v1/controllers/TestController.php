@@ -19,6 +19,7 @@ use common\models\dj\SellerAvailableList;
 use common\models\dj\ShortPlaysList;
 use common\models\member\CreditsLog;
 use common\models\member\Member;
+use common\helpers\AdvancedOpenAIImage;
 use common\models\member\MemberCard;
 use common\models\member\RedEnvelope;
 use common\models\task\Order;

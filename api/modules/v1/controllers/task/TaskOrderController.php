@@ -91,7 +91,6 @@ class TaskOrderController extends OnAuthController
                         if ($id != $v) {
                             return ResultHelper::json(ResultHelper::ERROR_CODE, 'OK', ['task_id' => $v, 'message' => '必须完成特定任务才能继续领取下一个任务']);
                         }
-
                     }
                 }
             }

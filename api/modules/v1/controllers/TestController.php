@@ -21,6 +21,7 @@ use common\models\member\CreditsLog;
 use common\models\member\Member;
 use common\models\member\MemberCard;
 use common\models\member\RedEnvelope;
+use common\models\task\Order;
 use common\models\tea\CouponMember;
 use common\models\tea\InvestmentBill;
 use common\models\tea\QuestionsList;
@@ -43,9 +44,10 @@ class TestController extends OnAuthController
 
     public function actionIndex()
     {
-        var_dump(Yii::$app->debris->backendConfig('sign_gift_money'));exit;
-        $seller_member = Member::find()->where(['id'=>1547])->one();
-        Yii::$app->services->memberLevel->updateSellerLevel($seller_member);
+//        $a = Order::find()->where(['member_id' => 1, 'status' => 2])->count();
+//        var_dump($a);exit;
+//        $seller_member = Member::find()->where(['id'=>1547])->one();
+//        Yii::$app->services->memberLevel->updateSellerLevel($seller_member);
         exit('完成');
         var_dump($this->getEmail(rand(3, 8)));
         exit;

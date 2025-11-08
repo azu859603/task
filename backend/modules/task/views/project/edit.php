@@ -108,6 +108,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]
                     ]); ?>
                     <?= $form->field($model, 'keywords', ['options' => ['class' => ['chart']]])->textInput()->hint("*多个用“#”隔开", ['style' => 'color:red']) ?>
+                    <?= $form->field($model, 'push_content', ['options' => ['class' => ['chart']]])->textInput()->hint("*多个用“#”隔开", ['style' => 'color:red']) ?>
                     <?= $form->field($model, 'experience', ['options' => ['class' => ['chart']]])->textInput() ?>
 
 

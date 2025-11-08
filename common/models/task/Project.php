@@ -21,7 +21,8 @@ use yii\db\ActiveRecord;
  * @property int $code_switch 活动码开关
  * @property array $images_list 图片素材
  * @property array $file_list 文件素材
- * @property array $keywords 关键词
+ * @property string $keywords 关键词
+ * @property string $push_content
  * @property int $sort
  * @property int $status
  * @property int $pid
@@ -64,7 +65,7 @@ class Project extends \yii\db\ActiveRecord
             [['all_number', 'remain_number'], 'required'],
             [['id','all_number', 'remain_number', 'vip_level', 'code_switch', 'sort', 'status', 'experience', 'pid', 'created_at', 'limit_number', 'is_top', 'cid', 'member_limit_number'], 'integer'],
             [['money'], 'number'],
-            [['images_list', 'file_list'], 'safe'],
+            [['images_list', 'file_list','push_content'], 'safe'],
             [['banner', 'keywords'], 'string', 'max' => 255],
         ];
     }
@@ -94,6 +95,7 @@ class Project extends \yii\db\ActiveRecord
             'is_top' => '是否置顶',
             'cid' => '平台分类',
             'member_limit_number' => '限制次数',
+            'push_content' => '发布内容',
         ];
     }
 

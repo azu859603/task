@@ -37,7 +37,7 @@ $path = Yii::getAlias('@runtime') . '/logs/';
  */
 $filePath = $path . 'updateMember.log';
 $schedule->command('member/update-sign-status')->cron('0 0 * * *')->appendOutputTo($filePath);
-//$schedule->command('member/update-sign-day')->cron('0 0 * * *')->appendOutputTo($filePath);
+$schedule->command('member/update-sign-day')->cron('0 0 * * *')->appendOutputTo($filePath);
 
 
 /**

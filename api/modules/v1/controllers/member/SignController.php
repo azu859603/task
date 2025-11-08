@@ -73,12 +73,13 @@ class SignController extends OnAuthController
 //                    'credit_group' => CreditsLog::CREDIT_GROUP_MEMBER,
 //                    'remark' => "【系统】签到赠送奖金",
 //                ]));
-                $member->account->experience = BcHelper::add($member->account->experience,$member->memberLevel->sign_gift_money,0);
+                $member->account->experience = BcHelper::add($member->account->experience, $member->memberLevel->sign_gift_money, 0);
                 $member->account->save(false);
                 Yii::$app->services->memberLevel->updateLevel($member);
-            } else {
-                throw new UnprocessableEntityHttpException('签到功能暂未开放');
             }
+//            else {
+//                throw new UnprocessableEntityHttpException('签到功能暂未开放');
+//            }
             $member->sign_status = 1;
             $member->sign_days += 1;
             $member->save(false);
@@ -86,6 +87,26 @@ class SignController extends OnAuthController
             $model = new SignIn();
             $model->member_id = $this->memberId;
             $model->save();
+
+            // 签到赠送余额
+            if (Yii::$app->params['thisAppEnglishName'] == "task_cn") {
+                $days = BcHelper::mod($member->sign_days, 30, 0);
+                if ($days == 0) {
+                    $money = 3;
+                } else {
+                    $money = BcHelper::div($days, 10);
+                }
+
+                Yii::$app->services->memberCreditsLog->incrMoney(new CreditsLogForm([
+                    'member' => $member,
+                    'pay_type' => CreditsLog::SIGN_TYPE,
+                    'num' => $money,
+                    'credit_group' => CreditsLog::CREDIT_GROUP_MEMBER,
+                    'remark' => "【系统】签到赠送奖金",
+                ]));
+
+
+            }
             // 加入统计表
             Statistics::updateSignMember(date("Y-m-d"));
 

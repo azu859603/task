@@ -169,13 +169,11 @@ class TaskProjectController extends OnAuthController
                     if (!empty($order = Order::find()->where(['pid' => $v, 'member_id' => $this->memberId])->select(['id'])->asArray()->one())) {
 //                        return ResultHelper::json(ResultHelper::ERROR_CODE, 'OK', ['order_id' => $order['id'], 'message' => '需要先完成这个任务才可解锁其他的任务领取']);
                         $model['hint_order_id'] = $order['id'];
-                        $model['hint_content'] = "建议领取佣金更高的特殊任务，获得更多的佣金！";
 
                     } else {
                         if ($id != $v) {
 //                            return ResultHelper::json(ResultHelper::ERROR_CODE, 'OK', ['task_id' => $v, 'message' => '必须完成特定任务才能继续领取下一个任务']);
                             $model['hint_task_id'] = $v;
-                            $model['hint_content'] = "建议领取佣金更高的特殊任务，获得更多的佣金！";
                         } else {
                             break;
                         }

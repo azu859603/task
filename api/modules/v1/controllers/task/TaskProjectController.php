@@ -11,6 +11,7 @@ namespace api\modules\v1\controllers\task;
 
 use api\controllers\OnAuthController;
 use common\enums\StatusEnum;
+use common\helpers\ArrayHelper;
 use common\helpers\BcHelper;
 use common\helpers\RedisHelper;
 use common\helpers\ResultHelper;
@@ -19,6 +20,7 @@ use common\models\forms\CreditsLogForm;
 use common\models\member\CreditsLog;
 use common\models\member\Member;
 use common\models\task\LaberList;
+use common\models\task\Order;
 use common\models\task\Project;
 use yii\data\ActiveDataProvider;
 use Yii;
@@ -156,6 +158,32 @@ class TaskProjectController extends OnAuthController
             ->one();
         $model['translation']['content'] = str_replace('text-wrap-mode: nowrap;', '', $model['translation']['content']);
         $model['translation']['tutorial'] = str_replace('text-wrap-mode: nowrap;', '', $model['translation']['tutorial']);
+
+
+        $specific_task_settings = Yii::$app->debris->backendConfig('specific_task_settings');
+        !empty($specific_task_settings) && $specific_task_settings = ArrayHelper::map(Json::decode($specific_task_settings), 'number', 'task_id');
+        if (!empty($specific_task_settings)) {
+            $order_count = Order::find()->where(['member_id' => $this->memberId])->count();
+            foreach ($specific_task_settings as $k => $v) {
+                if (!empty($v) && $order_count >= $k && empty(Order::find()->where(['pid' => $v, 'member_id' => $this->memberId, 'status' => 2])->exists())) {
+                    if (!empty($order = Order::find()->where(['pid' => $v, 'member_id' => $this->memberId])->select(['id'])->asArray()->one())) {
+//                        return ResultHelper::json(ResultHelper::ERROR_CODE, 'OK', ['order_id' => $order['id'], 'message' => '需要先完成这个任务才可解锁其他的任务领取']);
+                        $model['hint_order_id'] = $order['id'];
+                        $model['hint_content'] = "建议领取佣金更高的特殊任务，获得更多的佣金！";
+
+                    } else {
+                        if ($id != $v) {
+//                            return ResultHelper::json(ResultHelper::ERROR_CODE, 'OK', ['task_id' => $v, 'message' => '必须完成特定任务才能继续领取下一个任务']);
+                            $model['hint_task_id'] = $v;
+                            $model['hint_content'] = "建议领取佣金更高的特殊任务，获得更多的佣金！";
+                        } else {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
         return $model;
     }
 

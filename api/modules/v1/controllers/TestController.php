@@ -46,13 +46,15 @@ class TestController extends OnAuthController
     public function actionIndex()
     {
         // 使用示例
+        $keyword = Yii::$app->request->get('keyword');
         try {
             $apiKey = '';
             $imageAI = new AdvancedOpenAIImage($apiKey);
 
             // 生成图片URL
             $result = $imageAI->generateImageUrl(
-                '一只穿着宇航服的柴犬在太空中漂浮，地球在背景中',
+//                '一只穿着宇航服的柴犬在太空中漂浮，地球在背景中',
+                $keyword,
                 'large',
                 1
             );

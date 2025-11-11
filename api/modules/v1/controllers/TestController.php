@@ -60,13 +60,13 @@ class TestController extends OnAuthController
             );
 
             $imageUrl = $result['data'][0]['url'];
-            echo "图片URL: " . $imageUrl;
+            echo "图片URL: " . $imageUrl;exit;
 
             // 下载图片
             // $imageAI->downloadImage($imageUrl, 'my_image.png');
 
         } catch (\Exception $e) {
-            echo "错误: " . $e->getMessage();
+            echo "错误: " . $e->getMessage();exit;
         }
     }
 

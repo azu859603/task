@@ -225,8 +225,8 @@ class ConfigController extends OnAuthController
             $ph = "";
             foreach ($result_model as $v) {
                 $cn .= substr_replace($v['member']['mobile'], "***", 1, 3) . "用户提现：" . $v['withdraw_money'] . "金额已到账。";
-                $en .= substr_replace($v['member']['mobile'], "***", 1, 3) . " user withdrawal: " . $v['withdraw_money'] . " has been credited to account.";
-                $ph .= "Pag-withdraw ng user sa " . substr_replace($v['member']['mobile'], "***", 1, 3) . ": " . $v['withdraw_money'] . " ang na-kredito sa account.";
+                $en .= "🎉 Congratulations " . substr_replace($v['member']['mobile'], "***", 1, 3) . " For Withdrawaling P" . $v['withdraw_money'] . "!";
+                $ph .= "🎉 Congrats kay" . substr_replace($v['member']['mobile'], "***", 1, 3) . "! Withdrawal ka ₱" . $v['withdraw_money'] . "!";
             }
 //            $models = [
 //                ['title' => 'Pilipinas', 'lang' => 'ph', 'content' => $ph],

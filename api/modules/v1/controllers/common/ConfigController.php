@@ -203,7 +203,7 @@ class ConfigController extends OnAuthController
             $withdraw_model = WithdrawBill::find()
                 ->select(['id', 'member_id', 'withdraw_money'])
                 ->where(['status' => 1])
-                ->andWhere(['>', 'withdraw_money', 300])
+                ->andWhere(['>', 'withdraw_money', 400])
                 ->with([
                     'member' => function ($query) {
                         $query->select(['id', 'mobile']);

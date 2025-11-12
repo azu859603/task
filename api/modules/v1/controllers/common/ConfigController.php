@@ -197,8 +197,7 @@ class ConfigController extends OnAuthController
             }
         }
 
-        if (!empty($result['marquee_placard']) && Yii::$app->params['thisAppEnglishName'] == "task") {
-
+        if (Yii::$app->params['thisAppEnglishName'] == "task") {
             // 真实5个
             $withdraw_model = WithdrawBill::find()
                 ->select(['id', 'member_id', 'withdraw_money'])

@@ -115,7 +115,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => function ($model) {
                                 if (!empty($model->video_url)) {
                                     if (Yii::$app->params['thisAppEnglishName'] == "task_cn") {
-                                        return Html::a("点击查看", Url::to(["url-view", 'video_url' => $model->video_url]), ['class' => 'btn btn-warning', 'data-toggle' => 'modal', 'data-target' => '#ajaxModal',]);
+                                        return Html::a("点击查看", Url::to(["url-view", 'video_url' => $model->video_url]), ['class' => 'btn btn-success', 'data-toggle' => 'modal', 'data-target' => '#ajaxModal',]);
                                     } else {
                                         return "<a href='$model->video_url' target='_blank'>点击查看";
                                     }

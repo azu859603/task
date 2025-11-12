@@ -233,7 +233,7 @@ class ConfigController extends OnAuthController
                 ['title' => 'English', 'lang' => 'en', 'content' => $en],
                 ['title' => '中文', 'lang' => 'cn', 'content' => $cn],
             ];
-            $result['marquee_placard'] = $models;
+//            $result['marquee_placard'] = $models;
         }
 
         return $result;

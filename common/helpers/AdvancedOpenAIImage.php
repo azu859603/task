@@ -11,6 +11,7 @@ class AdvancedOpenAIImage {
 
     // 支持的图片尺寸
     const SIZES = [
+        'banner'=>'750x340',
         'small' => '256x256',
         'medium' => '512x512',
         'large' => '1024x1024',

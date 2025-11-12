@@ -228,11 +228,6 @@ class ConfigController extends OnAuthController
                 $en .= "🎉 Congratulations " . substr_replace($v['member']['mobile'], "***", 1, 3) . " For Withdrawaling P" . $v['withdraw_money'] . "!";
                 $ph .= "🎉 Congrats kay" . substr_replace($v['member']['mobile'], "***", 1, 3) . "! Withdrawal ka ₱" . $v['withdraw_money'] . "!";
             }
-//            $models = [
-//                ['title' => 'Pilipinas', 'lang' => 'ph', 'content' => $ph],
-//                ['title' => 'English', 'lang' => 'en', 'content' => $en],
-//                ['title' => '中文', 'lang' => 'cn', 'content' => $cn],
-//            ];
             $models = "[{\"title\":\"Pilipinas\",\"lang\":\"ph\",\"content\":\"$ph\"},{\"title\":\"English\",\"lang\":\"en\",\"content\":\"$en\"},{\"title\":\"中文\",\"lang\":\"cn\",\"content\":\"$cn\"}]";
             $result['marquee_placard'] = $models;
         }

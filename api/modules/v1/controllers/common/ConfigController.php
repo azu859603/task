@@ -10,7 +10,10 @@ namespace api\modules\v1\controllers\common;
 
 
 use api\controllers\OnAuthController;
+use common\models\member\Member;
+use common\models\member\WithdrawBill;
 use Yii;
+use yii\db\Expression;
 use yii\helpers\Json;
 
 class ConfigController extends OnAuthController
@@ -193,6 +196,46 @@ class ConfigController extends OnAuthController
                 $result[$item] = $allConfig[$item] ?? '';
             }
         }
+
+        if (!empty($result['marquee_placard']) && Yii::$app->params['thisAppEnglishName'] == "task") {
+
+            // 真实5个
+            $withdraw_model = WithdrawBill::find()
+                ->select(['id', 'member_id', 'withdraw_money'])
+                ->where(['status' => 1])
+                ->with([
+                    'member' => function ($query) {
+                        $query->select(['id', 'mobile']);
+                    }
+                ])
+                ->orderBy(new Expression('rand()'))
+                ->limit(5)
+                ->asArray()
+                ->all();
+            // 虚拟5个
+            $result_model = [];
+            for ($i = 0; $i < 5; $i++) {
+                $email = Member::getEmail(10);
+                $result_model[$i]['member']['mobile'] = $email;
+                $result_model[$i]['withdraw_money'] = rand(100, 1000);
+            }
+            $result_model = array_merge($withdraw_model, $result_model);
+            $en = "";
+            $cn = "";
+            $ph = "";
+            foreach ($result_model as $v) {
+                $cn .= substr_replace($v['member']['mobile'], "***", 1, 3) . "用户提现：" . $v['withdraw_money'] . "金额已到账；";
+                $en .= substr_replace($v['member']['mobile'], "***", 1, 3) . " user withdrawal: " . $v['withdraw_money'] . " has been credited to account.";
+                $ph .= "Pag-withdraw ng user sa " . substr_replace($v['member']['mobile'], "***", 1, 3) . ": " . $v['withdraw_money'] . " ang na-kredito sa account.";
+            }
+            $models = [
+                ['title' => 'Pilipinas', 'lang' => 'ph', 'content' => $ph],
+                ['title' => 'English', 'lang' => 'en', 'content' => $en],
+                ['title' => '中文', 'lang' => 'cn', 'content' => $cn],
+            ];
+            $result['marquee_placard'] = $models;
+        }
+
         return $result;
     }
 }

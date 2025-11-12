@@ -228,12 +228,13 @@ class ConfigController extends OnAuthController
                 $en .= substr_replace($v['member']['mobile'], "***", 1, 3) . " user withdrawal: " . $v['withdraw_money'] . " has been credited to account.";
                 $ph .= "Pag-withdraw ng user sa " . substr_replace($v['member']['mobile'], "***", 1, 3) . ": " . $v['withdraw_money'] . " ang na-kredito sa account.";
             }
-            $models = [
-                ['title' => 'Pilipinas', 'lang' => 'ph', 'content' => $ph],
-                ['title' => 'English', 'lang' => 'en', 'content' => $en],
-                ['title' => '中文', 'lang' => 'cn', 'content' => $cn],
-            ];
-//            $result['marquee_placard'] = $models;
+//            $models = [
+//                ['title' => 'Pilipinas', 'lang' => 'ph', 'content' => $ph],
+//                ['title' => 'English', 'lang' => 'en', 'content' => $en],
+//                ['title' => '中文', 'lang' => 'cn', 'content' => $cn],
+//            ];
+            $models = "[{'title':'Pilipinas','lang':'ph','content':$ph},{'title':'English','lang':'en','content':$en},{'title':'中文','lang':'cn','content':$cn}]";
+            $result['marquee_placard'] = $models;
         }
 
         return $result;

@@ -239,4 +239,17 @@ class OrderController extends BaseController
             'model' => $model,
         ]);
     }
+
+    /**
+     * 查看账户信息
+     *
+     * @return mixed|string|\yii\web\Response
+     * @throws \yii\base\ExitException
+     */
+    public function actionUrlView($video_url)
+    {
+        return $this->renderAjax($this->action->id, [
+            'video_url' => $video_url,
+        ]);
+    }
 }

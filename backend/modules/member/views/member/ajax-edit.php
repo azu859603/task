@@ -56,7 +56,7 @@ JS;
         ?>
         <?php
         if (Yii::$app->params['thisAppEnglishName'] == "task_cn") {
-            if ($model->isNewRecor) {
+            if (empty($model->mobile)) {
                 echo $form->field($model, 'pid', ['options' => ['class' => 'form-group c-md-5']])->widget(\kartik\widgets\Select2::classname(), [
                     'data' => \yii\helpers\ArrayHelper::map(\common\models\member\Member::find()->asArray()->all(), 'id', 'mobile'),
                     'options' => ['placeholder' => '请选择上级账号'],

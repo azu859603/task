@@ -66,7 +66,7 @@ class Order extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'member_id' => '会员',
-            'pid' => '任务',
+            'pid' => '任务ID',
             'status' => '状态',
             'created_at' => '添加时间',
             'updated_at' => '完成时间',

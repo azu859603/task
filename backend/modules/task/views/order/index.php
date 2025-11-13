@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
 
                         'id',
+                        'pid',
                         [
                             'attribute' => 'cid',
                             'format' => 'raw',

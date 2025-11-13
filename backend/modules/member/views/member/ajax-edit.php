@@ -54,22 +54,46 @@ function (data, params) {
 }
 JS;
         ?>
-        <?= $form->field($model, 'pid', ['options' => ['class' => 'form-group c-md-5']])->widget(\kartik\widgets\Select2::classname(), [
-            'data' => \yii\helpers\ArrayHelper::map(\common\models\member\Member::find()->asArray()->all(), 'id', 'mobile'),
-            'options' => ['placeholder' => '请选择上级账号'],
-            'pluginOptions' => [
-                'allowClear' => true,
-                'ajax' => [
-                    'url' => "get-user",
-                    'data' => new JsExpression('function(params) { return {q:params.term, page: params.page}; }'),
-                    'processResults' => new JsExpression($resultsJs),
-                    'cache' => true
+        <?php
+        if (Yii::$app->params['thisAppEnglishName'] == "task_cn") {
+            if ($model->isNewRecor) {
+                echo $form->field($model, 'pid', ['options' => ['class' => 'form-group c-md-5']])->widget(\kartik\widgets\Select2::classname(), [
+                    'data' => \yii\helpers\ArrayHelper::map(\common\models\member\Member::find()->asArray()->all(), 'id', 'mobile'),
+                    'options' => ['placeholder' => '请选择上级账号'],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                        'ajax' => [
+                            'url' => "get-user",
+                            'data' => new JsExpression('function(params) { return {q:params.term, page: params.page}; }'),
+                            'processResults' => new JsExpression($resultsJs),
+                            'cache' => true
+                        ],
+                        'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
+                        'templateResult' => new JsExpression('formatRepo'),
+                        'templateSelection' => new JsExpression('formatRepoSelection'),
+                    ],
+                ])->label('上级');
+            }
+        } else {
+            echo $form->field($model, 'pid', ['options' => ['class' => 'form-group c-md-5']])->widget(\kartik\widgets\Select2::classname(), [
+                'data' => \yii\helpers\ArrayHelper::map(\common\models\member\Member::find()->asArray()->all(), 'id', 'mobile'),
+                'options' => ['placeholder' => '请选择上级账号'],
+                'pluginOptions' => [
+                    'allowClear' => true,
+                    'ajax' => [
+                        'url' => "get-user",
+                        'data' => new JsExpression('function(params) { return {q:params.term, page: params.page}; }'),
+                        'processResults' => new JsExpression($resultsJs),
+                        'cache' => true
+                    ],
+                    'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
+                    'templateResult' => new JsExpression('formatRepo'),
+                    'templateSelection' => new JsExpression('formatRepoSelection'),
                 ],
-                'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
-                'templateResult' => new JsExpression('formatRepo'),
-                'templateSelection' => new JsExpression('formatRepoSelection'),
-            ],
-        ])->label('上级'); ?>
+            ])->label('上级');
+        }
+
+        ?>
         <?= $form->field($model, 'type', ['options' => ['class' => ['chart']]])->dropDownList(\common\models\member\Member::$typeExplain, ["onchange" => "checkOption(this)"]) ?>
 
 
@@ -132,11 +156,12 @@ JS;
 <script type="text/javascript">
     var b_id = document.getElementById('b_id')
     var type = <?= $model->type?>;
-    if(type===2){
+    if (type === 2) {
         b_id.setAttribute('style', '')
-    }else{
+    } else {
         b_id.setAttribute('style', 'display:none;')
     }
+
     function checkOption(that) {
         if (that.value == 2) {
             b_id.setAttribute('style', '')

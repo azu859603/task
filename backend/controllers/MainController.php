@@ -58,25 +58,28 @@ class MainController extends BaseController
         $member_id = Yii::$app->user->getId();
 
 
-        if ($member_id == 1) {
-            $memberIds = \yii\helpers\ArrayHelper::map(Member::find()
-                ->select(['id', 'username'])
-                ->where(['<>', 'id', 1])
-                ->asArray()->all(), 'id', 'username');
-            $memberIds[0] = "全部";
-            ksort($memberIds);
-            $memberId = $request->get('memberId', 0);
-            if ($memberId == 0) {
-                $member_id_where = [];
+        if(Yii::$app->params['thisAppEnglishName'] == "task_cn"){
+            $member_id_where = [];
+        }else{
+            if ($member_id == 1) {
+                $memberIds = \yii\helpers\ArrayHelper::map(Member::find()
+                    ->select(['id', 'username'])
+                    ->where(['<>', 'id', 1])
+                    ->asArray()->all(), 'id', 'username');
+                $memberIds[0] = "全部";
+                ksort($memberIds);
+                $memberId = $request->get('memberId', 0);
+                if ($memberId == 0) {
+                    $member_id_where = [];
+                } else {
+                    $member_id_where = ['member_id' => $memberId];
+                }
             } else {
-                $member_id_where = ['member_id' => $memberId];
+                $member_id_where = ['member_id' => $member_id];
+                $memberIds[Yii::$app->user->getId()] = Yii::$app->user->identity->username;
+                $memberId = Yii::$app->user->getId();
             }
-        } else {
-            $member_id_where = ['member_id' => $member_id];
-            $memberIds[Yii::$app->user->getId()] = Yii::$app->user->identity->username;
-            $memberId = Yii::$app->user->getId();
         }
-
         $from_date = $request->get('from_date', date('Y-m-d', strtotime("-30 day")));
         $to_date = $request->get('to_date', date('Y-m-d', strtotime("+30 day")));
         $models = Statistics::findBetweenByDate($from_date, $to_date, $memberId);

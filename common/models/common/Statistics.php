@@ -8,6 +8,7 @@ use common\models\backend\Member;
 use common\models\member\CreditsLog;
 use common\models\member\RechargeBill;
 use common\models\member\WithdrawBill;
+use common\models\task\Order;
 use Yii;
 
 /**
@@ -33,6 +34,7 @@ use Yii;
  * @property int $member_id
  * @property int $get_task_number
  * @property int $over_task_number
+ * @property int $get_task_people
  */
 class Statistics extends \yii\db\ActiveRecord
 {
@@ -50,7 +52,7 @@ class Statistics extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['register_member', 'sign_member', 'new_investment_number', 'stop_investment_number', 'created_at', 'withdraw_number', 'recharge_number', 'member_id', 'get_task_number', 'over_task_number'], 'integer'],
+            [['register_member', 'sign_member', 'new_investment_number', 'stop_investment_number', 'created_at', 'withdraw_number', 'recharge_number', 'member_id', 'get_task_number', 'over_task_number', 'get_task_people'], 'integer'],
             [['withdraw_money', 'recharge_money', 'commission_money', 'new_investment_money', 'stop_investment_money', 'income_money', 'gift_money', 'buy_money'], 'number'],
             [['date'], 'required'],
             [['date'], 'safe'],
@@ -83,6 +85,7 @@ class Statistics extends \yii\db\ActiveRecord
             'member_id' => '代理ID',
             'get_task_number' => '领取任务数',
             'over_task_number' => '完成任务数',
+            'get_task_people' => '领取任务人数',
         ];
     }
 
@@ -471,7 +474,7 @@ class Statistics extends \yii\db\ActiveRecord
      * @return bool
      * @author 哈哈
      */
-    public static function updateGetTask($date, $b_id)
+    public static function updateGetTask($date, $b_id, $member_id)
     {
         $model = self::find()->where(['date' => $date, 'member_id' => $b_id])->one();
         if (empty($model)) {
@@ -481,6 +484,11 @@ class Statistics extends \yii\db\ActiveRecord
         }
         $model->get_task_number += 1;
         $model->created_at = time();
+        // 判断今日是否领取过任务
+        $today = DateHelper::today();
+        if (Order::find()->where(['member_id' => $member_id])->andWhere(['between', 'created_at', $today['start'], $today['end']])->count()==1) {
+            $model->get_task_people += 1;
+        }
         $model->save(false);
 
         return true;

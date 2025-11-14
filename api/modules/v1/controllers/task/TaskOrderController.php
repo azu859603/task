@@ -142,7 +142,7 @@ class TaskOrderController extends OnAuthController
                 // 加入统计表 获取最上级用户ID
                 $first_member = Member::getParentsFirst($memberInfo);
                 $b_id = $first_member['b_id'] ?? 0;
-                Statistics::updateGetTask(date("Y-m-d"), $b_id);
+                Statistics::updateGetTask(date("Y-m-d"), $b_id,$memberInfo['id']);
             }
 
             $transaction->commit();

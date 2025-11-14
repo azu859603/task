@@ -207,6 +207,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                                             <th>日期</th>
                                             <th>注册数</th>
                                             <th>领取任务数</th>
+                                            <th>领取任务人数</th>
                                             <th>完成任务数</th>
                                             <th>提现金额</th>
                                             <th>佣金额</th>
@@ -219,6 +220,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                                                 <td><?= $v1['date'] ?></td>
                                                 <td><?= $v1['register_member'] ?></td>
                                                 <td><?= $v1['get_task_number'] ?></td>
+                                                <td><?= $v1['get_task_people'] ?></td>
                                                 <td><?= $v1['over_task_number'] ?></td>
                                                 <td><?= $v1['withdraw_money'] ?></td>
                                                 <td><?= $v1['commission_money'] ?></td>

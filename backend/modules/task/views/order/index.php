@@ -37,8 +37,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         'id',
                         'pid',
                         [
-                                'attribute'=>'member.register_ip',
-                            'value' => function ($model)  {
+                            'attribute' => 'member.register_ip',
+                            'value' => function ($model) {
                                 return $model->member->register_ip;
                             },
 

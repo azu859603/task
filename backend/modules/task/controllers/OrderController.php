@@ -59,7 +59,7 @@ class OrderController extends BaseController
                 'model' => $this->modelClass,
                 'scenario' => 'default',
                 'partialMatchAttributes' => [], // 模糊查询
-                'relations' => ['member' => ['mobile'], 'project' => ['cid'], 'manager' => 'username'],
+                'relations' => ['member' => ['mobile', 'register_ip'], 'project' => ['cid'], 'manager' => 'username'],
                 'defaultOrder' => [
                     'id' => SORT_DESC
                 ],

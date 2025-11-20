@@ -37,6 +37,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         'id',
                         'pid',
                         [
+                                'attribute'=>'member.register_ip',
+                            'value' => function ($model)  {
+                                return $model->member->register_ip;
+                            },
+
+                        ],
+                        [
                             'attribute' => 'cid',
                             'format' => 'raw',
                             'filter' => Html::activeDropDownList($searchModel, 'cid', $laber_category, [

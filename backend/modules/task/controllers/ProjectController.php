@@ -11,26 +11,26 @@ use common\models\base\SearchModel;
 use backend\controllers\BaseController;
 
 /**
-* Project
-*
-* Class ProjectController
-* @package backend\modules\task\controllers
-*/
+ * Project
+ *
+ * Class ProjectController
+ * @package backend\modules\task\controllers
+ */
 class ProjectController extends BaseController
 {
     use Curd;
 
     /**
-    * @var Project
-    */
+     * @var Project
+     */
     public $modelClass = Project::class;
 
 
     /**
-    * 首页
-    * @return array|string
-    * @throws \yii\web\NotFoundHttpException
-    */
+     * 首页
+     * @return array|string
+     * @throws \yii\web\NotFoundHttpException
+     */
     public function actionIndex()
     {
         if (Yii::$app->request->post('hasEditable')) {
@@ -48,7 +48,7 @@ class ProjectController extends BaseController
                 isset($posted['status']) && $output = ['1' => '启用', '0' => '禁用'][$model->status];
                 isset($posted['code_switch']) && $output = ['1' => '启用', '0' => '禁用'][$model->code_switch];
             } else {
-            //由于本插件不会自动捕捉model的error，所以需要放在$message中展示出来
+                //由于本插件不会自动捕捉model的error，所以需要放在$message中展示出来
                 $message = $model->getFirstError($attribute);
             }
             return ['output' => $output, 'message' => $message];
@@ -70,16 +70,15 @@ class ProjectController extends BaseController
             $lang = Yii::$app->request->get('lang', $default_lang);
 
             $dataProvider->query
+                ->andWhere(['>', 'status', -1])
                 ->with([
                     'translation' => function ($query) use ($lang) {
                         $query->where(['lang' => $lang]);
                     }]);
 
 
-
-
             $laber_categorys = \common\models\task\LaberList::find()
-                ->with(['translation' => function ($query)use ($lang) {
+                ->with(['translation' => function ($query) use ($lang) {
                     $query->where(['lang' => $lang]);
                 }])
                 ->asArray()

@@ -151,13 +151,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'class' => 'yii\grid\ActionColumn',
                             'header' => '操作',
-                            'template' => '{edit}',
+                            'template' => '{edit} {delete}',
                             'buttons' => [
                                 'edit' => function ($url, $model, $key) {
                                     return Html::edit(['edit', 'id' => $model->id]);
                                 },
                                 'delete' => function ($url, $model, $key) {
-                                    return Html::delete(['delete', 'id' => $model->id]);
+                                    return Html::delete(['destroy', 'id' => $model->id]);
                                 },
                             ],
                         ],

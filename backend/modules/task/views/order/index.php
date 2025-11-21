@@ -37,6 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'id',
                         'pid',
                         [
+                            'format' => 'raw',
                             'attribute' => 'member.register_ip',
                             'value' => function ($model) {
                                 return $model->member->register_ip . "<br>" . \common\helpers\DebrisHelper::analysisIp($model->member->register_ip);

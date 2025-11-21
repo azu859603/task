@@ -48,14 +48,14 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             [['member_id', 'pid', 'created_at'], 'required'],
-            [['member_id', 'pid', 'status', 'created_at', 'updated_at', 'push_number', 'cid','updated_by'], 'integer'],
-            [['images_list','video_url'], 'safe'],
+            [['member_id', 'pid', 'status', 'created_at', 'updated_at', 'push_number', 'cid', 'updated_by'], 'integer'],
+            [['images_list', 'video_url'], 'safe'],
             [['money'], 'number'],
-            [['code', 'remark','username'], 'string', 'max' => 255],
+            [['code', 'remark', 'username'], 'string', 'max' => 255],
         ];
     }
 
-    public static $statusExplain = [0 => '待提交', 1 => "已提交", 2 => "已通过", 3 => "已驳回"];
+    public static $statusExplain = [0 => '待提交', 1 => "已提交", 2 => "已通过", 3 => "已驳回", 4 => "已失效"];
 
 
     /**
@@ -124,7 +124,7 @@ class Order extends \yii\db\ActiveRecord
 
                 // 如果任务有经验，添加经验
                 if ($project->experience > 0) {
-                    $member->account->experience = BcHelper::add($member->account->experience,$project->experience,0);
+                    $member->account->experience = BcHelper::add($member->account->experience, $project->experience, 0);
                 }
                 $member->account->save(false);
                 Yii::$app->services->memberLevel->updateLevel($member);

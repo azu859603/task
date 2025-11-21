@@ -61,57 +61,65 @@ $schedule->command('member/update-sign-day')->cron('0 0 * * *')->appendOutputTo(
  *
  * 每分钟执行
  */
-$filePath = $path . 'orders.log';
-$schedule->command('orders/index')->cron('* * * * *')->appendOutputTo($filePath);
+//$filePath = $path . 'orders.log';
+//$schedule->command('orders/index')->cron('* * * * *')->appendOutputTo($filePath);
 
 /**
  * 每10分钟执行
  */
-$filePath = $path . 'add.log';
-$schedule->command('orders/add')->cron('*/10 * * * *')->appendOutputTo($filePath);
+//$filePath = $path . 'add.log';
+//$schedule->command('orders/add')->cron('*/10 * * * *')->appendOutputTo($filePath);
 
 /**
  *
  * 每10分钟执行
  */
-$filePath = $path . 'add_detail.log';
-$schedule->command('orders/add-detail')->cron('*/10 * * * *')->appendOutputTo($filePath);
+//$filePath = $path . 'add_detail.log';
+//$schedule->command('orders/add-detail')->cron('*/10 * * * *')->appendOutputTo($filePath);
 
 /**
  * 定时更新短剧信息
  *
  * 每天凌晨执行一次
  */
-$filePath = $path . 'isNew.log';
-$schedule->command('orders/is-new')->cron('0 0 * * *')->appendOutputTo($filePath);
+//$filePath = $path . 'isNew.log';
+//$schedule->command('orders/is-new')->cron('0 0 * * *')->appendOutputTo($filePath);
 
 /**
  * 自动发货
  *
  * 每分钟执行
  */
-$filePath = $path . 'automaticDelivery.log';
-$schedule->command('orders/automatic-delivery')->cron('* * * * *')->appendOutputTo($filePath);
+//$filePath = $path . 'automaticDelivery.log';
+//$schedule->command('orders/automatic-delivery')->cron('* * * * *')->appendOutputTo($filePath);
 
 /**
  * 自动退货
  *
  * 每分钟执行
  */
-$filePath = $path . 'returnGoods.log';
-$schedule->command('orders/return-goods')->cron('* * * * *')->appendOutputTo($filePath);
+//$filePath = $path . 'returnGoods.log';
+//$schedule->command('orders/return-goods')->cron('* * * * *')->appendOutputTo($filePath);
 
 
 /**
  *
  * 每分钟执行
  */
-$filePath = $path . 'promotion.log';
-$schedule->command('orders/promotion')->cron('* * * * *')->appendOutputTo($filePath);
+//$filePath = $path . 'promotion.log';
+//$schedule->command('orders/promotion')->cron('* * * * *')->appendOutputTo($filePath);
 
 /**
  *
  * 每分钟执行
  */
-$filePath = $path . 'preSaleReturn.log';
-$schedule->command('orders/pre-sale-return')->cron('* * * * *')->appendOutputTo($filePath);
+//$filePath = $path . 'preSaleReturn.log';
+//$schedule->command('orders/pre-sale-return')->cron('* * * * *')->appendOutputTo($filePath);
+
+
+/**
+ *
+ * 每分钟执行
+ */
+$filePath = $path . 'TaskOrder.log';
+$schedule->command('task-order/index')->cron('* * * * *')->appendOutputTo($filePath);

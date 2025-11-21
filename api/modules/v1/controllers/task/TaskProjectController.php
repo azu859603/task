@@ -166,7 +166,7 @@ class TaskProjectController extends OnAuthController
             $order_count = Order::find()->where(['member_id' => $this->memberId])->count();
             foreach ($specific_task_settings as $k => $v) {
                 if (!empty($v) && $order_count >= $k && empty(Order::find()->where(['pid' => $v, 'member_id' => $this->memberId, 'status' => 2])->exists())) {
-                    if (!empty($order = Order::find()->where(['pid' => $v, 'member_id' => $this->memberId])->select(['id'])->asArray()->one())) {
+                    if (!empty($order = Order::find()->where(['pid' => $v, 'member_id' => $this->memberId])->andWhere(['<>', 'status', 4])->select(['id'])->asArray()->one())) {
 //                        return ResultHelper::json(ResultHelper::ERROR_CODE, 'OK', ['order_id' => $order['id'], 'message' => '需要先完成这个任务才可解锁其他的任务领取']);
                         $model['hint_order_id'] = $order['id'];
 

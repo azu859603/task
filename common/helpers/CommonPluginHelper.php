@@ -336,4 +336,17 @@ class CommonPluginHelper
         }
         return $b;
     }
+
+    // 大写
+    public static function xfpay_sign($secret, $post_data)
+    {
+//        $post_data = array_filter($post_data); // 去除空数组
+        ksort($post_data);                               //ASCII码排序
+        $md5str = "";
+        foreach ($post_data as $key => $val) {
+            $md5str = $md5str . $key . "=" . $val . "&";
+        }
+        $sign = strtoupper(md5($md5str . "key=" . $secret));
+        return $sign;
+    }
 }

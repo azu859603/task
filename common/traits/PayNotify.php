@@ -2,6 +2,8 @@
 
 namespace common\traits;
 
+use common\helpers\CommonPluginHelper;
+use common\helpers\RedisHelper;
 use common\models\common\Languages;
 use common\models\dj\LaberList;
 use common\models\dj\LaberListTranslations;
@@ -10,6 +12,8 @@ use common\models\dj\ShortPlaysDetail;
 use common\models\dj\ShortPlaysDetailTranslations;
 use common\models\dj\ShortPlaysList;
 use common\models\dj\ShortPlaysListTranslations;
+use common\models\member\RechargeCategory;
+use common\models\member\WithdrawBill;
 use Yii;
 use yii\helpers\Json;
 use yii\web\UnprocessableEntityHttpException;
@@ -327,5 +331,42 @@ trait PayNotify
         }
         var_dump("完成！");
         exit;
+    }
+
+
+
+    //XfPay代付
+    public function actionXfPay()
+    {
+        $register_ip = Yii::$app->request->getUserIP();
+        RedisHelper::verify($register_ip, $this->action->id);
+        $action = $this->action->id;
+        $data = Yii::$app->request->post();
+        $logPath = $this->getLogPath($action);
+        FileHelper::writeLog($logPath, Json::encode(ArrayHelper::toArray($data)));
+        $sign = $data['sign'];
+        unset($data['sign']);
+        $key = "BE47EFB5CE0A522AF36286BE6FB03B67";
+        $sign_my = CommonPluginHelper::xfpay_sign($key, $data);
+        if ($sign != $sign_my) {
+            die('fail');
+        }
+        if (!empty($data) && !empty($data['status'])) {
+            // 成功
+            $model = WithdrawBill::find()->where(['sn' => $data['orderid'], 'status' => 4])->one();
+            if (empty($model)) {
+                die('fail');
+            }
+            if ($data['status'] == 1) { // 成功
+                $model->status = 1;
+            } else { // 错误直接拒绝
+                $model->status = 2;
+                $model->remark = "The order information is incorrect, please verify before submitting!";
+            }
+            $model->save(false);
+            die('OK');
+        } else {
+            die('fail');
+        }
     }
 }

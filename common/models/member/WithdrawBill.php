@@ -54,7 +54,7 @@ class WithdrawBill extends \yii\db\ActiveRecord
     public static $typeExplain = [
 //        self::WECHAT_ACCOUNT_URL => "微信收款码",
 //        self::WECHAT_ACCOUNT => "微信红包",
-//        self::ALIPAY_ACCOUNT => "转账支付宝",
+        self::ALIPAY_ACCOUNT => "转账支付宝",
 //        self::ALIPAY_ACCOUNT_URL => "支付宝收款码",
         self::BANK_CARD => "转账银行卡",
 //        self::USDT_TRC20 => "USDT-TRC20",
@@ -64,7 +64,7 @@ class WithdrawBill extends \yii\db\ActiveRecord
     ];
 
     public static $payTypeExplain = [
-        1 => "盛利代付",
+        1 => "星发代付",
     ];
 
     public static $typeMatchExplain = [

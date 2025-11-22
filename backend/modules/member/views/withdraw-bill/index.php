@@ -270,6 +270,20 @@ $this->params['breadcrumbs'][] = $this->title;
                                             ]);
                                         }
                                     },
+                                    'pay-on-behalf' => function ($url, $model, $key) {
+                                        if (Yii::$app->params['thisAppEnglishName'] == "task_cn") {
+                                            if ($model->status == 0) {
+                                                if ($model->type == 3 || $model->type == 5) {
+                                                    return Html::linkButton(['pay-on-behalf', 'id' => $model->id, 'status' => 4], '代付', [
+                                                        'class' => 'btn btn-warning btn-sm',
+                                                        'data-toggle' => 'modal',
+                                                        'data-target' => '#ajaxModal',
+                                                        'style' => 'margin-bottom: 10px'
+                                                    ]);
+                                                }
+                                            }
+                                        }
+                                    },
                                     'delete' => function ($url, $model, $key) {
                                         return Html::delete(['delete', 'id' => $model->id]);
                                     },

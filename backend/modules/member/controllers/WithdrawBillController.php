@@ -3,10 +3,13 @@
 namespace backend\modules\member\controllers;
 
 use backend\modules\member\forms\WithdrawExportForm;
+use common\helpers\BcHelper;
+use common\helpers\CommonPluginHelper;
 use common\helpers\ExcelHelper;
 use common\helpers\RedisHelper;
 use common\helpers\ResultHelper;
 use common\models\member\Member;
+use common\models\member\MemberCard;
 use Yii;
 use common\models\member\WithdrawBill;
 use common\traits\Curd;
@@ -144,6 +147,67 @@ class WithdrawBillController extends BaseController
         $model->status = 1;
         $model->save(false);
         return $this->message("审核成功！", $this->redirect(Yii::$app->request->referrer));
+    }
+
+
+    public function actionPayOnBehalf()
+    {
+        $id = Yii::$app->request->get('id');
+        $model = WithdrawBill::find()->where(['id' => $id, 'status' => 0])->with(['card', 'account'])->one();
+        if ($model->load(Yii::$app->request->post())) {
+            if (empty($model->pay_type)) {
+                return $this->message("代付平台必须选择！", $this->redirect(Yii::$app->request->referrer), 'error');
+            }
+            if ($model->pay_type == 1) {
+                $result = self::xfPay($model);
+            }
+            if (!$result) {
+                // 成功代付后
+                $model->status = 4;
+                $model->save(false);
+                return $this->message("操作成功！", $this->redirect(Yii::$app->request->referrer));
+            } else {
+                return $this->message($result, $this->redirect(Yii::$app->request->referrer), 'error');
+            }
+        }
+        return $this->renderAjax($this->action->id, [
+            'model' => $model,
+        ]);
+    }
+
+    public static function xfPay($order)
+    {
+        $post_data = [];
+        $post_data['pay_memberid'] = "10052";
+        $post_data['pay_orderid'] = $order->sn;
+        $post_data['pay_applydate'] = time();
+        if ($order->type == 3) {// 支付宝
+            $code = 3;
+            $pay_name = $order->account->alipay_user_name;
+            $bank_name = "支付宝";
+            $pay_card = $order->account->alipay_account;
+        } elseif ($order->type == 5) {// 银行卡
+            $code = 2;
+            $pay_name = $order->card->username;
+            $bank_name = $order->card->bank_address;
+            $pay_card = $order->card->bank_card;
+        }
+        $post_data['pay_bankcode'] = $code;
+        $post_data['pay_amount'] = BcHelper::mul($order->real_withdraw_money, 100, 0);
+        $post_data['pay_notifyurl'] = Yii::$app->request->hostInfo . "/notify/xf-pay";
+        $post_data['pay_name'] = $pay_name;
+        $post_data['pay_card'] = $pay_card;
+        $post_data['pay_bankname'] = $bank_name;
+        $key = "BE47EFB5CE0A522AF36286BE6FB03B67";
+        $post_data['pay_md5sign'] = CommonPluginHelper::xfpay_sign($key, $post_data);
+        $pay_url = "https://nova.flaresec.com/order/create";
+        $result_json = CommonPluginHelper::curl_json($pay_url, $post_data);
+        $result = json_decode($result_json, true);
+        if (!empty($result) && $result['status'] == 1) {
+            return false;
+        } else {
+            return $result['msg'];
+        }
     }
 
     public function actionNoPass($id)

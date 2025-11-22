@@ -79,7 +79,7 @@ class AccountForm extends Model
                 'unique',
                 'targetClass' => Account::class,
                 'targetAttribute' => 'alipay_account',
-                'message' => '该支付宝账号已被绑定。',
+                'message' => '该账号已被绑定。',
                 'on' => 'alipay_account',
             ],
             [

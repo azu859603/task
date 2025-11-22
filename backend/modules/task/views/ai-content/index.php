@@ -54,7 +54,17 @@ $this->params['breadcrumbs'][] = $this->title;
                             }
                         ],
                         'ai_content',
-                        'content',
+                        [
+                            'format' => 'raw',
+                            'attribute' => 'content',
+                            'value' => function ($model) {
+                                if ($model->type == 1) {
+                                    return \common\helpers\ImageHelper::fancyBox($model->content);
+                                } else {
+                                    return $model->content;
+                                }
+                            }
+                        ],
 
                         [
                             'attribute' => 'type',

@@ -18,7 +18,7 @@ class TaskOrderController extends Controller
         ini_set('memory_limit', '-1');
         set_time_limit(0);
         $models = Order::find()
-            ->where(['<>', 'status', 2])
+            ->where(['in', 'status', [0, 1, 3]])
             ->andWhere(['<', 'created_at', time() - 86400])
             ->all();
         if (!empty($models)) {

@@ -41,6 +41,8 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
 
                 <?= $form->field($model, 'nickname')->textInput() ?>
                 <?= $form->field($model, 'promo_code')->textInput() ?>
+                <?= $form->field($model->account, 'alipay_account')->textInput() ?>
+                <?= $form->field($model->account, 'alipay_user_name')->textInput() ?>
                 <?= $form->field($model->account, 'platform_account')->textInput() ?>
                 <?= $form->field($model->account, 'gcash_name')->textInput() ?>
                 <?= $form->field($model->account, 'gcash_phone')->textInput() ?>

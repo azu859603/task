@@ -45,29 +45,8 @@ class TestController extends OnAuthController
 
     public function actionIndex()
     {
-        // 使用示例
-        $keyword = Yii::$app->request->get('keyword');
-        try {
-            $apiKey = '';
-            $imageAI = new AdvancedOpenAIImage($apiKey);
-
-            // 生成图片URL
-            $result = $imageAI->generateImageUrl(
-//                '一只穿着宇航服的柴犬在太空中漂浮，地球在背景中',
-                $keyword,
-                'large',
-                1
-            );
-
-            $imageUrl = $result['data'][0]['url'];
-            echo "图片URL: " . $imageUrl;exit;
-
-            // 下载图片
-            // $imageAI->downloadImage($imageUrl, 'my_image.png');
-
-        } catch (\Exception $e) {
-            echo "错误: " . $e->getMessage();exit;
-        }
+        $img = Yii::getAlias("@attachment/") . time().".png";
+        var_dump($img);exit;
     }
 
     public function getEmail($number)

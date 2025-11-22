@@ -5,6 +5,7 @@ namespace common\helpers;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use yii\web\UnprocessableEntityHttpException;
+use Yii;
 
 class AdvancedOpenAIImage
 {
@@ -111,10 +112,13 @@ class AdvancedOpenAIImage
             );
 
             $imageUrl = $result['data'][0]['url'];
-            return $imageUrl;
+//            return $imageUrl;
 
             // 下载图片
-            // $imageAI->downloadImage($imageUrl, 'my_image.png');
+            $time = time() . ".png";
+            $img = Yii::getAlias("@attachment/") . $time;
+            $imageAI->downloadImage($imageUrl, $img);
+            return "/attachment" . $time;
 
         } catch (\Exception $e) {
             echo "错误: " . $e->getMessage();
@@ -122,4 +126,5 @@ class AdvancedOpenAIImage
         }
     }
 }
+
 ?>

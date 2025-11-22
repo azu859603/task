@@ -23,7 +23,7 @@ class OpenAICopywriter
     public function generateMarketingCopy($keyword)
     {
 //        $prompt = "为{$product}创作一段营销文案，主要特点：{$features}。风格：{$style}，字数300字左右";
-        $prompt = "{$keyword}。风格：专业，字数300字左右";
+        $prompt = "{$keyword}";
 
         try {
             $response = $this->client->post('chat/completions', [

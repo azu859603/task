@@ -7,6 +7,7 @@ use common\helpers\ExcelHelper;
 use common\helpers\RedisHelper;
 use common\models\common\Languages;
 use common\models\member\Member;
+use common\models\task\AiContent;
 use common\models\task\Project;
 use Yii;
 use common\models\task\Order;
@@ -130,6 +131,7 @@ class OrderController extends BaseController
         $model->updated_by = Yii::$app->user->getId();
         $model->status = 2;
         $model->save(false);
+        AiContent::updateAll(['status' => 2], ['oid' => $model->id]);
         Yii::$app->services->actionLog->create('order/check', '通过任务');
 
         return $this->message("审核成功！", $this->redirect(Yii::$app->request->referrer));

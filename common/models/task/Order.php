@@ -181,4 +181,9 @@ class Order extends \yii\db\ActiveRecord
     {
         return $this->hasOne(\common\models\backend\Member::class, ['id' => 'updated_by']);
     }
+
+    public function getAiContent()
+    {
+        return $this->hasMany(AiContent::class, ['oid' => 'id']);
+    }
 }

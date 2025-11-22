@@ -21,11 +21,13 @@ use common\models\common\Statistics;
 use common\models\forms\CreditsLogForm;
 use common\models\member\CreditsLog;
 use common\models\member\Member;
+use common\models\task\AiContent;
 use common\models\task\LaberList;
 use common\models\task\Order;
 use common\models\task\Project;
 use yii\data\ActiveDataProvider;
 use Yii;
+use yii\db\Expression;
 use yii\helpers\Json;
 
 class TaskOrderController extends OnAuthController
@@ -142,7 +144,19 @@ class TaskOrderController extends OnAuthController
                 // 加入统计表 获取最上级用户ID
                 $first_member = Member::getParentsFirst($memberInfo);
                 $b_id = $first_member['b_id'] ?? 0;
-                Statistics::updateGetTask(date("Y-m-d"), $b_id,$memberInfo['id']);
+                Statistics::updateGetTask(date("Y-m-d"), $b_id, $memberInfo['id']);
+            }
+            // 分配AI素材
+            $ai_models = AiContent::find()
+                ->where(['pid' => $order->pid, 'status' => 0])
+                ->orderBy(new Expression('rand()'))
+                ->limit(3)
+                ->all();
+            if (!empty($ai_models)) {
+                foreach ($ai_models as $ai_model) {
+                    $ai_model->oid = $order->id;
+                    $ai_model->save(false);
+                }
             }
 
             $transaction->commit();
@@ -205,7 +219,8 @@ class TaskOrderController extends OnAuthController
                             $query->where(['lang' => $lang]);
                         }
                     ]);
-                }
+                },
+                'aiContent'
             ])
             ->asArray()
             ->one();

@@ -2,6 +2,7 @@
 
 namespace console\controllers;
 
+use common\models\task\AiContent;
 use common\models\task\Order;
 use yii\console\Controller;
 
@@ -13,7 +14,19 @@ class TaskOrderController extends Controller
      */
     public function actionIndex()
     {
-        $result = Order::updateAll(['status' => 4], ['and', ['<', 'created_at', time() - 86400], ['<>', 'status', 2]]);
-        var_dump($result);exit;
+        $models = Order::find()
+            ->where(['<>', 'status', 2])
+            ->andWhere(['<', 'created_at', time() - 86400])
+            ->all();
+        if (!empty($models)) {
+            foreach ($models as $model) {
+                $model->status = 4;
+                $model->save(false);
+                AiContent::updateAll(['status' => 0], ['oid' => $model->id]);
+            }
+        }
+//        $result = Order::updateAll(['status' => 4], ['and', ['<', 'created_at', time() - 86400], ['<>', 'status', 2]]);
+
+        $this->stdout(date('Y-m-d H:i:s') . " ------ 完成" . PHP_EOL);
     }
 }

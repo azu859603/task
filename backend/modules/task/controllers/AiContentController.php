@@ -100,9 +100,9 @@ class AiContentController extends BaseController
         // ajax 校验
         $this->activeFormValidate($model);
         if ($model->load(Yii::$app->request->post())) {
-            if($model->type == 1){ // 图片
+            if ($model->type == 1) { // 图片
                 $model->content = AdvancedOpenAIImage::get($model->ai_content);
-            }else{
+            } else {
                 $model->content = OpenAICopywriter::get($model->ai_content);
             }
 
@@ -117,6 +117,7 @@ class AiContentController extends BaseController
         $lang = Yii::$app->request->get('lang', $default_lang);
 
         $taskModels = \common\models\task\Project::find()
+            ->where(['>', 'status', -1])
             ->with(['translation' => function ($query) use ($lang) {
                 $query->where(['lang' => $lang]);
             }])

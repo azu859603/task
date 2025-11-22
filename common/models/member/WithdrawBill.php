@@ -58,7 +58,7 @@ class WithdrawBill extends \yii\db\ActiveRecord
 //        self::ALIPAY_ACCOUNT_URL => "支付宝收款码",
         self::BANK_CARD => "转账银行卡",
 //        self::USDT_TRC20 => "USDT-TRC20",
-        self::PLATFORM_ACCOUNT => "Fastplay账号",
+        self::PLATFORM_ACCOUNT => "转账游戏平台",
         self::GCASH_ACCOUNT => "Gcash钱包",
         self::MAYA_ACCOUNT => "Maya账户",
     ];

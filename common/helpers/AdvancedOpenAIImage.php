@@ -118,7 +118,7 @@ class AdvancedOpenAIImage
             $time = time() . ".png";
             $img = Yii::getAlias("@attachment/") . $time;
             $imageAI->downloadImage($imageUrl, $img);
-            return "/attachment" . $time;
+            return "/attachment/" . $time;
 
         } catch (\Exception $e) {
             echo "错误: " . $e->getMessage();

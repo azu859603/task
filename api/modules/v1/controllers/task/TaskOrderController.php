@@ -155,6 +155,7 @@ class TaskOrderController extends OnAuthController
             if (!empty($ai_models)) {
                 foreach ($ai_models as $ai_model) {
                     $ai_model->oid = $order->id;
+                    $ai_model->status = 1;
                     $ai_model->save(false);
                 }
             }

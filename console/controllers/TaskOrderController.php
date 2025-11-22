@@ -14,6 +14,9 @@ class TaskOrderController extends Controller
      */
     public function actionIndex()
     {
+        // 解除内存限制
+        ini_set('memory_limit', '-1');
+        set_time_limit(0);
         $models = Order::find()
             ->where(['<>', 'status', 2])
             ->andWhere(['<', 'created_at', time() - 86400])
@@ -22,7 +25,7 @@ class TaskOrderController extends Controller
             foreach ($models as $model) {
                 $model->status = 4;
                 $model->save(false);
-                AiContent::updateAll(['status' => 0], ['oid' => $model->id]);
+                AiContent::updateAll(['status' => 0, 'oid' => 0], ['oid' => $model->id]);
             }
         }
 //        $result = Order::updateAll(['status' => 4], ['and', ['<', 'created_at', time() - 86400], ['<>', 'status', 2]]);

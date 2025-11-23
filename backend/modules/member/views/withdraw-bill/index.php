@@ -112,8 +112,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                         return $data[$model->type] . "<br>USDT-TRC20地址：" . $model->account->usdt_link;
                                     } elseif ($model->type == WithdrawBill::PLATFORM_ACCOUNT) {
                                         if (Yii::$app->params['thisAppEnglishName'] == "task_cn") {
-                                            return $data[$model->type] . "<br>账号：" . $model->account->platform_account. "<br>名字：" . $model->account->platform_name;
-                                        }else{
+                                            return $data[$model->type] . "<br>账号：" . $model->account->platform_account . "<br>名字：" . $model->account->platform_name;
+                                        } else {
                                             return $data[$model->type] . "<br>账号：" . $model->account->platform_account;
                                         }
 
@@ -122,11 +122,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                     } elseif ($model->type == WithdrawBill::MAYA_ACCOUNT) {
                                         return $data[$model->type] . "<br>名字：" . $model->account->maya_name . "<br>电话：" . $model->account->maya_phone;
                                     } elseif ($model->type == WithdrawBill::BANK_CARD) {
-                                        return $data[$model->type] . "<br>名字：" . $model->card->username . "<br>卡号：" . $model->card->bank_card . "<br>开户行：" . $model->card->bank_address;
+                                        if (!empty($model->card->username)) {
+                                            return $data[$model->type] . "<br>名字：" . $model->card->username . "<br>卡号：" . $model->card->bank_card . "<br>开户行：" . $model->card->bank_address;
+                                        } else {
+                                            return $data[$model->type];
+                                        }
                                     } elseif ($model->type == WithdrawBill::ALIPAY_ACCOUNT) {
                                         return $data[$model->type] . "<br>名字：" . $model->account->alipay_user_name . "<br>账号：" . $model->account->alipay_account;
-                                    }
-                                    else {
+                                    } else {
                                         return $data[$model->type];
                                     }
                                 },

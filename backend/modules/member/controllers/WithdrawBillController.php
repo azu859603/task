@@ -179,6 +179,7 @@ class WithdrawBillController extends BaseController
                 return $this->message("代付平台必须选择！", $this->redirect(Yii::$app->request->referrer), 'error');
             }
             if ($model->pay_type == 1) {
+                return $this->message("111111111111111111", $this->redirect(Yii::$app->request->referrer), 'error');
                 $result = self::xfPay($model);
             }
 

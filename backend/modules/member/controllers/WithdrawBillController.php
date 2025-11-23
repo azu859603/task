@@ -222,8 +222,9 @@ class WithdrawBillController extends BaseController
         $post_data['pay_md5sign'] = CommonPluginHelper::xfpay_sign($key, $post_data);
         $pay_url = "https://nova.flaresec.com/order/create";
         var_dump($pay_url);
-        var_dump($post_data);exit;
+        var_dump($post_data);
         $result_json = CommonPluginHelper::curl_json($pay_url, $post_data);
+        var_dump($result_json);exit;
         $result = json_decode($result_json, true);
         if (!empty($result) && $result['status'] == 1) {
             return false;

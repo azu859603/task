@@ -176,12 +176,13 @@ class WithdrawBillController extends BaseController
         $model = WithdrawBill::find()->where(['id' => $id, 'status' => 0])->with(['card', 'account'])->one();
         $this->activeFormValidate($model);
         if ($model->load(Yii::$app->request->post())) {
-            return $this->message("操作成功", $this->redirect(Yii::$app->request->referrer));
             if (empty($model->pay_type)) {
                 return $this->message("代付平台必须选择！", $this->redirect(Yii::$app->request->referrer), 'error');
             }
             if ($model->pay_type == 1) {
                 $result = self::xfPay($model);
+            }else{
+                $result = "代付信息错误";
             }
 
             if (!$result) {

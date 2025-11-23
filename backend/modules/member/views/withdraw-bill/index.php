@@ -111,7 +111,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                     } elseif ($model->type == WithdrawBill::USDT_TRC20) {
                                         return $data[$model->type] . "<br>USDT-TRC20地址：" . $model->account->usdt_link;
                                     } elseif ($model->type == WithdrawBill::PLATFORM_ACCOUNT) {
-                                        return $data[$model->type] . "<br>账号：" . $model->account->platform_account;
+                                        if (Yii::$app->params['thisAppEnglishName'] == "task_cn") {
+                                            return $data[$model->type] . "<br>账号：" . $model->account->platform_account. "<br>名字：" . $model->account->platform_name;
+                                        }else{
+                                            return $data[$model->type] . "<br>账号：" . $model->account->platform_account;
+                                        }
+
                                     } elseif ($model->type == WithdrawBill::GCASH_ACCOUNT) {
                                         return $data[$model->type] . "<br>名字：" . $model->account->gcash_name . "<br>电话：" . $model->account->gcash_phone;
                                     } elseif ($model->type == WithdrawBill::MAYA_ACCOUNT) {

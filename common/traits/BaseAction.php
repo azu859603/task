@@ -115,7 +115,7 @@ trait BaseAction
             $msgType = 'success';
         }
         Yii::$app->getSession()->setFlash($msgType, $msgText);
-        var_dump($skipUrl);exit;
+        var_dump($_SESSION);exit;
         return $skipUrl;
     }
 

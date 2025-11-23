@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="box">
             <div class="box-body">
                 <?php $form = ActiveForm::begin([
-                    'id' => $model->formName(),
+                    'id' => "pay_on_behalf",
                     'enableAjaxValidation' => true,
                     'class' => 'form-horizontal',
                     'validationUrl' => \common\helpers\Url::to(['pay-on-behalf', 'id' => $model->id]),

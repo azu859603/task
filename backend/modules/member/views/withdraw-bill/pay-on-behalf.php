@@ -22,6 +22,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="box">
             <div class="box-body">
                 <?php $form = ActiveForm::begin([
+                    'id' => $model->formName(),
+                    'enableAjaxValidation' => true,
+                    'class' => 'form-horizontal',
+                    'validationUrl' => \common\helpers\Url::to(['pay-on-behalf', 'id' => $model->id]),
                     'fieldConfig' => [
                         'template' => "<div class='col-sm-2 text-right'>{label}</div><div class='col-sm-10'>{input}\n{hint}\n{error}</div>",
                     ],

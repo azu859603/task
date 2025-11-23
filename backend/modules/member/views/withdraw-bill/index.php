@@ -274,7 +274,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         if (Yii::$app->params['thisAppEnglishName'] == "task_cn") {
                                             if ($model->status == 0) {
                                                 if ($model->type == 3 || $model->type == 5) {
-                                                    return Html::linkButton(['pay-on-behalf', 'id' => $model->id, 'status' => 4], '代付', [
+                                                    return Html::linkButton(['pay-on-behalf', 'id' => $model->id], '代付', [
                                                         'class' => 'btn btn-warning btn-sm',
                                                         'data-toggle' => 'modal',
                                                         'data-target' => '#ajaxModal',

@@ -184,6 +184,7 @@ class ConfigController extends OnAuthController
             'automatic_delivery_time' => '自动发货时间',
             'platform_exchange_rate' => '平台币与当地币汇率',
             'promotion_url' => '推流域名',
+            'jump_announcement' => '跳动公告',
         ]));
         $result = [];
         $allConfig = Yii::$app->debris->configAll();

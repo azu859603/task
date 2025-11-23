@@ -181,6 +181,7 @@ class WithdrawBillController extends BaseController
             if ($model->pay_type == 1) {
                 $result = self::xfPay($model);
             }
+            var_dump($result);exit;
             if (!$result) {
                 // 成功代付后
                 $model->status = 4;
@@ -223,8 +224,6 @@ class WithdrawBillController extends BaseController
         $pay_url = "https://nova.flaresec.com/order/create/";
         $result_json = CommonPluginHelper::curl_post($pay_url, $post_data);
         $result = json_decode($result_json, true);
-
-        var_dump($result);exit;
         if (!empty($result) && $result['status'] == 1) {
             return false;
         } else {

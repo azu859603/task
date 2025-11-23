@@ -198,7 +198,7 @@ class ConfigController extends OnAuthController
                 if ($allConfig[$item]) {
                     $jump_announcement = ArrayHelper::map(Json::decode($allConfig[$item]), 'sort', 'content');
                     ksort($jump_announcement);
-                    $result[$item] = array_column($jump_announcement);
+                    $result[$item] = array_values($jump_announcement);
                 } else {
                     $result[$item] = "";
                 }

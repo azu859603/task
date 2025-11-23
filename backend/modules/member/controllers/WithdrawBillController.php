@@ -184,7 +184,7 @@ class WithdrawBillController extends BaseController
             }else{
                 $result = "代付信息错误";
             }
-
+            var_dump(13123);exit;
             if (!$result) {
                 // 成功代付后
                 $model->status = 4;

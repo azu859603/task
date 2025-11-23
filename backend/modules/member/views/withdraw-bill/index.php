@@ -250,7 +250,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'headerOptions' => ['width' => '60px'],
                                 'class' => 'yii\grid\ActionColumn',
                                 'header' => '操作',
-                                'template' => '{pass} {refuse}',
+                                'template' => '{pass} {refuse} {pay-on-behalf}',
                                 'buttons' => [
                                     'pass' => function ($url, $model, $key) {
                                         if ($model->status == 0) {

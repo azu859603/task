@@ -2,6 +2,7 @@
 
 use common\helpers\Html;
 use yii\widgets\ActiveForm;
+use common\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\member\WithdrawBill */
@@ -22,13 +23,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="box">
             <div class="box-body">
                 <?php $form = ActiveForm::begin([
-                    'id' => "pay_on_behalf",
-                    'enableAjaxValidation' => true,
-                    'class' => 'form-horizontal',
-                    'validationUrl' => \common\helpers\Url::to(['pay-on-behalf', 'id' => $model->id]),
                     'fieldConfig' => [
                         'template' => "<div class='col-sm-2 text-right'>{label}</div><div class='col-sm-10'>{input}\n{hint}\n{error}</div>",
-                    ],
+                    ]
                 ]); ?>
                 <div class="col-sm-12">
                     <?= $form->field($model, 'pay_type')->dropDownList(\common\models\member\WithdrawBill::$payTypeExplain)->hint("*点击提交成功后将会给用户卡里加钱，请谨慎操作", ['style' => 'color:red']) ?>

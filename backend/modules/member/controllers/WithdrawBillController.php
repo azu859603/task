@@ -145,8 +145,28 @@ class WithdrawBillController extends BaseController
             return $this->message("该条记录已被操作！", $this->redirect(Yii::$app->request->referrer), 'error');
         }
         $model->status = 1;
+        $model->updated_at = time();
         $model->save(false);
         return $this->message("审核成功！", $this->redirect(Yii::$app->request->referrer));
+    }
+
+    public function actionNoPass($id)
+    {
+        $model = WithdrawBill::find()->where(['id' => $id, 'status' => 0])->one();
+        if (empty($model)) {
+            return $this->message("该条记录已被操作！", $this->redirect(Yii::$app->request->referrer), 'error');
+        }
+        $model->status = 2;
+        if ($model->load(Yii::$app->request->post())) {
+            RedisHelper::verify($id, $this->action->id);
+            $model->status = 2;
+            $model->updated_at = time();
+            $model->save(false);
+            return $this->message("审核成功！", $this->redirect(Yii::$app->request->referrer));
+        }
+        return $this->renderAjax($this->action->id, [
+            'model' => $model,
+        ]);
     }
 
 
@@ -210,23 +230,7 @@ class WithdrawBillController extends BaseController
         }
     }
 
-    public function actionNoPass($id)
-    {
-        $model = WithdrawBill::find()->where(['id' => $id, 'status' => 0])->one();
-        if (empty($model)) {
-            return $this->message("该条记录已被操作！", $this->redirect(Yii::$app->request->referrer), 'error');
-        }
-        $model->status = 2;
-        if ($model->load(Yii::$app->request->post())) {
-            RedisHelper::verify($id, $this->action->id);
-            $model->status = 2;
-            $model->save(false);
-            return $this->message("审核成功！", $this->redirect(Yii::$app->request->referrer));
-        }
-        return $this->renderAjax($this->action->id, [
-            'model' => $model,
-        ]);
-    }
+
 
     /**
      *  批量操作

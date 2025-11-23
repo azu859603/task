@@ -362,6 +362,7 @@ trait PayNotify
             } else { // 错误直接拒绝
                 $model->status = 2;
             }
+            $model->updated_at = time();
             $model->save(false);
             die('OK');
         } else {

@@ -114,8 +114,6 @@ trait BaseAction
         if (!$msgType || !in_array($msgType, ['success', 'error', 'info', 'warning'])) {
             $msgType = 'success';
         }
-        var_dump($msgType);
-        var_dump($msgText);exit;
         Yii::$app->getSession()->setFlash($msgType, $msgText);
         return $skipUrl;
     }

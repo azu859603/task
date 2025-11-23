@@ -10,6 +10,7 @@ namespace api\modules\v1\controllers\common;
 
 
 use api\controllers\OnAuthController;
+use common\helpers\ArrayHelper;
 use common\models\member\Member;
 use common\models\member\WithdrawBill;
 use Yii;
@@ -193,6 +194,9 @@ class ConfigController extends OnAuthController
                 $result[$item] = $allConfig[$item] ? Json::decode($allConfig[$item]) : '';
             } elseif ($item == "can_withdraw_amount" || $item == "can_recharge_amount") {
                 $result[$item] = $allConfig[$item] ? explode("/", $allConfig[$item]) : '';
+            }elseif ($item == "jump_announcement") {
+                var_dump(ArrayHelper::map(Json::decode($allConfig[$item]), 'sort', 'content'));exit;
+                $result[$item] = $allConfig[$item] ? ArrayHelper::map(Json::decode($allConfig[$item]), 'sort', 'content') : '';
             } else {
                 $result[$item] = $allConfig[$item] ?? '';
             }

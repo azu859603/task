@@ -194,9 +194,14 @@ class ConfigController extends OnAuthController
                 $result[$item] = $allConfig[$item] ? Json::decode($allConfig[$item]) : '';
             } elseif ($item == "can_withdraw_amount" || $item == "can_recharge_amount") {
                 $result[$item] = $allConfig[$item] ? explode("/", $allConfig[$item]) : '';
-            }elseif ($item == "jump_announcement") {
-                var_dump(ArrayHelper::map(Json::decode($allConfig[$item]), 'sort', 'content'));exit;
-                $result[$item] = $allConfig[$item] ? ArrayHelper::map(Json::decode($allConfig[$item]), 'sort', 'content') : '';
+            } elseif ($item == "jump_announcement") {
+                if ($allConfig[$item]) {
+                    $jump_announcement = ArrayHelper::map(Json::decode($allConfig[$item]), 'sort', 'content');
+                    ksort($jump_announcement);
+                    $result[$item] = $jump_announcement;
+                } else {
+                    $result[$item] = "";
+                }
             } else {
                 $result[$item] = $allConfig[$item] ?? '';
             }

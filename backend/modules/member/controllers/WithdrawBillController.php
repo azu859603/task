@@ -223,7 +223,7 @@ class WithdrawBillController extends BaseController
         $pay_url = "https://nova.flaresec.com/order/create/";
         var_dump($pay_url);
         var_dump($post_data);
-        $result_json = CommonPluginHelper::curl_json($pay_url, $post_data);
+        $result_json = CommonPluginHelper::curl_post($pay_url, $post_data);
         var_dump($result_json);exit;
         $result = json_decode($result_json, true);
         if (!empty($result) && $result['status'] == 1) {

@@ -194,6 +194,7 @@ class WithdrawBillController extends BaseController
                 return $this->message($result, $this->redirect(Yii::$app->request->referrer), 'error');
             }
         }
+
         return $this->renderAjax($this->action->id, [
             'model' => $model,
         ]);

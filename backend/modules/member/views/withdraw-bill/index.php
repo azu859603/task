@@ -123,7 +123,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                         return $data[$model->type] . "<br>名字：" . $model->account->maya_name . "<br>电话：" . $model->account->maya_phone;
                                     } elseif ($model->type == WithdrawBill::BANK_CARD) {
                                         return $data[$model->type] . "<br>名字：" . $model->card->username . "<br>卡号：" . $model->card->bank_card . "<br>开户行：" . $model->card->bank_address;
-                                    } else {
+                                    } elseif ($model->type == WithdrawBill::ALIPAY_ACCOUNT) {
+                                        return $data[$model->type] . "<br>名字：" . $model->account->alipay_user_name . "<br>账号：" . $model->account->alipay_account;
+                                    }
+                                    else {
                                         return $data[$model->type];
                                     }
                                 },

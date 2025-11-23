@@ -509,6 +509,7 @@ class Member extends User
                         'recommend_number',
                         'usdt_link',
                         'alipay_account',
+                        'alipay_user_name',
                         'investment_income',
                         'investment_all_money',
                         'investment_number',

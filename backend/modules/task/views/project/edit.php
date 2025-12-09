@@ -78,8 +78,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= $form->field($model, 'all_number', ['options' => ['class' => ['chart']]])->textInput() ?>
                     <?= $form->field($model, 'remain_number', ['options' => ['class' => ['chart']]])->textInput() ?>
                     <?= $form->field($model, 'vip_level', ['options' => ['class' => ['chart']]])->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\member\Level::find()->asArray()->all(), 'level', 'name'))->hint("*会员等级必须大于等于此等级才能接任务", ['style' => 'color:red']) ?>
-                    <?= $form->field($model, 'money', ['options' => ['class' => ['chart']]])->textInput()->hint("*此佣金只可任务平台提现", ['style' => 'color:red']) ?>
-                    <?= $form->field($model, 'money_platform', ['options' => ['class' => ['chart']]])->textInput()->hint("*此佣金只可提现至游戏平台", ['style' => 'color:red']) ?>
+                    <?= $form->field($model, 'money', ['options' => ['class' => ['chart']]])->textInput() ?>
+                    <?= $form->field($model, 'money_type', ['options' => ['class' => ['chart']]])->radioList([1 => '发放到余额钱包', 2 => '发放到Fastplay钱包']) ?>
                     <?= $form->field($model, 'limit_number', ['options' => ['class' => ['chart']]])->textInput()->hint("*单个会员最多每日重复领取该任务的次数", ['style' => 'color:red']) ?>
                     <?= $form->field($model, 'member_limit_number', ['options' => ['class' => ['chart']]])->textInput()->hint("*单个会员能领取该任务的总次数", ['style' => 'color:red']) ?>
                     <?= $form->field($model, 'code_switch', ['options' => ['class' => ['chart']]])->radioList([1 => '启用', 0 => '禁用']) ?>

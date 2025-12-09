@@ -31,6 +31,7 @@ use yii\db\ActiveRecord;
  * @property int $member_limit_number
  * @property int $is_top
  * @property int $cid
+ * @property int $money_type
  */
 class Project extends \yii\db\ActiveRecord
 {
@@ -63,7 +64,7 @@ class Project extends \yii\db\ActiveRecord
     {
         return [
             [['all_number', 'remain_number'], 'required'],
-            [['id','all_number', 'remain_number', 'vip_level', 'code_switch', 'sort', 'status', 'experience', 'pid', 'created_at', 'limit_number', 'is_top', 'cid', 'member_limit_number'], 'integer'],
+            [['id','all_number', 'remain_number', 'vip_level', 'code_switch', 'sort', 'status', 'experience', 'pid', 'created_at', 'limit_number', 'is_top', 'cid', 'member_limit_number','money_type'], 'integer'],
             [['money'], 'number'],
             [['images_list', 'file_list','push_content'], 'safe'],
             [['banner', 'keywords'], 'string', 'max' => 255],
@@ -82,7 +83,7 @@ class Project extends \yii\db\ActiveRecord
             'remain_number' => '剩余数量',
             'vip_level' => '等级要求',
             'money' => '任务佣金',
-            'money_platform' => '任务佣金',
+            'money_type' => '佣金类型',
             'code_switch' => '活动码',
             'images_list' => '图片素材',
             'file_list' => '视频素材',

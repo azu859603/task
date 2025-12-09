@@ -148,7 +148,7 @@ class CreditsLogService extends Service
     }
 
     /**
-     * 减少余额
+     * 减少fastplay余额
      *
      * @param CreditsLogForm $creditsLogForm
      * @return bool|CreditsLog
@@ -163,7 +163,7 @@ class CreditsLogService extends Service
     }
 
     /**
-     * 减少余额
+     * 增加fastplay余额
      *
      * @param CreditsLogForm $creditsLogForm
      * @return bool|CreditsLog

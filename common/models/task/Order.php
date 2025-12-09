@@ -100,13 +100,25 @@ class Order extends \yii\db\ActiveRecord
                 $member->account->investment_number += 1;
                 if ($this->money > 0) {
                     $member->account->investment_income = BcHelper::add($member->account->investment_income, $this->money);
-                    Yii::$app->services->memberCreditsLog->incrMoney(new CreditsLogForm([
-                        'member' => $member,
-                        'num' => $this->money,
-                        'credit_group' => CreditsLog::CREDIT_GROUP_MANAGER,
-                        'remark' => '【任务】完成任务获得佣金',
-                        'pay_type' => CreditsLog::TASK_TYPE
-                    ]));
+                    if ($this->project->money_type == 2 && Yii::$app->params['thisAppEnglishName'] != "task_cn") {
+                        Yii::$app->services->memberCreditsLog->incrMoneyPlatform(new CreditsLogForm([
+                            'member' => $member,
+                            'num' => $this->money,
+                            'credit_group' => CreditsLog::CREDIT_GROUP_MANAGER,
+                            'remark' => '【任务】完成任务获得佣金',
+                            'pay_type' => CreditsLog::TASK_TYPE
+                        ]));
+                    } else {
+                        Yii::$app->services->memberCreditsLog->incrMoney(new CreditsLogForm([
+                            'member' => $member,
+                            'num' => $this->money,
+                            'credit_group' => CreditsLog::CREDIT_GROUP_MANAGER,
+                            'remark' => '【任务】完成任务获得佣金',
+                            'pay_type' => CreditsLog::TASK_TYPE
+                        ]));
+                    }
+
+
                 }
 
                 // 若有活动码，从中取值

@@ -215,26 +215,49 @@ class WithdrawBill extends \yii\db\ActiveRecord
             $this->real_withdraw_money = BcHelper::sub($this->withdraw_money, $this->handling_fees);
             // 如果是新增 则扣除账户余额
             if ($this->status == 0 && $this->withdraw_money > 0) {
-                Yii::$app->services->memberCreditsLog->decrMoney(new CreditsLogForm([
-                    'member' => $member,
-                    'num' => $this->withdraw_money,
-                    'credit_group' => CreditsLog::CREDIT_GROUP_MEMBER,
-                    'remark' => '【系统】提现扣除余额',
-                    'pay_type' => CreditsLog::WITHDRAW_PAY_TYPE,
-                    'increase' => 0,
-                ]));
+                if($this->type == 7){
+                    Yii::$app->services->memberCreditsLog->decrMoneyPlatform(new CreditsLogForm([
+                        'member' => $member,
+                        'num' => $this->withdraw_money,
+                        'credit_group' => CreditsLog::CREDIT_GROUP_MEMBER,
+                        'remark' => '【系统】提现扣除余额',
+                        'pay_type' => CreditsLog::WITHDRAW_PAY_TYPE,
+                        'increase' => 0,
+                    ]));
+                }else{
+                    Yii::$app->services->memberCreditsLog->decrMoney(new CreditsLogForm([
+                        'member' => $member,
+                        'num' => $this->withdraw_money,
+                        'credit_group' => CreditsLog::CREDIT_GROUP_MEMBER,
+                        'remark' => '【系统】提现扣除余额',
+                        'pay_type' => CreditsLog::WITHDRAW_PAY_TYPE,
+                        'increase' => 0,
+                    ]));
+                }
+
             }
         } else {
             // 如果是修改拒绝 则增加账户余额
             if ($this->isAttributeChanged('status') && $this->status == 2 && $this->withdraw_money > 0) {
-                Yii::$app->services->memberCreditsLog->incrMoney(new CreditsLogForm([
-                    'member' => Member::findOne($this->member_id),
-                    'num' => $this->withdraw_money,
-                    'credit_group' => CreditsLog::CREDIT_GROUP_MEMBER,
-                    'remark' => '【系统】提现被拒返款',
-                    'pay_type' => CreditsLog::WITHDRAW_PAY_TYPE,
-                    'increase' => 0,
-                ]));
+                if($this->type == 7){
+                    Yii::$app->services->memberCreditsLog->incrMoneyPlatform(new CreditsLogForm([
+                        'member' => Member::findOne($this->member_id),
+                        'num' => $this->withdraw_money,
+                        'credit_group' => CreditsLog::CREDIT_GROUP_MEMBER,
+                        'remark' => '【系统】提现被拒返款',
+                        'pay_type' => CreditsLog::WITHDRAW_PAY_TYPE,
+                        'increase' => 0,
+                    ]));
+                }else{
+                    Yii::$app->services->memberCreditsLog->incrMoney(new CreditsLogForm([
+                        'member' => Member::findOne($this->member_id),
+                        'num' => $this->withdraw_money,
+                        'credit_group' => CreditsLog::CREDIT_GROUP_MEMBER,
+                        'remark' => '【系统】提现被拒返款',
+                        'pay_type' => CreditsLog::WITHDRAW_PAY_TYPE,
+                        'increase' => 0,
+                    ]));
+                }
             } elseif ($this->isAttributeChanged('status') && $this->status == 1) {
                 // 提现成功 用户扣除本金
                 $member = Member::findOne($this->member_id);

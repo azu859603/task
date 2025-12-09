@@ -148,6 +148,36 @@ class CreditsLogService extends Service
     }
 
     /**
+     * 减少余额
+     *
+     * @param CreditsLogForm $creditsLogForm
+     * @return bool|CreditsLog
+     * @throws UnprocessableEntityHttpException
+     */
+    public function decrMoneyPlatform(CreditsLogForm $creditsLogForm)
+    {
+        $creditsLogForm->num = -abs($creditsLogForm->num);
+        $creditsLogForm->credit_type = CreditsLog::CREDIT_TYPE_USER_MONEY_PLATFORM;
+
+        return $this->userMoneyPlatform($creditsLogForm);
+    }
+
+    /**
+     * 减少余额
+     *
+     * @param CreditsLogForm $creditsLogForm
+     * @return bool|CreditsLog
+     * @throws UnprocessableEntityHttpException
+     */
+    public function incrMoneyPlatform(CreditsLogForm $creditsLogForm)
+    {
+        $creditsLogForm->num = abs($creditsLogForm->num);
+        $creditsLogForm->credit_type = CreditsLog::CREDIT_TYPE_USER_MONEY_PLATFORM;
+
+        return $this->userMoneyPlatform($creditsLogForm);
+    }
+
+    /**
      * 增加可提钱包
      *
      * @param CreditsLogForm $creditsLogForm
@@ -384,6 +414,62 @@ class CreditsLogService extends Service
 
         // 记录日志
         return $this->create($creditsLogForm, $account->user_money, $account->user_money + $creditsLogForm->num);
+    }
+
+
+
+    /**
+     * 余额变动
+     *
+     * @param CreditsLogForm $creditsLogForm
+     * @return CreditsLog
+     * @throws UnprocessableEntityHttpException
+     */
+    protected function userMoneyPlatform(CreditsLogForm $creditsLogForm)
+    {
+        /** @var Account $account */
+        $account = $creditsLogForm->member->account;
+        // 直接记录日志不修改
+        if ($creditsLogForm->num == 0) {
+            return $this->create($creditsLogForm, $account->user_money_platform, $account->user_money_platform);
+        }
+        // 增加
+        $updateArray = [];
+        if ($creditsLogForm->num > 0) {
+            $updateArray['user_money_platform'] = $creditsLogForm->num;
+            if ($creditsLogForm->increase == 1) {
+                $updateArray['accumulate_money'] = $creditsLogForm->num;
+            }
+            if ($creditsLogForm->pay_type == CreditsLog::COMMISSION_TYPE) {
+                $updateArray['recommend_money'] = $creditsLogForm->num;
+            }
+            $status = Account::updateAllCounters($updateArray, ['id' => $account->id]);
+        } else {
+            // 消费
+            $updateArray['user_money_platform'] = $creditsLogForm->num;
+            if ($creditsLogForm->increase == 1) {
+                $updateArray['consume_money'] = $creditsLogForm->num;
+            }
+
+            $status = Account::updateAllCounters(
+                $updateArray,
+                [
+                    'and',
+                    ['id' => $account->id],
+                    ['>=', 'user_money_platform', abs($creditsLogForm->num)],
+                ]);
+        }
+
+        if ($status == false && $creditsLogForm->num < 0) {
+            throw new UnprocessableEntityHttpException('余额不足');
+        }
+
+        if ($status == false && $creditsLogForm->num > 0) {
+            throw new UnprocessableEntityHttpException('增加余额失败');
+        }
+
+        // 记录日志
+        return $this->create($creditsLogForm, $account->user_money_platform, $account->user_money_platform + $creditsLogForm->num);
     }
 
     /**

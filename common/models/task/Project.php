@@ -82,6 +82,7 @@ class Project extends \yii\db\ActiveRecord
             'remain_number' => '剩余数量',
             'vip_level' => '等级要求',
             'money' => '任务佣金',
+            'money_platform' => '任务佣金',
             'code_switch' => '活动码',
             'images_list' => '图片素材',
             'file_list' => '视频素材',

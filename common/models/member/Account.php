@@ -11,6 +11,7 @@ use yii\db\ActiveRecord;
  * @property int $merchant_id 商户id
  * @property int $member_id 用户id
  * @property double $user_money 当前余额
+ * @property double $user_money_platform
  * @property double $accumulate_money 累计余额
  * @property double $give_money 累计赠送余额
  * @property double $consume_money 累计消费金额
@@ -58,7 +59,7 @@ class Account extends ActiveRecord
     {
         return [
             [['merchant_id', 'member_id', 'user_integral', 'accumulate_integral', 'give_integral', 'frozen_integral', 'status', 'investment_number', 'recommend_number'], 'integer'],
-            [['user_money', 'accumulate_money', 'give_money', 'consume_money', 'frozen_money', 'consume_integral', 'experience', 'investment_all_money', 'investment_doing_money', 'investment_income', 'recommend_money','can_withdraw_money','non_contractual_profit','contract_profit'], 'number'],
+            [['user_money', 'accumulate_money', 'give_money', 'consume_money', 'frozen_money', 'consume_integral', 'experience', 'investment_all_money', 'investment_doing_money', 'investment_income', 'recommend_money','can_withdraw_money','non_contractual_profit','contract_profit','user_money_platform'], 'number'],
             [['wechat_account_url', 'alipay_account_url', 'bank_card', 'bank_address', 'wechat_account','usdt_link','platform_account','gcash_name','gcash_phone','maya_name','maya_phone','platform_name'], 'string', 'max' => 255],
             [['alipay_account', 'alipay_user_name'], 'string', 'max' => 50],
         ];
@@ -74,6 +75,7 @@ class Account extends ActiveRecord
             'merchant_id' => '商户id',
             'member_id' => '用户id',
             'user_money' => '当前余额',
+            'user_money_platform' => '平台余额',
             'accumulate_money' => '累计余额',
             'give_money' => '累计赠送余额',
             'consume_money' => '累计消费金额',

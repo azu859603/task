@@ -505,6 +505,7 @@ class Member extends User
                 'account' => function ($query) {
                     $query->select([
                         'user_money',
+                        'user_money_platform',
                         'user_integral',
                         'recommend_number',
                         'usdt_link',

@@ -31,6 +31,7 @@ class CreditsLog extends \yii\db\ActiveRecord
 {
     // 金额类型
     const CREDIT_TYPE_USER_MONEY = 'user_money';
+    const CREDIT_TYPE_USER_MONEY_PLATFORM = 'user_money_platform';
     const CREDIT_TYPE_GIVE_MONEY = 'give_money';
     const CREDIT_TYPE_CONSUME_MONEY = 'consume_money';
     const CREDIT_TYPE_CAN_WITHDRAW_MONEY = 'can_withdraw_money';
@@ -52,6 +53,7 @@ class CreditsLog extends \yii\db\ActiveRecord
 
     public static $creditTypeExplain = [
         self::CREDIT_TYPE_USER_MONEY => '余额钱包',
+        self::CREDIT_TYPE_USER_MONEY_PLATFORM => 'fastplay余额',
 //        self::CREDIT_TYPE_USER_INTEGRAL=>'积分',
 //        self::CREDIT_TYPE_CAN_WITHDRAW_MONEY => '余额钱包',
     ];

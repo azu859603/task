@@ -21,7 +21,7 @@ class CreditsLogForm extends Model
 
 
     // 余额或积分
-    public static $credit_type_array = ['user_money', 'user_integral','can_withdraw_money'];
+    public static $credit_type_array = ['user_money', 'user_integral','can_withdraw_money','user_money_platform'];
 
     public function rules()
     {

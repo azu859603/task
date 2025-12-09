@@ -23,11 +23,11 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                         'data-toggle' => 'modal',
                         'data-target' => '#ajaxModal',
                     ]);
-//                    echo Html::linkButton(['ajax-edit-buyer'], '<i class="icon ion-plus"></i> ' . '批量创建虚拟买家', [
-//                        'class' => "btn btn-success btn-xs",
-//                        'data-toggle' => 'modal',
-//                        'data-target' => '#ajaxModalLg',
-//                    ]);
+                    //                    echo Html::linkButton(['ajax-edit-buyer'], '<i class="icon ion-plus"></i> ' . '批量创建虚拟买家', [
+                    //                        'class' => "btn btn-success btn-xs",
+                    //                        'data-toggle' => 'modal',
+                    //                        'data-target' => '#ajaxModalLg',
+                    //                    ]);
 
                     ?>
                 </div>
@@ -222,12 +222,22 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
 //                                } else {
 //                                    $recharge_status = "未充值";
 //                                }
-                                return
+                                if (Yii::$app->params['thisAppEnglishName'] == "task") {
+                                    return
+                                        "累计提现：" . $model->withdraw_money . '<br>' .
+                                        "Fastplay钱包：" . $model->account->user_money_platform . '<br>' .
+                                        "余额钱包：" . $model->account->user_money;
+                                } else {
+                                    return
+                                        "累计提现：" . $model->withdraw_money . '<br>' .
+                                        "余额钱包：" . $model->account->user_money;
+                                }
+//                                return
 //                                    "充值状态：" . $recharge_status . '<br>' .
 //                                    "用户本金：" . $model->principal . '<br>' .
 //                                    "累计充值：" . $model->recharge_money . '<br>' .
-                                    "累计提现：" . $model->withdraw_money . '<br>' .
-                                    "余额钱包：" . $model->account->user_money;
+//                                    "累计提现：" . $model->withdraw_money . '<br>' .
+//                                    "余额钱包：" . $model->account->user_money;
 //                                    . '<br>' .
 //                                    "余额钱包：" . $model->account->can_withdraw_money;
 //                                . '<br>' .

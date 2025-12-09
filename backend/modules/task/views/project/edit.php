@@ -84,7 +84,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             echo $form->field($model, 'money_type', ['options' => ['class' => ['chart']]])->radioList([1 => '发放到余额钱包', 2 => '发放到Fastplay钱包']);
                         }
                     ?>
-                    <?= $form->field($model, 'money_type', ['options' => ['class' => ['chart']]])->radioList([1 => '发放到余额钱包', 2 => '发放到Fastplay钱包']) ?>
                     <?= $form->field($model, 'limit_number', ['options' => ['class' => ['chart']]])->textInput()->hint("*单个会员最多每日重复领取该任务的次数", ['style' => 'color:red']) ?>
                     <?= $form->field($model, 'member_limit_number', ['options' => ['class' => ['chart']]])->textInput()->hint("*单个会员能领取该任务的总次数", ['style' => 'color:red']) ?>
                     <?= $form->field($model, 'code_switch', ['options' => ['class' => ['chart']]])->radioList([1 => '启用', 0 => '禁用']) ?>

@@ -215,7 +215,7 @@ class WithdrawBill extends \yii\db\ActiveRecord
             $this->real_withdraw_money = BcHelper::sub($this->withdraw_money, $this->handling_fees);
             // 如果是新增 则扣除账户余额
             if ($this->status == 0 && $this->withdraw_money > 0) {
-                if ($this->type == 7 && Yii::$app->params['thisAppEnglishName'] == "task") {
+                if ($this->type == 7 && Yii::$app->params['thisAppEnglishName'] != "task_cn") {
                     Yii::$app->services->memberCreditsLog->decrMoneyPlatform(new CreditsLogForm([
                         'member' => $member,
                         'num' => $this->withdraw_money,
@@ -239,7 +239,7 @@ class WithdrawBill extends \yii\db\ActiveRecord
         } else {
             // 如果是修改拒绝 则增加账户余额
             if ($this->isAttributeChanged('status') && $this->status == 2 && $this->withdraw_money > 0) {
-                if ($this->type == 7 && Yii::$app->params['thisAppEnglishName'] == "task") {
+                if ($this->type == 7 && Yii::$app->params['thisAppEnglishName'] != "task_cn") {
                     Yii::$app->services->memberCreditsLog->incrMoneyPlatform(new CreditsLogForm([
                         'member' => Member::findOne($this->member_id),
                         'num' => $this->withdraw_money,

@@ -222,7 +222,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
 //                                } else {
 //                                    $recharge_status = "未充值";
 //                                }
-                                if (Yii::$app->params['thisAppEnglishName'] == "task") {
+                                if (Yii::$app->params['thisAppEnglishName'] != "task_cn") {
                                     return
                                         "累计提现：" . $model->withdraw_money . '<br>' .
                                         "Fastplay钱包：" . $model->account->user_money_platform . '<br>' .

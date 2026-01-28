@@ -88,11 +88,9 @@ class ProjectController extends BaseController
                 $id = $v['id'];
                 $laber_category[$id] = $v['translation']['title'];
             }
-            $category = \yii\helpers\ArrayHelper::map(\common\models\tea\CategoryList::find()->asArray()->all(), 'id', 'title');
             return $this->render('index', [
                 'dataProvider' => $dataProvider,
                 'searchModel' => $searchModel,
-                'category' => $category,
                 'laber_category' => $laber_category,
             ]);
         }

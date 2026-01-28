@@ -36,6 +36,10 @@ class AccountForm extends Model
     public $gcash_phone;
     public $maya_name;
     public $maya_phone;
+    public $youtube_account;
+    public $tiktok_account;
+    public $instagram_account;
+    public $facebook_account;
 
 
     public static $scenario_type_array = [
@@ -50,6 +54,10 @@ class AccountForm extends Model
         'gcash_phone',
         'maya_name',
         'maya_phone',
+        'youtube_account',
+        'tiktok_account',
+        'instagram_account',
+        'facebook_account',
     ];
 
 
@@ -62,6 +70,11 @@ class AccountForm extends Model
             [['scenario_type'], 'required'],
 //            [['alipay_account', 'alipay_user_name'], 'required', 'on' => 'alipay_account'],
             [['alipay_account'], 'required', 'on' => 'alipay_account'],
+
+            [['youtube_account'], 'required', 'on' => 'youtube_account'],
+            [['tiktok_account'], 'required', 'on' => 'tiktok_account'],
+            [['instagram_account'], 'required', 'on' => 'instagram_account'],
+            [['facebook_account'], 'required', 'on' => 'facebook_account'],
 
             [['maya_name','maya_phone'], 'required', 'on' => 'maya_name'],
 
@@ -154,6 +167,10 @@ class AccountForm extends Model
             'gcash_phone' => 'Gcash电话',
             'maya_name' => 'Maya名字',
             'maya_phone' => 'Maya电话',
+            'facebook_account' => 'facebook账号',
+            'tiktok_account' => 'tiktok账号',
+            'youtube_account' => 'youtube账号',
+            'instagram_account' => 'instagram账号',
         ];
     }
 }

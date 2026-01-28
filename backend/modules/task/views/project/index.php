@@ -47,18 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return $laber_category[$model->pid];
                             },
                         ],
-                        [
-                            'attribute' => 'cid',
-                            'format' => 'raw',
-                            'filter' => Html::activeDropDownList($searchModel, 'cid', $category, [
-                                    'prompt' => '全部',
-                                    'class' => 'form-control'
-                                ]
-                            ),
-                            'value' => function ($model) use ($category) {
-                                return $category[$model->cid];
-                            },
-                        ],
+
                         [
                             'attribute' => 'translation.title',
                             'value' => function ($model) {

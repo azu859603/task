@@ -62,7 +62,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                     ?>
                     <?= $form->field($model, 'pid', ['options' => ['class' => ['chart']]])->dropDownList($laberList) ?>
-                    <?= $form->field($model, 'cid', ['options' => ['class' => ['chart']]])->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\tea\CategoryList::find()->asArray()->all(), 'id', 'title')) ?>
                     <?= $form->field($model, 'banner', ['options' => ['class' => ['chart']]])->widget(\common\widgets\webuploader\Files::class, [
                         'type' => 'images',
                         'theme' => 'default',
@@ -79,11 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= $form->field($model, 'remain_number', ['options' => ['class' => ['chart']]])->textInput() ?>
                     <?= $form->field($model, 'vip_level', ['options' => ['class' => ['chart']]])->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\member\Level::find()->asArray()->all(), 'level', 'name'))->hint("*会员等级必须大于等于此等级才能接任务", ['style' => 'color:red']) ?>
                     <?= $form->field($model, 'money', ['options' => ['class' => ['chart']]])->textInput() ?>
-                    <?php
-                        if(Yii::$app->params['thisAppEnglishName'] != "task_cn"){
-                            echo $form->field($model, 'money_type', ['options' => ['class' => ['chart']]])->radioList([1 => '发放到余额钱包', 2 => '发放到Fastplay钱包']);
-                        }
-                    ?>
+
                     <?= $form->field($model, 'limit_number', ['options' => ['class' => ['chart']]])->textInput()->hint("*单个会员最多每日重复领取该任务的次数", ['style' => 'color:red']) ?>
                     <?= $form->field($model, 'member_limit_number', ['options' => ['class' => ['chart']]])->textInput()->hint("*单个会员能领取该任务的总次数", ['style' => 'color:red']) ?>
                     <?= $form->field($model, 'code_switch', ['options' => ['class' => ['chart']]])->radioList([1 => '启用', 0 => '禁用']) ?>

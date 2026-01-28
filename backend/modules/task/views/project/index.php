@@ -69,24 +69,24 @@ $this->params['breadcrumbs'][] = $this->title;
                         'vip_level',
                         'money',
                         'keywords',
-                        [
-                            'class' => '\kartik\grid\EditableColumn',
-                            'editableOptions' => [
-                                'inputType' => \kartik\editable\Editable::INPUT_DROPDOWN_LIST,
-                                'data' => ['1' => '启用', '0' => '禁用'],
-                                'formOptions' => [
-                                    'action' => ['index']
-                                ]
-                            ],
-                            'attribute' => 'code_switch',
-                            'value' => function ($model, $key, $index, $column) {
-                                return ['1' => '启用', '0' => '禁用'][$model->code_switch];
-                            },
-                            'filter' => Html::activeDropDownList($searchModel, 'code_switch', ['1' => '启用', '0' => '禁用'], [
-                                'prompt' => '全部',
-                                'class' => 'form-control'
-                            ])
-                        ],
+//                        [
+//                            'class' => '\kartik\grid\EditableColumn',
+//                            'editableOptions' => [
+//                                'inputType' => \kartik\editable\Editable::INPUT_DROPDOWN_LIST,
+//                                'data' => ['1' => '启用', '0' => '禁用'],
+//                                'formOptions' => [
+//                                    'action' => ['index']
+//                                ]
+//                            ],
+//                            'attribute' => 'code_switch',
+//                            'value' => function ($model, $key, $index, $column) {
+//                                return ['1' => '启用', '0' => '禁用'][$model->code_switch];
+//                            },
+//                            'filter' => Html::activeDropDownList($searchModel, 'code_switch', ['1' => '启用', '0' => '禁用'], [
+//                                'prompt' => '全部',
+//                                'class' => 'form-control'
+//                            ])
+//                        ],
                         'limit_number',
 
                         [
